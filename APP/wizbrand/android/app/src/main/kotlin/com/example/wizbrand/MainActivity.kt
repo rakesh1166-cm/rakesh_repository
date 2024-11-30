@@ -1,0 +1,5 @@
+package com.cotocus.wizbrand.seomarketing
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity()
