@@ -1,0 +1,39 @@
+Introduction to machine learning ##########################===================
+in traditional program for developer programming language
+human atask=== input and program
+machine==output
+in amazon/flipkart e commerce website== when we search sports data it display data 
+but in machine learning when we next time login it without search show recent search sports data
+in machine learning program
+human atask=== input and output( in dataset input and output both available)
+machine== program using model ,train and test
+objective of ML== to reduce error b/w desired output and actual output
+classic and adaptive system===========#############
+based on input generate output like robot ex- software developer prog lang
+based on input and feedback(backpropgation) like data set generate output in MACHINE LEARNING
+TRAINING and TESTING PHASE==============###############
+entire dataset divides train and test like 75 % data for train and 25 % data for test
+in train data (75%)we we give input and output both to model it trained and generate program
+in above generated models and program, we feed input from test data (25%) then  get desired output 
+in dataset output of test data y' called actual output. then we compare difference b/w desired 
+output and actual output  is called error
+OVERFITTING and UNDERFITTING=================###############
+given screenshot plot output is generated model/program after training phase
+if generated model/program try to covers all data points of dataset is said to be overfitting
+given screenshot plot output is generated model/program after training phase  cover very less data points 
+on draw plot or bestfit line is underfitting
+ REAL EXAMPLE==
+after training phase i generated one model that test the data based on if it is shape of sphere is said to be ball, 
+in testing phase i put orange that is also sphere shape on generated model after training phase then this model
+ said orange to ball is wrong here we are put only one feature or condition that is sphere  so it is underfitting
+overfitting === to many condition sphere 
+Sphere (checked)==right
+To Play (checked)==right
+not To Eat (checked)==right
+Radius = 5 cm (marked with a cross)==wrong
+
+now i put ball on genereated model  first 3 condition ok but 4th condition fail so it rejected it is
+ not ball that is wrong here i put too many condition so it is overfitting
+ 
+MUST SEE ==https://www.youtube.com/watch?v=X_UUl4HrRFk ==GAN IN GEN AI
+

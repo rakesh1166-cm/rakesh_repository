@@ -1,0 +1,22 @@
+best fit line
+continous variable 
+multiple linear regression
+adjusted r squared
+standardization
+standard scalar,scaled_x
+pickle_dump
+regression_score
+MAE,MSE,RMSE
+Regulaziation---lasso,ridge 
+
+==logistic============
+best fit line
+continous variable 
+multiple linear regression
+adjusted r squared
+standardization
+standard scalar,scaled_x
+pickle_dump
+regression_score
+MAE,MSE,RMSE
+Regulaziation---lasso,ridge 

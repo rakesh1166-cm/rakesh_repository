@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@0.7.4/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+.sidebar {
+    width: 200px;
+    height: 400vh;
+    background: #f1f1f1;
+    float: left;
+    background-color: black;
+    color:white;
+   
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.sidebar ul li {
+    padding: 10px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+   
+}
+
+.content {
+    margin-left: 200px;
+    padding: 20px;
+}
+.view-detail-button {
+      background-color: rgb(114, 181, 114); /* Green */
+      border: none;
+      color: rgb(249, 245, 245);
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 2px ;
+      margin-top:-12px;
+      height:45px;
+      cursor: pointer;
+      border-radius:10px;
+     
+    }
+    .view-detail-buttons {
+      background-color: rgb(127, 216, 127); /* Green */
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 2px ;
+      margin-left:40%;
+      margin-top:-12px;
+      height:40px;
+      cursor: pointer;
+      border-radius:10px;
+     
+    }
+  .modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 10px;
+  top: 0;
+  width: 120%;
+  height: 150%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 5% auto;  /* Adjust the margin as needed */
+  padding: 20px;
+  width: 60%;  /* Adjust the width as needed */
+  max-height: 60%;  /* Adjust the height as needed */
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #000;
+}
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #6c63ff;
+}
+
+
+
+.nav-pills .nav-link {
+      border-radius: 0;
+      color: #555;
+    }
+
+    .nav-pills .nav-link:hover {
+      background-color: #f8f9fa;
+    }
+
+    .nav-pills .nav-link.active {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .tab-content {
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-top: none;
+      border-radius: 0 0 5px 5px;
+    }
+        </style>
+</head>
+<body>
+    <div class="sidebar">
+        
+        <ul>
+        
+          <li><a href=""></a>Dashboard</li>
+        
+          <li><a href="{% url 'fillmaskdashboard' %}">Fill Mask</a></li>
+          <li><a href="{% url 'nerdashboard' %}">Ner</a></li>
+          <li><a href="{% url 'questiondashboard' %}">Question-Answering</a></li>
+          <li><a href="{% url 'sentimentdashboard' %}">Sentiment-Analysis</a></li>
+          <li><a href="{% url 'summarizationdashboard' %}">Summarization</a></li>
+          <li><a href="{% url 'textgendashboard' %}">Text-generation</a></li>
+          <li><a href="{% url 'translationdashboard' %}">Translation</a></li>
+          <li><a href="{% url 'zeroshotdashboard' %}">text classification</a></li>
+          <li><a href="{% url 'prediction' %}">prediction</a></li>
+      
+      </ul>
+
+    </div>
+    <div class="content">
+       
+
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+       
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+      </form>
+        <p></p>
+      </div>
+    </div>
+            
+        </span>
+          <!-- Tabs content -->
+        
+          <ul class="container">
+           
+          
+           <button  class='view-detail-button'name="openModal"  id="openModal">Prediction of Question Answering</button>           
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#tab1">Prediction</a>
+              </li>
+            </ul>
+          
+            <div class="tab-content">
+              <div id="tab1" class="tab-pane fade show active">
+               
+                {% if car %}
+                <table>
+                  
+                  <tbody>
+                    <h1>Car Price Prediction Result</h1>
+                    
+                    <p>Predicted Price: {{car }}</p>     
+                                   
+                  </tbody>
+                </table>
+          {% endif %}  
+              </div>
+              
+             
+            </div>
+         
+          </div>
+
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Retrieve access token and refresh token from the page
+            $("#openModal").click(function() {
+    $("#myModal").css("display", "block");
+  });
+
+  // Close the modal when the close button or outside the modal is clicked
+  $(".close, .modal").click(function() {
+    $("#myModal").css("display", "none");
+  });
+
+  // Prevent the modal from closing when the modal content is clicked
+  $(".modal-content").click(function(e) {
+    e.stopPropagation();
+  });
+        });
+    </script>
+</body>
+</html>

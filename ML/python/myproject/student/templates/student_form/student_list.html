@@ -1,0 +1,68 @@
+{% extends "student_form/base.html" %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+<style>
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+  }
+  
+  .primary {
+    background-color: blue; /* Change the background color to your desired color */
+    color: white;
+  }
+  
+  .primary:hover {
+    background-color: red; /* Change the background color for hover state */
+  }
+</style>
+<a href="{% url 'account_logout' %}" class="button primary" >Logout</a>
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Full Name</td>
+            <td>Mobile</td>
+            <td>Position</td>
+            <td>country</td>
+            <td>state</td>
+            <td>city</td>
+            <td>
+                <a href="{% url 'student_insert' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i> Add New
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in student_list %}
+            <tr>
+                <td>{{student.fullname}}</td>
+                <td>{{student.mobile}}</td>
+                <td>{{student.position}}</td>
+                <td>{{student.county_name}}</td>
+                <td>{{student.state_name}}</td>
+                <td>{{student.city_name}}</td>
+                <td>
+                    <a href="{% url 'student_update' student.id %}" class="btn text-secondary px-0">
+                        <i class="far fa-edit fa-lg"></i>
+                    </a>
+                    <form action="{% url 'student_delete' student.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn">
+                            <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        {% else %}
+       
+        <p>Please <a href="{% url 'account_login' %}"  class="button primary">login</a> or <a href="{% url 'account_signup' %}" class="button primary">sign up</a>.</p>
+        {% endif %}
+    </tbody>
+</table>
+
+{% endblock content %}

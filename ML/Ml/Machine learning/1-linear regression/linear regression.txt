@@ -1,0 +1,65 @@
+regression analysis===process of predicting label or dependent variable  based on independent vraiable
+casual effect relation ship
+difference between actual data point from curve line  should be minimum
+impact of multiple independent variable
+find a best fit regression line
+==============
+reading data file
+reading first  five row from dataset
+how sales effect on independent variable tv, radio,newspaper
+find total no of row and colunm
+find data information to know data type and no of null value
+find count the missing value of different colunm
+visualize the relationship between feature and response using scatter plot
+draw a  3 subplot using scatter to find best fit line
+multiple linear regression==formulla
+train the model
+first create object for linear regression model
+seprate label and target
+then train model using linear regression object and fit label and target
+find predict sales,radio and newspaper
+find r2_score
+======================================
+Another examples
+understand data high level
+find chance of admission based on gre ,tofel score,university rating
+ observe data using data.describe
+fill null value by mean and mode
+find how data is distributed
+find data is distributed normally or not using scatter plot and for loop
+get label and feature == get feature by drop label/target
+ print x and y seprately 
+analyze feature are linearly regretted are not and  get how many outlier present usinf for loop and scatter plot
+if too many outlier present  then standardize data
+standardize data by calculate x, standard scalar , scaled_mean by crateing standard scalar object then fit transform features
+split the data train and test and calculate x_train,x_test,y_train and y_test  and order must be same
+print y_train_head
+print data.tail
+after trained the model examine ur model give correct prediction by taking single row and regression_predictand scalar_transform
+save the model for later use and  for correct prediction
+saving the model to local file system
+how well model fits the on trained and test data to know how less outlier present so that find r adjusted score
+evaluation of model by MAE, andMSE, root MSE to  know  avg outlier
+=========================================
+Regulization
+solve overfitting of training data
+by rdducing degree of polynomial by reducing the no pf weight
+small change of weight large difference for dependent variable
+lasso==sum of magnitude of coefiicient
+ridge==sum of square of magnitude of coefficient
+lasso give zero impotance feature that effects our predicted data tp calculate target or label like skill,age
+cross validation ==how many times u read or validate
+lasso cv,alpha,max_iteration
+lassocv--best alpha after max iteration
+alpha-learning rate
+iteration==maximize accuracy,minimize error rate
+more iteration more accuracy
+min-max-scaling== minimize range between 0 to 1
+lasso cv for max iteration
+best alpha parameter
+how well data fitted before
+find lasso regression score
+
+my model is overfit if new set of data is coming in database
+similarly ridge regression
+

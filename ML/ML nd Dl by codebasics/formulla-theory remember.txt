@@ -1,0 +1,938 @@
+http://localhost:8888/notebooks/Linear_Regression.ipynb=======================
+convert 2d by drop
+shape
+ndim
+drop
+convert 2d by array
+Converts the Series into a DataFrame
+predict
+head
+sample
+mean/median,fillna
+series,assign
+scatter plot
+for loop to draw multiple plot
+intercept,coefficient
+how to sve or load model
+
+new_df = df.drop('price',axis='columns')==>convert 2d dimensional
+df.price.shape==>(5,)
+df.shape==>(5, 2)
+df.area.ndim==>1
+new_df = df.drop('price',axis='columns')
+new_df.ndim==>2
+capita_df = df[['year']] ==>convert 2d dimensional
+capita_df.ndim==>2
+series = pd.Series(array_1d)
+df = series.to_frame(name='column_name')=> Converts the Series into a DataFrame
+pd.Series(array_1d).values.reshape(-1, 1)  =>using reshape Converts the Series into a NumPy array 
+pd.DataFrame().assign(column_name=array_1d)==>Adds a new column to the DataFrame 
+df_home['bedrooms'].median()  OR df_home.bedrooms.median() 
+df_home.bedrooms = df_home.bedrooms.fillna(df_home.bedrooms.median())
+plt.scatter(df.area,df.price,color='red',marker='+')
+plt.plot(new_df, predictions, color='blue')
+plt.scatter(new_df, price, color='red', marker='+')
+plt.plot(new_df, predictions, color='blue')
+plt.xlabel('area')
+plt.ylabel('price')
+plt.title('Linear Regression: Area vs. Price')
+plt.show()
+price = df.price
+reg_predict1=model.predict([[3300]])
+prediction=model.predict(x)
+reg.intercept_ 
+reg.coef OR model._coef
+area_df.head(3)
+area_df.sample(5)
+
+http://localhost:8888/notebooks/Linear_Regression_Excercise.ipynb===========================
+fill by zero
+word to number
+display no of colm
+some of column include in feature by taking 2d array
+convert to numpy array
+
+
+df_hiring.experience = df_hiring.experience.fillna("zero")
+print("Column names:", df_hiring.columns)
+df_hiring.experience =df_hiring.experience.apply(w2n.word_to_num)# NOTE MUST BE 
+features = df_hiring[['experience', 'test_score(out of 10)', 'interview_score(out of 10)']]
+features1 =  df_hiring.drop('salary($)', axis=1)
+features2 =  df_hiring.drop('salary($)', axis=1).to_numpy()  # Convert to 2D NumPy array
+
+http://localhost:8888/notebooks/Encoding.ipynb============================
+convert categorical data using dummies,label encoding,Ohe
+merge,join,conact
+drop more than one colm by taking array
+column transformer to use OHE
+
+http://localhost:8888/notebooks/train_test_split.ipynb=================
+check model score
+
+
+http://localhost:8888/notebooks/Logistic.ipynb====================
+
+read csv file
+draw bar plot using crosstab
+draw scatter plot for given dataset to analyze
+draw hist plot
+draw bar plot foe colunm count using value_counts
+filter data or colunm based on condition df.left=1
+Count for people aged 40 and above
+trained given data on linear regression object to generate model
+predict single element or whole dataframe and score
+draw bar plot,scatter for prediction dataset
+
+
+pd.crosstab(df.age,df.bought_insurance).plot(kind='bar')
+plt.hist(df['age'], bins=10, color='blue', alpha=0.7, rwidth=0.85)
+insurance_counts = df['bought_insurance'].value_counts()
+insurance_counts.plot(kind='bar', color=['red', 'green'])
+left = df[df.left==1]
+left.shape
+numeric_cols = df.select_dtypes(include=['number']).columns
+grouped_means = df.groupby('left')[numeric_cols].mean()
+grouped_means
+below_40 = df[df['age'] < 40]['bought_insurance'].value_counts()
+above_40 = df[df['age'] >= 40]['bought_insurance'].value_counts()
+y_predicted = model.predict(X_test)
+predicted_counts = pd.Series(y_predicted).value_counts()
+predicted_counts.sort_index().plot(kind='bar', color=['red', 'green'])  # Adjust colors if needed
+
+
+http://localhost:8888/notebooks/logistic_exercise.ipynb========================
+read csv file
+perform preprocessing and visulization task
+1.how many null value in each col
+2.how many unique value in particular or each colm
+3.find sum of all value in each colm seprately
+4.find count each val of col by using value_counts
+determine shape or no of row and col after filtering of particular colm
+determine mean value of number not categorical colunm then groupby some particular colm
+determine Impact of salary,dept on employee retention by draw bar plot using crosstab
+determine Impact of all col on employee retention by draw subplot bar plot using crosstab and for loop
+take few col as faeture or X that impacts on target variable
+convert categorical data using dummies then concat
+trained given data on linear regression object to generate model
+predict single element or whole dataframe and score
+then determine confusion matrix and draw heatmap
+
+
+df.isnull().sum()
+for i in df.columns:
+print(df[i].sum()) 
+df['Department'].nunique()
+df.nunique()
+for i in df.columns:
+    print(df[i].value_counts())
+
+left = df[df.left==1]
+left.shape
+numeric_cols = df.select_dtypes(include=['number']).columns
+grouped_means = df.groupby('left')[numeric_cols].mean() grouped_means
+pd.crosstab(df.salary,df.left).plot(kind='bar')
+cm = confusion_matrix(y_test, y_predicted)
+sn.heatmap(cm, annot=True)
+
+
+
+http://localhost:8888/notebooks/logistic_iris.ipynb=================
+read csv file and perform preprocessing task
+count of species by sepal_length,sepal_width,petal_length,petal_width by applying for loop,draw bar plot using crosstab
+trained given data on linear regression object to generate model
+predict single element or whole dataframe and score
+then determine confusion matrix and draw heatmap
+
+
+df.describe()
+for column in df.columns:
+if column != 'species':
+    ct = pd.crosstab(df[column], df['species'])
+
+
+
+http://localhost:8888/notebooks/logistic_multiclass.ipynb=============================
+load digits using sk learn
+read first 5 image using for loop and range
+trained given data on linear regression object to generate model
+predict single element or whole dataframe and score
+then determine confusion matrix and draw heatmap
+
+
+digits = load_digits()
+for i in range(5):
+plt.matshow(digits.images[i])
+dir(digits)
+digits.data[0]
+len(digits.data)
+model.predict(X_test[0:5])
+model.predict(digits.data[0:5])
+
+
+http://localhost:8888/notebooks/Dt_exercise.ipynb==================
+read csv file
+take some of colunm as input or feature
+perform preprocessing task like null checking
+fill null value in age by meadian
+convert male categorical data by mapping or lambda
+apply train and test and determine prediction and score
+
+df.Age[:10]
+df.Sex = df.Sex.map({'male': 1, 'female': 2})
+
+
+http://localhost:8888/notebooks/decisiontree.ipynb=====================
+read csv file
+convert categorical data to number by labelencoding (other option==>mapping,lambda,replace)
+apply train and test and determine prediction and score
+
+
+inputs['company_n'] = le_company.fit_transform(inputs['company'])
+df.Sex = df.Sex.map({'male': 1, 'female': 2})
+df['Sex'] = df['Sex'].apply(lambda x: 1 if x == 'male' else 2)
+inputs_n = inputs.drop(['company','job','degree'],axis='columns')
+model.score(inputs_n,target)
+model.predict([[2,1,1]])
+
+
+http://localhost:8888/notebooks/svm.ipynb============================
+load iris dataset
+create data frame from list of iris feature_name
+in above existing dataframe add target data as iris target_name
+add extra colunm in existing dataframe using lambda function
+display only those row where target is 1
+trained the varible and generate model
+find prediction then chack accuracy using score
+check accuracy of model based on regulization,gamma and kernel
+
+
+for key in iris.keys():
+df = pd.DataFrame(iris.data,columns=iris.feature_names)
+df['target'] = iris.target
+df[df.target==1].head()
+df['flower_name'] =df.target.apply(lambda x: iris.target_names[x])
+df1 = df[50:100]
+df2 = df[100:]
+model_C = SVC(C=1) or model_C = SVC(C=10)
+model_g = SVC(gamma=10)
+model_g.fit(X_train, y_train)
+model_g.score(X_test, y_test)
+model_linear_kernal = SVC(kernel='linear')
+model_linear_kernal.fit(X_train, y_train)
+model_linear_kernal.score(X_test, y_test)
+
+
+http://localhost:8888/notebooks/svm_exercise.ipynb======================
+
+load digits
+create data frame from  1d array
+in above existing dataframe add target data as iris target_name
+Using RBF kernel trained the model and generate model
+find prediction then chack accuracy using score
+Using Linear kernel trained the model  and generate model
+find prediction then chack accuracy using score
+
+
+df = pd.DataFrame(digits.data,digits.target)
+rbf_model = SVC(kernel='rbf')
+rbf_model.fit(X_train, y_train)
+linear_model = SVC(kernel='linear')
+linear_model.fit(X_train,y_train)
+len(X_train)
+
+
+http://localhost:8888/notebooks/random_forest.ipynb=======================
+
+create dataframe from digits 
+then train data and after that predict actual and predicted value
+check model score with different parameter of n_estimators=20 no of DT
+draw heatmap of model score accuracy
+
+
+df[0:12] or df
+model = RandomForestClassifier(n_estimators=20)
+plt.matshow(digits.images[i])
+
+
+http://localhost:8888/notebooks/random_forest_exercise.ipynb===================
+
+create dataframe from digits 
+then train data and after that predict actual and predicted value
+check model score with different parameter of n_estimators=20 no of DT
+draw heatmap of model score accuracy
+
+
+http://localhost:8888/notebooks/Naive_baye.ipynb=====================================
+select some of independent feature for train data
+convert text data male into numeric using mapping, lambda,label encoder,or dummies here we are using dummies variable
+fill null value in age col by mean
+use GaussianNB naive classifier as dataset are continous
+then predict score
+predict x_test prob whether they are survived or not array 1st element denote0 2nd element denote1
+check cross val score use GaussianNB for 5 fold/parts
+
+model.predict(X_test[0:10])
+model.predict_proba(X_test[:10])
+cross_val_score(GaussianNB(),X_train, y_train, cv=5)
+
+
+
+http://localhost:8888/notebooks/naive_bayes_exercise.ipynb==========================
+load wine dataset
+
+create data frame form list of data feature name
+add new col as target
+use GaussianNB naive classifier as dataset are continous and multimonial also
+then predict score
+predict x_test prob whether they are survived or not array 1st element denote0 2nd element denote1
+check cross val score use GaussianNB
+apply multimonial naive then predict model score
+
+
+http://localhost:8888/notebooks/naive_spam.ipynb==========================
+read csv file
+convert categorical colm into numeric format using lambda
+x train data in text document format so convert it into matrix form using countvectorizor
+now train data using multimonial naive bayes clasifier where X_train_count take parmeter as x
+after generated model or program predict any email text is spam or not
+
+
+
+df[df.Category=="ham"].describe()
+df.groupby('Category').describe()
+df['spam']=df['Category'].apply(lambda x: 1 if x=='spam' else 0)
+X_train, X_test, y_train, y_test = train_test_split(df.Message,df.spam)
+emails_count = v.transform(emails)
+model.predict(emails_count)
+clf = Pipeline([
+
+('vectorizer', CountVectorizer()),
+
+('nb', MultinomialNB())
+])
+
+clf.predict(emails)
+
+
+http://localhost:8888/notebooks/knn.ipynb#############
+
+#create data frame and add target after creating dataframe frim iris dataset
+#find target col conation how many unique value
+#add flower name colm based on target value
+#take 3 dataframe and drawscatter plot of each dataframe
+#Create KNN (K Neighrest Neighbour Classifier)
+#predicts score then create confusion matrix and draw heatmap
+
+
+df['flower_name'] =df.target.apply(lambda x: iris.target_names[x])
+df1 = df[50:100]
+df_versicolor = df[df['flower_name'] == 'versicolor']
+df_target_1 = df[df['target'] == 1] # versicolor
+plt.scatter(df0['sepal length (cm)'], df0['sepal width (cm)'],color="green",marker='+')
+plt.scatter(df1['sepal length (cm)'], df1['sepal width (cm)'],color="blue",marker='.')
+
+
+http://localhost:8888/notebooks/k_meanscluster.ipynb#####################3
+#draw scatter plot of age and income as name has no role to predict
+#create kmeans object and predict cluster for each datapoints
+#add cluster colunm in existing dataframe
+#based on no of cluster create no of dataframe
+#find centroid for each cluster with respect xaxis  and y axis
+#draw scatter plot for each dataframe on same plot
+#Preprocessing using min max scaler to adjust centroid  among data points
+#find the value of sse then append all value in list
+#draw all sse value using line plot with marker
+
+
+km = KMeans(n_clusters=3)
+y_predicted = km.fit_predict(df[['Age','Income($)']])
+df['cluster']=y_predicted
+km.cluster_centers
+plt.scatter(km.cluster_centers_[:,0],km.cluster_centers_[:,1],color='purple',marker='*',label='centroid')
+scaler = MinMaxScaler()
+scaler.fit(df[['Income($)']])
+df['Income($)'] = scaler.transform(df[['Income($)']])
+km = KMeans(n_clusters=k)#creating new object of k means cluster through this obejct predict
+km.fit(df[['Age','Income($)']]) 
+sse.append(km.inertia_)
+
+
+http://localhost:8888/notebooks/k_means_cluster_exercise.ipynb###############3
+#load iris then create dataframe
+# create new dataframe take petal length and petal width
+#draw scatter plot of petal length and petal width  to predict oranalyze
+#create kmeans object and predict cluster for each datapoints
+#add cluster colunm in existing dataframe
+#based on no of cluster create no of dataframe
+#find centroid for each cluster with respect xaxis  and y axis
+#draw scatter plot for each dataframe on same plot
+#Preprocessing using min max scaler to adjust centroid  among data points
+#find the value of sse then append all value in list
+#draw all sse value using line plot with marker
+
+
+
+km = KMeans(n_clusters=3)
+df['cluster'] = yp
+km = KMeans(n_clusters=k)#creating new object of k means cluster through this obejct predict
+km.fit(df[['Age','Income($)']])
+sse.append(km.inertia_)
+
+
+http://localhost:8888/notebooks/pca.ipynb#########################
+#create data frame
+#scaled indepedent feature
+#apply logistic regression and get model score
+# extraxt important feature from  trained data #Use components such that 95% of variance is retained
+#then again apply logistic regression and get model score and compare model score
+
+
+
+X_scaled = scaler.fit_transform(X)
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=30)
+pca = PCA(0.95)
+X_pca = pca.fit_transform(X)
+X_pca.shape
+pca.n_components_
+pca = PCA(n_components=2)
+pca.explained_variance_ratio_
+
+
+
+http://localhost:8888/notebooks/pca_exercise.ipynb#######################
+#Create Data frame
+#treat outlier
+#find unique value in each colm 
+#convert categorical colm to number by replace
+#scaled indepedent feature
+#apply random forest classifier and get model score
+# extraxt important feature from  trained data #Use components such that 95% of variance is retained
+#then again apply random forest classifier and get model score and compare model score
+
+
+
+df[df.Cholesterol>(df.Cholesterol.mean()+3*df.Cholesterol.std())]
+df4 = df3.copy()
+df4.ExerciseAngina.replace(
+    {
+        'N': 0,
+        'Y': 1
+    },
+    inplace=True)
+df4.ST_Slope.replace(
+    {
+        'Down': 1,
+        'Flat': 2,
+        'Up': 3
+    },
+    inplace=True
+)
+df4.RestingECG.replace(
+    {
+        'Normal': 1,
+        'ST': 2,
+        'LVH': 3
+    },
+    inplace=True)
+
+df4.head()
+
+
+http://localhost:8888/notebooks/hyperparmeter_tunning.ipynb##################
+#create dataframe from iris flower dataset and add one colunm flower as target colunm
+#Approach 1: Use train_test_split and manually tune parameters by trial and error
+#use svm model take kernal and gamma as parameter and find model score
+#Approach 2: Use K Fold Cross validation
+#Manually try suppling models with different parameters to cross_val_score function with 5 fold cross validation
+#Above approach is tiresome and very manual. We can use for loop as an alternative
+#take no of for loop and same no of array is equal to no of parameter
+#From above results we can say that rbf with C=1 or 10 or linear with C=1 will give best performance
+#Approach 3: Use GridSearchCV
+#GridSearchCV model ,different parameter in array form,cv and so on and get cv_results_
+# from cv_results_ create dataframe
+#then find best parameter, best score
+#GridSearchCV does exactly same thing as for loop above but in a single line of code
+#Use RandomizedSearchCV to reduce number of iterations and with random combination of parameters. This is useful when you have too many parameters to try and your training time is longer. It helps reduce the cost of computation
+# how to selct best models
+#How about different models with different hyperparameters?
+# craete dictionary of dictionary nested form of model parameter
+# iterate each nested dictionary using for loop then apply gridsearch cv in each nested dictionary and append in list model,best score and best parameter
+# append data in list of dictionary
+
+
+cv_scores = cross_val_score(svm.SVC(kernel=kval,C=cval,gamma='auto'),iris.data, iris.target, cv=5) ==>nested loop
+where[for kval in kernels: for cval in C:]
+
+avg_scores[kval + '_' + str(cval)] = np.average(cv_scores)
+
+from sklearn.model_selection import GridSearchCV
+clf = GridSearchCV(svm.SVC(gamma='auto'), {
+    'C': [1,10,20],
+    'kernel': ['rbf','linear']
+}, cv=5, return_train_score=False)
+
+clf.fit(iris.data, iris.target)
+
+clf.cv_results_
+clf.best_params_
+clf.best_score_
+
+
+=======================Mostly used =========================
+
+http://localhost:8888/notebooks/Linear_Regression.ipynb
+for i, var in enumerate(independent_vars):
+    plt.subplot(1, 3, i + 1)
+    plt.scatter(df_home[var], df_home['price'], color=colors[i], marker=markers[i])
+    plt.plot(df_home[var], predictions5, color='blue')
+    plt.xlabel(var.capitalize())
+    plt.ylabel('Price')
+    plt.title(f'{var.capitalize()} vs. Price')
+
+http://localhost:8888/notebooks/Linear_Regression_Excercise.ipynb
+df_hiring.experience =df_hiring.experience.apply(w2n.word_to_num)
+
+merged = pd.concat([df,dummies],axis='columns')  or  combined_df = df.join(dummies)
+
+ct = ColumnTransformer([('town', OneHotEncoder(), [0])], remainder = 'passthrough')
+
+numeric_cols = df.select_dtypes(include=['number']).columns
+grouped_means = df.groupby('left')[numeric_cols].mean()
+
+below_40 = df[df['age'] < 40]['bought_insurance'].value_counts()
+above_40 = df[df['age'] >= 40]['bought_insurance'].value_counts()
+
+df[df.left==1].shape  or df[df.left==1].head or  df[df.left==1].describe
+
+
+for i in df.columns:
+    
+    print(df[i].sum())/print(df[i].value_counts())/ print(df[i].nunique()
+
+
+for column in df.columns:
+    if column != 'species':  # Skip the 'left' column to avoid self-comparison
+        # Generate the crosstab
+        ct = pd.crosstab(df[column], df['species'])
+
+        # Plot the crosstab on specified subplot axis
+        ct.plot(kind='bar', ax=ax[index], title=f'Count of species by {column}')
+        ax[index].set_xlabel(column)  # Set x-label as the current column name
+        ax[index].set_ylabel('Count')  # Set y-label as 'Count'
+        ax[index].set_xticklabels(ax[index].get_xticklabels(), rotation=0)  # Manage x-tick labels
+
+plt.gray() 
+for i in range(5):
+    plt.matshow(digits.images[i])
+
+
+import seaborn as sn
+plt.figure(figsize = (10,7))
+sn.heatmap(cm, annot=True)
+plt.xlabel('Predicted')
+plt.ylabel('Truth')
+
+df.Sex = df.Sex.map({'male': 1, 'female': 2})
+df['Sex'] = df['Sex'].apply(lambda x: 1 if x == 'male' else 2)
+df['spam']=df['Category'].apply(lambda x: 1 if x=='spam' else 0)
+df['flower_name'] =df.target.apply(lambda x: iris.target_names[x])
+
+
+model.predict_proba(X_test[:10])
+cross_val_score(GaussianNB(),X_train, y_train, cv=5)
+
+X_train, X_test, y_train, y_test = train_test_split(df.Message,df.spam)
+emails_count = v.transform(emails)
+clf = Pipeline([
+    ('vectorizer', CountVectorizer()),
+    ('nb', MultinomialNB())
+])
+
+plt.scatter(km.cluster_centers_[:,0],km.cluster_centers_[:,1],color='purple',marker='*',label='centroid')
+
+scaler = MinMaxScaler()
+scaler.fit(df[['Income($)']])
+df['Income($)'] = scaler.transform(df[['Income($)']])
+
+sse = []
+k_rng = range(1,10)
+for k in k_rng:
+    km = KMeans(n_clusters=k)#creating new object of k means cluster through this obejct predict
+    km.fit(df[['Age','Income($)']])   
+    sse.append(km.inertia_)
+sse   
+
+
+pca = PCA(0.95)
+X_pca = pca.fit_transform(X)
+X_pca.shape
+pca.n_components_
+pca = PCA(n_components=2)
+
+
+df1 = df[df.Cholesterol<=(df.Cholesterol.mean()+3*df.Cholesterol.std())]
+
+df4 = df3.copy()
+df4.ExerciseAngina.replace(
+    {
+        'N': 0,
+        'Y': 1
+    },
+    inplace=True)
+
+df4.ST_Slope.replace(
+    {
+        'Down': 1,
+        'Flat': 2,
+        'Up': 3
+    },
+    inplace=True
+)
+
+df4.RestingECG.replace(
+    {
+        'Normal': 1,
+        'ST': 2,
+        'LVH': 3
+    },
+    inplace=True)
+
+df4.head()
+
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+cross_val_score(svm.SVC(kernel='rbf',C=20,gamma='auto'),iris.data, iris.target, cv=5)
+
+import numpy as np
+kernels = ['rbf', 'linear']
+C = [1,10,20]
+avg_scores = {}
+for kval in kernels:
+    for cval in C:
+        cv_scores = cross_val_score(svm.SVC(kernel=kval,C=cval,gamma='auto'),iris.data, iris.target, cv=5)
+        avg_scores[kval + '_' + str(cval)] = np.average(cv_scores)
+
+avg_scores
+
+clf = GridSearchCV(svm.SVC(gamma='auto'), {
+    'C': [1,10,20],
+    'kernel': ['rbf','linear']
+}, cv=5, return_train_score=False)
+clf.fit(iris.data, iris.target)
+clf.cv_results_
+
+clf.best_params_
+clf.best_score_
+
+
+rs = RandomizedSearchCV(svm.SVC(gamma='auto'), {
+        'C': [1,10,20],
+        'kernel': ['rbf','linear']
+    }, 
+    cv=5, 
+    return_train_score=False, 
+    n_iter=2
+)
+rs.fit(iris.data, iris.target)
+
+
+model_params = {
+    'svm': {
+        'model': svm.SVC(gamma='auto'),
+        'params' : {
+            'C': [1,10,20],
+            'kernel': ['rbf','linear']
+        }  
+    },
+    'random_forest': {
+        'model': RandomForestClassifier(),
+        'params' : {
+            'n_estimators': [1,5,10]
+        }
+    },
+    'logistic_regression' : {
+        'model': LogisticRegression(solver='liblinear',multi_class='auto'),
+        'params': {
+            'C': [1,5,10]
+        }
+    }
+}
+
+
+for model_name, mp in model_params.items():
+    clf =  GridSearchCV(mp['model'], mp['params'], cv=5, return_train_score=False)
+    clf.fit(iris.data, iris.target)
+    scores.append({
+        'model': model_name,
+        'best_score': clf.best_score_,
+        'best_params': clf.best_params_
+    })
+scores  
+
+
+SUMMARY===========================================================
+draw best fit line on scatter plot for independent feature
+word_to_num
+concat 2 table or join 2 table
+apply column transformer for  single col OHE
+how to selct some colm based on datatype
+those col contain digits or no take mean groupby left colm
+how many person bought insurance below 40 age Or how many person above insurance below 40 age
+find how many rows or colm whose value is 1 in left column or select or describe 6 rows where left colm value is 1
+find sum,value_counts, uniqie valie of each column
+Plot the crosstab(bar plot) on specified subplot axis
+show all digits image using matshow
+draw hatmap using cm
+convert categorical data to number or digit using map and lambda
+add new colm flower name  based on other colm value using lambda
+predicts probability in naive bays
+parameter of cross_val_score and no of folds or iteration
+how to convert text document into sparse matrix form
+using pipeline use count vectorizer and model MultinomialNB
+find centroid for each cluster with respect xaxis  and y axis
+Creating Scatter Plots for Each Cluster: then Plotting Cluster Centroids: 
+scaling the colm using minmaxscalar
+find the value of sse then append all value in list
+draw all sse value using line plot with marker
+how to treat outlier
+how to replace at at a time multiple colm categorical data into number or didgit
+hyperparametr tunning==(http://localhost:8888/notebooks/hyperparmetertunnings.ipynb)
+method1:Use train_test_split and manually tune parameters by trial and error
+method:2Manually try suppling models with different parameters to cross_val_score function with 5 fold cross validation
+method3:Use GridSearchCV
+model and params define in nested dictionary
+after training find best model,best score/accuracy and best parameter
+
+https://www.debug.school/rakeshdevcotocus_468/how-to-perform-data-preprocessing-and-modeling-steps-using-sklearn-pipelining-in-ml-3d5h
+using pipeline use count vectorizer and model MultinomialNB
+using pipeline use standard scalar,svm model and kernel 
+using pipeline use SimpleImputer strategy, standard scalar,svm model and kernel 
+using pipeline use normalizer knn model
+using pipeline use pca and logistic regression 
+using pipeline use OrdinalEncoder  and decision tree classifier 
+using pipeline use column transformer that use one hot encoder 
+
+===============================Theory question=================
+Answer is given below 
+1.In linear regression how to  predict a target variable based on multiple independent the features area, bedrooms, and age from the df_home DataFrame using a pre-trained regression model
+2.how to draw best fit line or generates a series of scatter plots to visualize the relationship between several independent variables ('area', 'bedrooms', and 'age') and a dependent variable ('price') in the df_home DataFrame
+3 how to prevent overfitting model in linear regression
+4. difference between lasso and ridge regression types
+5. what should be value of alpha in lasso regression
+6. what are the different type encoding technique how it works
+7.in which scenario we use different kind of plots technique
+8. write types,learning type,usage, data(structured or unstructured) of all ML algorithm
+9.Difference between structured data and unstructured data in terms of format,storage,example,ML models,feature engeenering
+which ML algorithm is best when various decision trees to make the classification or more complex model want to use
+How CNN classify image based on
+what are the common preprocessing technique for text data and image data
+how to transition perform text to structured data and image to structured data
+10.Explain different kind of learning type,defination,model example and use cases( make huge Blogs tutorial from tabular)
+11.What are the parameter of decision tree and their recommended value
+Best practice for tunning
+key creteria of splitting decison tree
+what should be our goal with respect to gini impurity and entropy
+12.How Svm Works.
+What are the parameter of svm description,recommended value and when to use ?
+what are the key parameter and there impact in svm
+13 How does random forest works
+What are the parameter of random forest with decription,when ti use and recommended value
+Key parameter and their impact.
+14.When to Use K-Fold Cross-Validation
+How K-Fold Works:
+Parameters of K-Fold and When to Use Them:
+Best Practices for K-Fold Cross-Validation:
+How K-Fold Cross-Validation Improves Model Accuracy and Helps Choose the Best Model
+15.What are the our problem type
+General perprocessing steps are done or not
+What are the performance matrics to decide which ml algo is to be used
+how cross validation helps to determine which ml algo is best
+How to tunning hyperparameter helps which ml algo is best
+
+
+=======================================Answer===============================
+http://localhost:8888/notebooks/Linear_Regression.ipynb
+1.features = df_home[['area', 'bedrooms', 'age']]
+predictions5 = reg4.predict(features)
+
+2.for i, var in enumerate(independent_vars):
+    plt.subplot(1, 3, i + 1)
+    plt.scatter(df_home[var], df_home['price'], color=colors[i], marker=markers[i])
+    plt.plot(df_home[var], predictions5, color='blue')
+    plt.xlabel(var.capitalize())
+    plt.ylabel('Price')
+    plt.title(f'{var.capitalize()} vs. Price')
+3.http://localhost:8888/notebooks/linear_regulization.ipynb
+4.http://localhost:8888/notebooks/linear_regulization.ipynb
+5.http://localhost:8888/notebooks/linear_regulization.ipynb
+6.http://localhost:8888/notebooks/Encoding.ipynb
+7.http://localhost:8888/notebooks/Logistic.ipynb
+8https://www.debug.school/rakeshdevcotocus_468/explain-different-kind-of-machine-learning-algorithm-1e1
+9.https://www.debug.school/rakeshdevcotocus_468/explain-difference-between-structured-and-unstructured-data-in-machine-learning-bd9
+10.https://www.debug.school/rakeshdevcotocus_468/explain-the-different-kind-of-learning-technique-in-machine-learning-42da
+11.http://localhost:8888/notebooks/decisiontree.ipynb
+12.http://localhost:8888/notebooks/svm.ipynb
+13.http://localhost:8888/notebooks/random_forest.ipynb
+14.http://localhost:8888/notebooks/k_fold.ipynb
+15.https://www.debug.school/rakeshdevcotocus_468/how-to-decides-which-ml-algorithm-is-best-1nbm
+http://localhost:8888/notebooks/hyperparmetertunnings.ipynb
+
+================================================
+============================
+
+model_params = {
+    'svm': {
+        'model': svm.SVC(gamma='auto'),
+        'params' : {
+            'C': [1,10,20],
+            'kernel': ['rbf','linear']
+        }  
+    },
+    'random_forest': {
+        'model': RandomForestClassifier(),
+        'params' : {
+            'n_estimators': [1,5,10]
+        }
+    },
+    'logistic_regression' : {
+        'model': LogisticRegression(solver='liblinear',multi_class='auto'),
+        'params': {
+            'C': [1,5,10]
+        }
+    }
+}
+
+
+for model_name, mp in model_params.items():
+    clf =  GridSearchCV(mp['model'], mp['params'], cv=5, return_train_score=False)
+    clf.fit(iris.data, iris.target)
+    scores.append({
+        'model': model_name,
+        'best_score': clf.best_score_,
+        'best_params': clf.best_params_
+    })
+score
+
+https://www.debug.school/rakeshdevcotocus_468/how-to-perform-data-preprocessing-and-modeling-steps-using-sklearn-pipelining-in-ml-3d5h####################
+pipeline = Pipeline([
+    ('scaler', StandardScaler()),  # Step 1: Standardize the data
+    ('svm', SVC(kernel='linear'))  # Step 2: Train an SVM
+])
+
+pipeline.fit(X_train, y_train)
+
+accuracy = pipeline.score(X_test, y_test)
+
+
+param_grid = {'svm__C': [0.1, 1, 10], 'svm__kernel': ['linear', 'rbf']}
+grid_search = GridSearchCV(pipeline, param_grid, cv=5)
+grid_search.fit(X_train, y_train)
+best_params = grid_search.best_params_
+
+scores = cross_val_score(pipeline, X, y, cv=5)
+
+
+pipeline = Pipeline([
+    ('imputer', SimpleImputer(strategy='mean')),  # Fill missing values
+    ('scaler', StandardScaler()),                # Standardize the data
+    ('svm', SVC(kernel='linear'))                # Train an SVM
+])
+
+
+pipeline = Pipeline([
+    ('poly', PolynomialFeatures(degree=2)),  # Create polynomial features
+    ('ridge', Ridge(alpha=1.0))              # Ridge regression
+])
+
+pipeline = Pipeline([
+    ('normalizer', Normalizer()),             # Normalize feature vectors
+    ('knn', KNeighborsClassifier(n_neighbors=3))  # KNN with 3 neighbors
+])
+
+pipeline = Pipeline([
+    ('pca', PCA(n_components=2)),            # Principal component analysis
+    ('logreg', LogisticRegression())         # Logistic regression
+])
+
+pipeline = Pipeline([
+    ('robust_scaler', RobustScaler()),       # Scale features robustly to outliers
+    ('svm', SVC(kernel='rbf', C=1.0))        # SVM with RBF kernel
+])
+
+pipeline = Pipeline([
+    ('ordinal', OrdinalEncoder()),           # Encode categorical features as ordinal
+    ('dt', DecisionTreeClassifier())         # Decision tree classifier
+])
+
+
+categorical_features = ['feature1', 'feature2']
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('onehot', OneHotEncoder(), categorical_features)  # One-hot encode categorical features
+    ], remainder='passthrough')
+
+pipeline = Pipeline([
+    ('preprocessor', preprocessor),
+    ('gbc', GradientBoostingClassifier())    # Gradient boosting classifier
+])
+
+
+
+https://www.debug.school/rakeshdevcotocus_468/how-to-preprocessing-transformations-to-different-columns-within-a-dataset-using-columntransformer-with-pipeline-4jdb##############
+numeric_features = ['Age']
+categorical_features = ['Gender']
+numeric_transformer = SimpleImputer(strategy='mean')  # Impute numeric columns with mean
+categorical_transformer = SimpleImputer(strategy='most_frequent')
+
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('num', numeric_transformer, numeric_features),
+        ('cat', categorical_transformer, categorical_features)
+    ], remainder='passthrough')  # Pass through other columns like Salary
+
+
+pipeline = Pipeline([
+    ('preprocessor', preprocessor),     # Step 1: Preprocess the data
+    ('scaler', StandardScaler()),       # Step 2: Standardize the data
+    ('svm', SVC(kernel='linear'))       # Step 3: Train an SVM
+])
+
+
+
+numeric_features = ['Age', 'Salary']
+numeric_transformer = Pipeline(steps=[
+    ('imputer', SimpleImputer(strategy='mean')),  # Impute missing values with mean
+    ('scaler', StandardScaler())                 # Standardize numeric features
+])
+
+categorical_features = ['Gender']
+categorical_transformer = Pipeline(steps=[
+    ('imputer', SimpleImputer(strategy='most_frequent')),  # Impute missing values with mode
+    ('onehot', OneHotEncoder(handle_unknown='ignore'))     # One-hot encode categorical features
+])
+
+
+
+
+
+
+
+
+
+
+pipeline,transform,groupby ,filter
+cross_val_score,predidicts_prob by indexing,
+randomclassifier-nestimator object,plt matshow
+train by rbf model,kernal model then check score,len of xtrain
+create data frame from list, add new colm,filter column,indexing,apply lambda or mapping, svc cand gamma parameter
+select some colm as feature name  remaing drop
+model predict some element by indexing
+plot bar plot of all colm using for loop
+count null value,unique value ,sum,valueluecounts in particular or each colm, select some colm then group by to describe
+plot bar by crosstab,hist plot, filter  below 40 age display another column,insurance count and then plot it
+shape,ndim,sample/head,intercept coefficient
+
+
+

@@ -1,0 +1,25 @@
+ml dummy variable and one hot encoding
+How to handle text data======
+ ml is good to handle numerical data how to handle text data text data handled my encoding
+dummy varible rule==
+if u have 5 dummy variable then drop one and keep 2 dummy varible
+if u have 3 dummy variable then drop one and keep 2 dummy variable
+how to check how much difference betwwn actual output and and desired output or check accuracy=====
+model.score(x,y)
+when we use dummy variable and one hot encoding scheme==============
+Dummy Variable: Use when you have a binary categorical variable or when creating a reference category in multi-category situations for regression models.
+One-Hot Encoding: Use when you have a categorical variable with multiple categories, and you need to represent each category distinctly without assuming any ordinal relationship.
+creating refrence varible of dataframe=======
+dfle = df
+how to covert dataframe to 2 dimensional array=========
+2 ways
+X = dfle[['town','area']].values
+ohe(x).toarray()
+Before ohe why label encoding is reqd=========
+Label encoding is a useful intermediate step that simplifies the process of transforming categorical text data into a format suitable for one-hot encoding
+TRAIN and TEST============
+x_train prin randam variable fron dataset
+if u want not to change x-train data specify random state
+logistic===============
+for linear regression we use linear approach y=mx+c
+for logistic regression we use sigmoid or logit approach 

@@ -1,0 +1,258 @@
+TPU==tensor flow unit
+GPU== general processing unit
+why deep learning is so popular=========
+data growth
+hardware advancement==GPU,TPU
+python and opensource and ecosystem==userfriendly easier to learn than c,c++ ,lots of framework tensorflow,keras
+Cloud and AI Boom==random computer on cloud 
+Entity barrier become less and less
+==========DEBUG OR CHAT GPT SEARCHING TERM============
+how vanishing gradient and explosion happen in RNN and solution with example
+what/when how to use word embedding and word2vec with example
+when/what/how we use  rnn.lstm,gru with example
+different methods of wordembeding with example
+
+
+=========question=================
+how sigmoid and logit function better than linear regression in DL
+https://www.debug.school/rakeshdevcotocus_468/sigmoid-and-logit-functions-are-often-preferred-over-a-linear-regression-for-binary-classification-5cag
+
+
+https://github.com/codebasics/deep-learning-keras-tf-tutorial/blob/master/1_digits_recognition/digits_recognition_neural_network.ipynb
+use reshape to convert in one-dimensional array
+use scale to bring range  b/w 0 to 1 to increase accuracy
+model.evalute==use to predict test dataset
+adding hidden layer== decrease  error and improve accuracy
+
+https://www.debug.school/rakeshdevcotocus_468/how-to-find-no-of-epocno-of-batchesbatch-size-and-batches-per-epoc-5e67
+https://www.debug.school/rakeshdevcotocus_468/difference-between-keras-mnistloaddata-and-scikit-learn-loaddigits-597j
+https://www.debug.school/rakeshdevcotocus_468/how-to-performing-scaling-in-keras-dataset-mnist-487h
+https://www.debug.school/rakeshdevcotocus_468/explain-flattening-process-in-deep-learning-o6g
+https://www.debug.school/rakeshdevcotocus_468/explain-pooling-operation-in-deep-learning-476e
+https://www.debug.school/rakeshdevcotocus_468/steps-to-building-a-neural-network-using-keras-1iap(last section must see coding example to create neural network)
+https://www.debug.school/rakeshdevcotocus_468/how-to-apply-numpy-and-list-comprhension-on-2d-or-3d-data-14m1
+
+extract training and test set data from mnist.load_data.
+perform sacling train and test dataset by dividing 255 to improve accuracy and better prediction
+flattening train and test dataset because f you're using a fully connected dense layer, you must flatten your 3D input (e.g., (28, 28) into 784) before passing it to the network.
+steps-to-building-a-neural-network-using-keras using 3 step
+model building or configuration=>10 output,784 input and sigmoid as it is output layer and use only one fully connected layer
+compiling
+trained and test using fit
+check loss and accuracy of train and test dataset using model evaluate
+predict test dataset to verify all possiblities
+find a maximum element from an array that denotes possibilties returns and index of it
+predict first 5 no from array using slicing and indexing concept from y_predicted_labels
+draw confusion matrix and heatmap
+steps-to-building-a-neural-network- with hidden layer
+one hidden layer output 100 input 784(28*28).
+one fully connected layer with 10 output.
+steps-to-building-a-neural-network- using hiiden layer and Flatten layer so that we dont have to call.reshape on input dataset
+one flatten layer define input 784(28*28)
+one hidden layer 100 input
+one output layer 10 output
+
+QUESTION
+#extract training  and test set data from mnist.load_data
+#get length and shape of training and test dataset
+#get single or more than one image using plt.matshow and for multiple image apply for looop and inside loop use plt.matshow
+#determine length and shape of train and test dataset
+#perform scaling to convert train data values matrix  between range 0 to 1 to improve accuracy 
+#convert 3 dimensional array to 2 dimensional(in tabular form) using flattening
+#simple neural network without hidden layer
+#trained the model t
+#evaluate model n a test dataset (X_test_flattened and y_test) that gives loss and accuracy
+#find a maximum element from an array returns and index of it
+# how to find highest probability for each test sample using listcomprehension
+#find cm and draw heatmal
+#create neural n/w with hodden layer then follow same process  trained,evaluate and ppredit
+#create neural n/w with hodden layer and use Using Flatten layer so that we dont have to call.reshape on input dataset then follow same process  trained,evaluate and ppredit
+
+
+QUESTION
+1 how to get length and shape of training and test dataset
+2.how to get single or more than one image using plt.matshow and for multiple image apply for looop and inside loop use plt.matshow
+3.write code to perform scaling on train and test data set
+4. write a code to perform flattening  with numpy and conv (see blog https://www.debug.school/rakeshdevcotocus_468/explain-flattening-process-in-deep-learning-o6g)
+5 write a code to create neural network without any hidden layer where ouput  have 10 probability and input shape 784 and use sigmoid activation
+6. write a code to adjust wt using compilation phase
+7 how to trained model  in 5 epoc
+8.write a code to check loss and accuracy on test data set after trained generated model
+9.write a code to find all 10  probability of  one given sample
+11.find a maximum element from an array returns and index of it
+12 how to find highest probability for each test sample using listcomprehension
+13.write a code to create neural network with 100  hidden layer where output  have 10 probability and input shape 784 and use sigmoid activation
+14..write a code to create neural network Using Flatten layer so that we dont have to call.reshape on input dataset
+
+
+https://www.youtube.com/watch?v=icZItWxw7AI&list=PLeo1K3hjS3uu7CxAacxVndI4bE_o3BDtO&index=8
+Activation function============
+range and formulla of sigmoid,tanh,relu,leaky relu.
+python function to determine activation function
+
+Introduce Non-Linearity,Enable Learning,Control Output,Prevent Vanishing Gradient(see jupyternotebook for detail explanation theory ,diagram)
+derivative== how much output change for given input
+if ur derivative is  0 then learning process extremely slow is called Vanishing gradient problem
+for output layer which activation fun is used=== sigmoid
+for hidden layer which function is used====Relu because hidden layer need more computation tan output layer
+
+QUESTION===.
+write python code for sigmoid,tanh,rely 
+
+http://localhost:8888/notebooks/loss_cost.ipynb======================
+
+using zip method calculate mae,mse and log loss.
+using numpy method calculate mae and mse and log loss.
+
+QUESTIONS
+#first iterate two array/list using zip
+#then subtract each element of first array with second element of each array then take sum
+#find mae
+#how to calculate total sum of difference of two array or list
+##Implement MAE same thing using numpy in much easier way
+#Implement Log Loss or Binary Cross Entropy
+#Clipping the y_predicted values (to avoid log(0))
+#Clipping the y_predicted_new values again (to avoid log(1))
+#After clipping the values, the modified predictions are converted into a NumPy array to allow for vectorized operations,
+#which makes the calculation of log loss more efficient.
+#using list comprhension how to calculate maximum of two value
+
+QUESTION
+how to calculate mae,mse,log loss error using core python and numpy
+
+http://localhost:8888/notebooks/gradient_descent.ipynb===================
+why need gradient function in simple words (see in jupyter notebook)
+#readcsv file
+#Split train and test set
+#Preprocessing: Scale the data so that both age and affordibility are in same scaling range dividing by 100
+#model building phase==create neural network 
+# keras.layers.Dense(1, input_shape=(2,), activation='sigmoid', kernel_initializer='ones', bias_initializer='zeros')
+# 1 is specify one output bought_insurance and input_shape=(2,) that is age and affordibility for output layer mostly use sigmoid
+#compile model and trained it
+#evalute model to find loss and accuracy
+#predict model to compare with y_test how much our model accurate
+#find coef(weights), intercept  means bias
+# calculate sigmoid 
+#Instead of model.predict, write our own prediction function that uses w1,w2 and bias
+#calculate gradient descent function using python code
+
+QUESTION
+how to perform scaling particular column
+write a code to create neural network without any hidden layer where ouput  is 1 i.e bought insurance and 2 input age and affordibilty  and use sigmoid activation
+write our own prediction function(custom function) in core python instead of model.predict like model.predict(X_test_scaled)
+write our ownlog loss function(custom function) in core python 
+write a code to implement gradient fun in core python
+
+
+http://localhost:8888/notebooks/gradient_descnt_python.ipynb
+write a class in python to implement gradient function
+
+Derivative=========
+how neural network works
+loss=========================
+mae== absolute diff b/w true value and predicted value
+
+Gradient descent for Neural Network========================
+read dataset to predict wheather a person would buy life insurnace based on his age using logistic regression
+Split train and test set with test sizen 0.2
+Preprocessing: Scale the data so that both age and affordibility are in same scaling range
+steps-to-building-a-neural-network-using-keras using 3 step
+model building or configuration===>1 output(bought insurance),2 input(age,affordibility) and sigmoid as it is output layer and use only one fully connected layer
+compiling
+trained and test using fit for 5000 epoc
+check loss and accuracy of train and test dataset using model evaluate
+predict test dataset to verify all possiblities
+calculate w1,w2 and bias then activation function
+Instead of model.predict, write our own prediction function that uses w1,w2 and bias
+calculate log loss
+
+
+Batch gradient descent############
+first find individual error
+then take sum of error  and see log loss
+above 2 step follow for 2nd epoc
+now i want to adjust weight so that in 2nd epoc my log loss minimized using backpropogate
+so we minimize weight to minimize loss  for this we subtract something from weight using partial derivative concept
+next step to find partial derivative of w1 and w2(formula is given)
+then draw curve of loss,global minima ,gradient descent
+
+
+Stochastic Gradient Descent vs Batch Gradient Descent vs Mini Batch Gradient Descent |DL Tutorial 14=============
+if i have 10 million sample then i get 10 million derivative or error or loss to adjust weight
+randomly pick sample
+
+
+
+========Tensorboard========
+it is tool to debug neural network also helpfull to tracking and visualize loss and accuracy
+using flatten layer try==SGD optimizer
+
+
+
+http://localhost:8888/notebooks/customer_churn.ipynb
+
+Customer churn prediction is to measure why customers are leaving a business. In this tutorial we will be looking at customer churn in telecom business. We will build a deep learning model to predict the churn and use precision,recall, f1-score to measure performance of our model
+why customer are leaving so that we can take appropriate decision
+
+#####################Steps to solve prediction using Customer churn############
+read csv file
+drop those colunm that is not required in prediction like customerid
+check data types for conversion we observe two types of charges MonthlyCharges and TotallyCharges that arise conflict
+so we check both one of them and we find totalcharges element in string ,so first we convert it into number(no) remove null from totalcharges https://www.debug.school/rakeshdevcotocus_468/how-to-convert-string-to-numeric-for-data-cleaning-4la3
+checking space single rows of particular colum then no of Identifying Rows Without Spaces and Remove rows with space in TotalCharges
+https://www.debug.school/rakeshdevcotocus_468/how-to-handling-space-and-null-value-for-data-cleaning-3123
+customer churn prediction visualization by draw hist plot for tenure and monthly charges.
+find unique value in each column to see value are in categorical or number format is there need to apply encoding or replace.
+find unique value in categorical column to see value are in categorical or number format is there need to apply encoding or replace.
+to encodeing use replace method for categorical column
+for gender use replace method to convert into number as it have only 2 value male and feamale
+for InternetService apply dummies as it have more than 2 value
+some colunms require scaling as it have very high value
+use df.head or df.sample to check some column value
+seprate target colunm and feature colunm
+apply Train test split method
+Build a model (ANN) in tensorflow/keras
+no of input or neuron and no of hidden layer decided by checking train and test shape
+evaluate model how much accurate our model for loss and accuracy
+calculate prediction by generated model through neural n/w
+apply some condition based on prediction
+determine cm matrix
+calculate precision,recall and accuracy
+
+###############Question##############
+How to convert particular col all value string to number using pd.numeric
+checking space single rows of particular column
+Total no of Identifying Rows Without Spaces for particular column
+how to remove rows that contain space in particular column
+how to filter or extracting some value in col based on other colm condition
+how to draw hist plot
+how to find unique value in each column
+how to convert categorical data into number using replace
+how to convert categorical data into number using dummies
+how to perform scaling for some colm whose elements is very high
+how to determine no of input shape ,hidden layer while building a neural network
+how to determine prediction
+how to calculate precision,recall and accuracy
+
+
+==========
+http://localhost:8888/notebooks/precision_recall.ipynb
+formula and definition
+==========http://localhost:8888/notebooks/dropout.ipynb
+read csv file
+check for nan values
+counts of unique values in the column 'R' of a DataFrame
+seprate x and y value
+convert categorical data of target variable y  into format
+apply train and test split method
+create a neural network Model without Dropout Layer
+evaluate model to check train and test accuracy
+make  predictions on a test dataset by generated model
+create classification report to check precision recall and accuracy
+create a neural network Model with Dropout Layer and repeat the process
+
+Question
+how to use of dropout layer in neural network
+
+
+

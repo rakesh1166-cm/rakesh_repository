@@ -1,0 +1,20 @@
+neural network=face,body,eye,leg===>face=eye*0.2+nose*0.4+ear*0.8====>
+hidden layer==first hidden layer responsible for face part second hidden layer body part w1*h1+w2*h2
+in neural network why we use sigmoid fun not linear equation= it able to capture mode data from dataset and provide scaling convert range between 0 to 1 after y=mx+c apply sigmoid on y
+why activation function is used== without activation it works as linear fun and not able to capture complex data or relationship
+bring in range types=sigmoid,tanh ,relu
+sigmoid-- use for output layer,  RELU== hidden layer
+gradient descent==it is the way wheather we r going right direction means we are predicting output with minimal loss to reduce loss we
+ adjust weight, learning parameter, follow backpropogation some time due to backpropogation  ,continuously multiplying our output become 0 is called gradient vanishing if o/p become large  infinite is called gradient explosion,to reduce loss we use multiple epoc/backpropogation to get more accuracy
+padding== during filtering calculation no role of cornder edhe and feature ,soPadding ensures that even the pixels on the edges and corners of the image are included in the convolution operation detect edge features better, preventing information loss
+stride ==tride controls the "step size" of the filter. Using a stride of (2, 2) is like making bigger jumps, which reduces the resolution of the output but can make the process faster.
+data imbalnced= undersamplimg,oversampling ,ensamble method,SMOTE,NEAR
+precision,recall,accuracy==
+accuracy= how many got right out of all actual data
+precision =how many got right out of all prediction base=prediction
+recall==how many got right out of all dog truth base==truth
+
+
+
+
+

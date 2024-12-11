@@ -1,0 +1,14 @@
+{% extends 'openai/dashboard.html' %}
+{% block header %}
+    <h3>Create Recipe</h3>
+{% endblock %}
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database"></i>
+        Create</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+<html>
+<head>
+    <title>ChatGPT</title>
+</head>
+<body>
+    {% if request.path == '/question_analysis' %}
+    <h1>question analysis api using model</h1>
+    {% elif request.path == '/grammer_correction' %}
+    <h1>grammer correction api using model</h1>
+    {% else %}
+    <h1> correction api using model</h1>
+{% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Send">
+    </form>
+    {% if generated_message %}
+    <h2>Generated Message:</h2>
+    <p>{{ generated_message }}</p>
+
+    {% else %}
+    <h1>Generated Message will display after data is saved into database:</h1>
+    {% endif %}
+</body>

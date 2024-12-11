@@ -1,0 +1,215 @@
+=============DATA PREPROCESSING TASK=========================
+df = pd.read_csv(file_path)
+reg = linear_model.LinearRegression()
+=========wrong=======
+reg.fit(df.area,df.price)
+======correct==========
+new_df = df.drop('price',axis='columns')
+reg.fit(new_df,price)
+Reason of ERROR:The error you're encountering is due to the fact that LinearRegression.fit() expects the 
+input features (X) to be a 2D array. However, df.area is a 1D array. To fix this, you need to reshape df.area to a 2D array
+==================================================
+How to check given col on dataframe dimesion
+print("Shape of column_series:", df.price.shape)
+# Check number of dimensions
+print("Number of dimensions (ndim) of column_series:", df.area.ndim)
+output:Shape of column_series: (5,)
+Number of dimensions (ndim) of column_series: 1
+============================================
+convert a 1D array to a 2D array using pandas
+array_1d = [1, 2, 3, 4, 5]
+df = pd.DataFrame(array_1d, columns=['column_name'])
+new_df = df.drop('price',axis='columns')
+------------
+capita_df = df[['year']]
+--------------------------
+series = pd.Series(array_1d)
+df = series.to_frame(name='column_name')
+-------------------
+df = pd.Series(array_1d).values.reshape(-1, 1)
+df = pd.DataFrame(df, columns=['column_name'])
+-------------------
+df = pd.DataFrame().assign(column_name=array_1d)
+print(df)
+Note: predict always take 2 dimensional and  1st parameter of reg.fit is x also take 2 dimensional parameter
+reg.fit(new_df,price)
+reg1.predict([[5000]])
+new_df = df.drop('price',axis='columns')
+predictions=reg.predict(new_df)
+
+http://localhost:8888/notebooks/Linear_Regression.ipynb
+reg = linear_model.LinearRegression()
+reg.fit(new_df,price) or reg.fit(df.drop('price',axis='columns'),df.price)
+reg.intercept_
+reg.coef OR model._coef
+
+#Y = m * X + b (m is coefficient and b is intercept
+Note sometimes take==>df_capita['per capita income (US$)'] instead of df.per capita income (US$) 2 way ==>df.year or df['year']
+
+df_home['bedrooms'].median()  OR df_home.bedrooms.median()
+df_home.bedrooms = df_home.bedrooms.fillna(df_home.bedrooms.median())
+
+########for save#######
+import pickle
+with open('model_pickle','wb') as file:
+    pickle.dump(model,file)
+
+
+#########for read###########
+with open('model_pickle','rb') as file:
+    mp = pickle.load(file)
+
+=======================DATA VISUALIZATION==========================================================================
+
+
+plt.scatter(df.area,df.price,color='red',marker='+')
+BEFORE PREDICTION==>plt.scatter(new_df, price, color='red', marker='+')
+plt.plot(new_df, price, color='blue')
+AFTER PREDICTION===>plt.scatter(new_df, price, color='red', marker='+')
+plt.plot(new_df, predictions, color='blue')
+
+
+features = df_home[['area', 'bedrooms', 'age']] // Note: for single independent feature predictions=reg.predict(new_df) or predictions=reg.predict(df.drop('price',axis='columns'))
+predictions5 = reg4.predict(features)
+df_home['predicted_price'] = predictions5
+
+
+independent_vars = ['area', 'bedrooms', 'age']
+for i, var in enumerate(independent_vars):
+    plt.subplot(1, 3, i + 1)
+    plt.scatter(df_home[var], df_home['price'], color=colors[i], marker=markers[i])
+    plt.plot(df_home[var], predictions5, color='blue')
+    plt.xlabel(var.capitalize())  
+
+NOTE:var.capitalize()
+NOTE:label=f'{var.capitalize()} vs. Price' ==>  plt.scatter(df_home[var], df_home['price'],
+ color=colors[i], marker=markers[i], label=f'{var.capitalize()} vs. Price')
+
+
+#######BAR PLOT##########
+fig, axes = plt.subplots(2, 2, figsize=(15, 15))
+# Bar plot for actual vs predicted prices
+sns.barplot(x=df_home.index, y=df_home['price'], color='red', alpha=0.6, label='Actual', ax=axes[0, 0])
+sns.barplot(x=df_home.index, y=df_home['predicted_price'], color='blue', alpha=0.6, label='Predicted', ax=axes[0, 0])
+
+#######SNS PLOT#########
+sns.barplot(x=df_home.index, y=df_home['price'], color='red', alpha=0.6, label='Actual', ax=axes[0, 0])
+sns.barplot(x=df_home.index, y=df_home['predicted_price'], color='blue', alpha=0.6, label='Predicted', ax=axes[0, 0])
+
+
+##################DIST PLOT##########################
+sns.distplot(df_home['price'], color='red', kde=True, ax=axes[0, 1])
+sns.distplot(df_home['predicted_price'], color='blue', kde=True, ax=axes[1, 0])
+
+##################KDE PLOT##########################
+sns.kdeplot(df_home['price'], color='red', label='Actual', fill=True, ax=axes[1, 1])
+sns.kdeplot(df_home['predicted_price'], color='blue', label='Predicted', fill=True, ax=axes[1, 1])
+
+
+
+plot_titles = [
+    'Actual vs Predicted Prices',
+    'Distribution of Actual Prices',
+    'Distribution of Predicted Prices',
+    'KDE Plot of Actual vs Predicted Prices',
+    'Joint Plot of Actual vs Predicted Prices'
+]
+plot_functions = [
+    'bar', 'dist', 'dist', 'kde', 'joint'
+]
+plot_colors = [
+    ('red', 'blue'), 'red', 'blue', ('red', 'blue'), 'purple'
+]
+
+fig, axes = plt.subplots(2, 2, figsize=(15, 15))
+
+for i, (title, func, color) in enumerate(zip(plot_titles,
+ plot_functions, plot_colors)):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==================integrate ML/NLP application===================
+https://www.youtube.com/watch?v=I9eK7idNCGw
+https://www.youtube.com/watch?v=hG8K5h2J-5g&list=PLdF3rLdF4ICQ4-fSEucMqoqMz1tEyjp9q
+https://www.youtube.com/results?search_query=ml+or+nlp++projects
+https://www.youtube.com/watch?v=2VwPnQeZNMA&list=PL4ho7ag3cJzU3O4taotUpFL6b1InP9vRs
+https://www.youtube.com/watch?v=frvailWW6Iw&list=PLfFqtQvlXuWkPN-iHOppHZThreX2mSYH6
+https://www.youtube.com/watch?v=MoqgmWV1fm8
+https://www.youtube.com/watch?v=Q0QwvZKG_6Q
+https://www.youtube.com/watch?v=atI3IOv4S2Q
+https://www.youtube.com/watch?v=1xtrIEwY_zY&list=PLKnIA16_RmvY5eP91BGPa0vXUYmIdtfPQ
+https://www.youtube.com/watch?v=2e5pQqBvGco
+https://www.youtube.com/watch?v=WuEGXlokpuQ
+https://www.youtube.com/watch?v=kXuHxI5ZcG0
+https://www.youtube.com/watch?v=oWJe2T29kAo
+https://www.youtube.com/watch?v=Fe5B90R8DTg
+https://www.youtube.com/watch?v=MJ1vWb1rGwM
+https://www.youtube.com/watch?v=YncZ0WwxyzU&list=PLKnIA16_RmvY5eP91BGPa0vXUYmIdtfPQ&index=2
+
+
+
+=============important ML/DL/LANGCHAIn/NLP/LLM/langchain==========================
+https://www.youtube.com/watch?v=lAHwszMRpWM&list=PLYwpaL_SFmcC8dFmlWA0XwdBjQv6Q5TOq&index=14
+https://www.youtube.com/watch?v=Y4qO9unerGs&list=PLYwpaL_SFmcBhOEPwf5cFwqo5B-cP9G4P
+https://www.youtube.com/watch?v=vsWrXfO3wWw&list=PLeo1K3hjS3uvCeTYTeyfe0-rN5r8zn9rw&index=4
+https://www.youtube.com/watch?v=IU5fuoYBTAM&list=PLeo1K3hjS3uu7CxAacxVndI4bE_o3BDtO&index=16
+https://www.youtube.com/watch?v=UfdW5GvOjoA&list=PLmQAMKHKeLZ-iTT-E2kK9uePrJ1Xua9VL&index=3
+https://www.youtube.com/watch?v=MoqgmWV1fm8&list=PLeo1K3hjS3uu0N_0W6giDXzZIcB07Ng_F&index=3
+
+
+=============purchase video===========================
+https://codebasics.io/courses/machine-learning-for-data-science-beginners-to-advanced
+https://codebasics.io/bootcamps/data-analytics-bootcamp-with-practical-job-assistance
+https://codebasics.io/courses/ai-for-everyone-your-first-step-towards-ai
+
+
+
+
+Conceptual real example understanding friendly topic==========
+https://www.youtube.com/watch?v=OxCpWwDCDFQ&list=PLYZvFlkrlPewda1aLJQUR5jQfO1owUTm5&index=10
+
+seaborntutorial=============
+https://www.youtube.com/watch?v=2Ys-PQumd_w&list=PLfP3JxW-T70HaBYwsSDadlS3v2VeALgYh
+
+
+https://www.youtube.com/watch?v=LQQbW3Pve5U&list=PLS1QulWo1RIZDws-_0Bfw5FZFmQJWtMl1
+https://www.youtube.com/watch?v=NoKvCREx36Q&list=PLhhyoLH6IjfxVOdVC1P1L5z5azs0XjMsb&index=19
+https://www.youtube.com/watch?v=IU5fuoYBTAM&list=PLeo1K3hjS3uu7CxAacxVndI4bE_o3BDtO&index=14
+
+
+
+For Practice learn=========
+https://github.com/codebasics/py/blob/master/ML/1_linear_reg/1_linear_regression.ipynb
+https://github.com/codebasics/py/blob/master/ML/1_linear_reg/areas.csv
+
+
+
+
+
+
+
+
+================REVISION=============================
+https://www.debug.school/rakeshdevcotocus_468/python-framework-error-and-solution-4a66
+https://www.debug.school/rakeshdevcotocus_468/crud-in-fastapi-3fd4
+https://www.debug.school/rakeshdevcotocus_468/how-to-perform-crud-in-flask-52oi
+https://www.debug.school/rakeshdevcotocus_468/how-to-install-flask-and-run-application-3kb1
+https://www.debug.school/rakeshdevcotocus_468/difference-between-fastapi-and-flask-and-django-4b66

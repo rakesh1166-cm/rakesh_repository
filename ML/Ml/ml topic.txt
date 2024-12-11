@@ -1,0 +1,158 @@
+best fit line
+continous variable 
+multiple linear regression
+adjusted r squared
+standardization
+standard scalar,scaled_x
+pickle_dump
+regression_score
+MAE,MSE,RMSE
+Regulaziation---lasso,ridge 
+
+==logistic============
+Sigmoid function
+Evaluation of classification model
+recall,precision,f1_score,Accuracy,
+AUC,RUC,Confusion matrix
+data.head(),data.describe(),data.shape()
+normal distribution() to  find outlier,leftskew and rightskew using boxplot
+quartile formulla to detect outlier
+multicolinearity using VIF
+pros and cons of logistic
+
+## CONFUSION MATRIX EXAMPLES
+CONFUSION MATRIX==many corona +ve and -ve cases come to doctor , now doctor predidicted some positive and some -ve based on symptoms in confusion matrix row side prediction but in lab 
+give actual result by test blood test and other test
+FP==TYPE1 ERROR
+FN==TYPE2 ERROR
+type2 is more dangerous because u r thinking ur  corona  negative because of prection/sympotoms/doctor prediction so u roaming/traveling  but in lab test u found positive 
+symptoms==prediction
+lab test result/classification model=== actual result
+doctor is model
+recall== how many positive  patient out of total positive
+precision== how many positive parient out of total predicted positive
+FN== ultimately sign of Tp
+F1 SCORE==take some part of recall  and  take some part of precision mixed of recall and precision
+true positive  rate is an example of recall
+ROC== represents various confusuin matrix for various threshold
+if ur threshold value changes then ur  confusion matrix,accuracy,recall,precison everything changes
+ROC== represent multiple models they   predict TPR and FPR
+ 
+============Knn=============
+euclidian distance
+lazy learner
+pros and cons of knn
+drop unamed,df.isnull().sum()
+select k best feature methos
+Annova tes
+calculate accuracy using metric_score function(train/test is true)
+Cross validation-hold out,k fold  cross validation,leave one out of cross validation
+
+bias variance trade off
+hyperparameter tunning
+hold and out==train and test split regular method
+kfold==see screenshot  80%  for train data rest i
+============hyperparameter tunning=============
+
+grid search csv,randamized search csv
+encoder and imputter
+label encoder
+one hot encoder
+get dummies
+one hot encoder
+binary encoder
+ordinal encoder
+knn imputter
+
+================Dt============
+hyperparameter tunning
+entropy
+information gain
+gini impurity
+plotting heatmap
+correlation matrix==corrwith
+exportgraphviz
+grid search csv
+bagging and boosting
+==============ensamble approach============
+ADABOOST
+GBT
+XGB
+Pasting
+Out of Bag Evalution
+Hypothesis
+one tail and two tail test
+Left tail and right tail test
+alternate hypothesis
+ttest,annova.chi square
+one sample,two sample,paired sample
+===========random classifier===============
+Z-distribution statics
+standardization vs normalization
+z_score,np_abs
+grid search csv
+AUC,ROC
+calculate roc and auc for each model using for loop
+VIF(check multicolinearity)
+====================svm===================
+hyperlane,kernal
+===========unsupervised===============
+clustering
+groups
+application
+dimensinality reduction
+DBSCAN
+anamoly detection
+application of clustering
+agglomerative,divisive
+=========data imbalance===========
+smote
+nearmiss
+upsampling,downsampling,oversampling
+minority,majority
+===========boosting=========
+adaboost,gbdt,xmbt
+weak classifier
+pros and cons of weak classifier
+adaptive boosting
+hyperparameter using randomized search
+Gbt======
+determine prediction using residual,learning rate
+feature corrwith
+modal building using select percentile using chi
+hyperparameter tunning using fridserachcv
+catboost
+XMGBT========
+advantage
+filter category feature
+encoding categorical using get_dummies,join
+difference b/w bagging and boosting
+data transformer=============
+power transformer to bring normal distribution
+box-cox,yen johnson
+============PCA============
+dimensionality reduction
+eign value and eign vector
+standard scalar
+hyperparameter tunning
+grid search cv
+SVC
+creating pipeline
+================pipeline============
+how to use encoding technoque in pipeline
+
+
+
+======================done topic
+https://www.debug.school/rakeshdevcotocus_468/explain-different-encoding-technique-in-machine-learning-15mc
+
+
+https://www.debug.school/rakeshdevcotocus_468/common-coding-mistake-in-python-1nkm
+https://www.debug.school/rakeshdevcotocus_468/how-to-extracting-and-transforming-information-from-table-in-python-3l07
+https://www.debug.school/rakeshdevcotocus_468/basic-preprocessing-machine-learning-commands-2772
+https://www.debug.school/rakeshdevcotocus_468/numpy-and-pandas-question-in-machine-learning-4kia
+https://www.debug.school/rakeshdevcotocus_468/list-out-checklist-of-nlp-terminology-in-machine-learning-4kg2
+https://www.debug.school/rakeshdevcotocus_468/data-visualization-preprocessing-commands-gd7
+https://www.debug.school/rakeshdevcotocus_468/machine-learning-objective-question-89o
+https://www.debug.school/rakeshdevcotocus_468/python-dictionary-497g
+

@@ -1,0 +1,432 @@
+pc= is there object inside window
+c1=if it is 1 dog is there
+c2 =if it is there then person is there
+
+============How Deep learning become popular===============
+TPU==tensor flow unit
+GPU== general processing unit
+why deep learning is so popular=========
+data growth
+hardware advancement==GPU,TPU
+python and opensource and ecosystem==userfriendly easier to learn than c,c++ ,lots of framework tensorflow,keras
+Cloud and AI Boom==random computer on cloud 
+Entity barrier become less and less
+
+how sigmoid and logit function better than linear regression in DL=================================
+https://www.debug.school/rakeshdevcotocus_468/sigmoid-and-logit-functions-are-often-preferred-over-a-linear-regression-for-binary-classification-5cag
+why linear regression is not suitable for classification task
+Define logits function.
+how sigmoid provides bounded output and non linearity concept.
+linear or sigmoid is better for model capture more complex relationships in the data.
+how sigmoid function converts linear equation output to range between 0 to 1
+
+http://localhost:8888/notebooks/handwritten_reco.ipynb==================================
+Short Notes
+load datasets then extract training and test set data from mnist.load_data
+perform scaling to convert train data values matrix between range 0 to 1 to improve accuracy and rgb to black and white
+After scaling train and test dataset,convert 3 dimensional array to 2 dimensional(in tabular form row and colm) using flattening flattening train and test dataset because f you are using a fully connected dense layer, you must flatten your 3D input (e.g., (28, 28) into 784) before passing it to the network
+
+model building or configuration=>10 output,784 input and sigmoid as it is output layer and use only one fully connected layer
+compile means optimization then trained and test using fit
+check loss and accuracy of train and test dataset using model evaluate
+predict test dataset to verify all possiblities
+find a maximum element from an array that denotes possibilties returns and index of it
+predict first 5 no from array using slicing and indexing concept from y_predicted_labels
+draw confusion matrix
+steps-to-building-a-neural-network- with hidden layer
+steps-to-building-a-neural-network- using hiiden layer and Flatten layer so that we dont have to call.reshape on input dataset
+
+Question===========
+#extract training  and test set data from mnist.load_data
+#get length and shape of training and test dataset
+#get single or more than one image using plt.matshow and for multiple image apply for looop and inside loop use plt.matshow
+#determine length and shape of train and test dataset
+#perform scaling to convert train data values matrix  between range 0 to 1 to improve accuracy 
+#convert 3 dimensional array to 2 dimensional(in tabular form) using flattening
+#simple neural network without hidden layer
+#trained the modelt
+# name parameter for building model,then compile and last training
+#evaluate model n a test dataset (X_test_flattened and y_test) that gives loss and accuracy
+#find a maximum element from an array returns and index of it
+# how to find highest probability for each test sample using listcomprehension
+#find cm and draw heatmal
+#create neural n/w with hodden layer then follow same process  trained,evaluate and ppredit
+#create neural n/w with hodden layer and use Using Flatten layer so that we dont have to call.reshape on input dataset then follow same process  trained,evaluate and ppredit
+#name the parameter use in hidden layer and output layer
+# name the parameter use in flatten layer
+
+
+Answer==
+(X_train, y_train) , (X_test, y_test) = keras.datasets.mnist.load_data()
+len(X_train) OR  X_train[0].shape 
+plt.matshow(X_train[0])
+# get more than one image
+num_images = 5  # Number of images to display
+for i in range(num_images):
+    plt.figure(figsize=(2, 2))
+    plt.imshow(X_train[i], cmap='gray')
+    plt.title(f"Label: {y_train[i]}")
+    plt.axis('off')
+    plt.show()
+X_train = X_train / 255
+X_test = X_test / 255
+X_train_flattened = X_train.reshape(len(X_train), 28*28)
+ keras.layers.Dense(10, input_shape=(784,), activation='sigmoid')
+model.compile(optimizer='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
+model.fit(X_train_flattened, y_train, epochs=5)
+model.evaluate(X_test_flattened, y_test)
+np.argmax(y_predicted[0])
+y_predicted_labels = [np.argmax(i) for i in y_predicted]
+
+keras.layers.Dense(100, input_shape=(784,), activation='relu'), // here 100 is output of previous layer
+    keras.layers.Dense(10, activation='sigmoid')// 10 is final output
+
+keras.layers.Flatten(input_shape=(28, 28)),
+    keras.layers.Dense(100, activation='relu'),
+    keras.layers.Dense(10, activation='sigmoid')
+
+
+https://www.debug.school/rakeshdevcotocus_468/how-to-find-no-of-epocno-of-batchesbatch-size-and-batches-per-epoc-5e67===========================================
+Differnce between epoc and batches
+no of epoc controls
+formula to find no of batches per epoc and Total Number of Iterations for Training
+
+https://www.debug.school/rakeshdevcotocus_468/how-to-apply-numpy-and-list-comprhension-on-2d-or-3d-data-14m1=======================================
+Convert 2d array to 1d array using list comprehension
+How to square each element in a 2D array
+How to square each element after flattening 2d array
+Filter elements greater than 0.5 in a 2D array
+How to convert predicted probabilities into predicted labels
+Finding Maximum Values,Calculating Mean,measure of central tendency(median),calculating total counts or feature(np.sum(row))
+How to identify which feature is most or least significant in each sample using argmax or argmin
+
+https://www.debug.school/rakeshdevcotocus_468/how-to-performing-scaling-in-keras-dataset-mnist-487h=============
+Meaning of X_train: (60000, 28, 28)
+3 advantage of sacaling
+How Scaling provides faster convergence and uniformity while training model
+
+https://www.debug.school/rakeshdevcotocus_468/explain-flattening-process-in-deep-learning-o6g===============================
+What is Flattening
+When is Flattening Needed?
+Why is Flattening Important in Deep Learning
+different ways to use flatten while building model(1.Flatten(),2.keras.layers.Flatten(input_shape=(28, 28)),3.keras.layers.Flatten(),) )
+
+https://www.debug.school/rakeshdevcotocus_468/steps-to-building-a-neural-network-using-keras-1iap===========================
+What is neural network
+Steps to building a neural network using keras
+What are the model phases to build neural network
+coding example to create neural network
+How to perform model evaluation
+how to prediction of model
+
+https://www.debug.school/rakeshdevcotocus_468/explain-pooling-operation-in-deep-learning-476e##################################
+explain the pros and cons of Pooling operation
+explain the parameter of pooling operations
+
+
+http://localhost:8888/notebooks/Activation.ipynb
+Activation function============
+range and formulla of sigmoid,tanh,relu,leaky relu.
+python function to determine activation function
+Why activation function is reqired
+
+Introduce Non-Linearity,Enable Learning,Control Output,Prevent Vanishing Gradient(see jupyternotebook for detail explanation theory ,diagram)
+derivative== how much output change for given input
+if ur derivative is  0 then learning process extremely slow is called Vanishing gradient problem
+for output layer which activation fun is used=== sigmoid
+for hidden layer which function is used====Relu because hidden layer need more computation tan output layer
+
+QUESTION===.
+write python code for sigmoid,tanh,rely 
+
+
+Answer==
+def sigmoid(x):
+  return 1 / (1 + math.exp(-x))
+def tanh(x):
+  return (math.exp(x) - math.exp(-x)) / (math.exp(x) + math.exp(-x))
+def relu(x):
+    return max(0,x)
+
+http://localhost:8888/notebooks/loss_cost.ipynb================================
+using zip method calculate mae,mse and log loss.
+using numpy method calculate mae and mse and log loss.
+
+Answer=============
+def mae(y_predicted, y_true):
+    total_error = 0
+    for yp, yt in zip(y_predicted, y_true):
+        total_error += abs(yp - yt)
+    print("Total error is:",total_error)
+    mae = total_error/len(y_predicted)
+    print("Mean absolute error is:",mae)
+    return mae
+
+for MSE
+ for yt, yp in zip(y_true, y_predicted):
+        total_error += (yt-yp)**2
+
+np.abs(y_predicted-y_true)
+np.mean(np.abs(y_predicted-y_true))
+
+
+http://localhost:8888/notebooks/gradient_descent.ipynb============================
+#readcsv file
+#Split train and test set
+#Preprocessing: Scale the data so that both age and affordibility are in same scaling range dividing by 100
+#model building phase==create neural network 
+#compile model and trained it
+#evalute model to find loss and accuracy
+#predict model to compare with y_test how much our model accurate
+#find coef(weights), intercept  means bias
+# calculate sigmoid 
+#Instead of model.predict, write our own prediction function that uses w1,w2 and bias
+
+
+QUESTION============
+why gradient descent method is used
+in which part error or loss is minimum
+formulla to calculate new weight
+How to perform scaling
+write code for model building or configuration
+code to calculate coef, intercept
+Instead of model.predict, write our own prediction function that uses w1,w2 and bias
+
+Answer===========
+formulla to calculate new weight
+w1=w1-something or w1=w1-d/dw
+X_train_scaled = X_train.copy()
+X_train_scaled['age'] = X_train_scaled['age'] / 100
+keras.layers.Dense(1, input_shape=(2,), activation='sigmoid', kernel_initializer='ones', bias_initializer='zeros')
+coef, intercept = model.get_weights()
+def prediction_function(age, affordibility):
+    weighted_sum = coef[0]*age + coef[1]*affordibility + intercept
+    return sigmoid(weighted_sum)
+
+
+http://localhost:8888/notebooks/stochastic%20and%20batch%20grandient%20descent.ipynb======================
+Difference between batch GD,stochastic GD and mini batch GD 
+
+
+http://localhost:8888/notebooks/gpu.ipynb==================================
+install CUDA toolkit and cuDNN to enable GPU device
+Split train and test set
+display single image or range of image from the training dataset X_train
+Preprocessing: Scale images
+convert y_train to categorical form so that while optimizing model use categorical_crossentropy in loss parameter
+predict model to compare with y_test how much our model accurate
+Measure training time on a CPU and gpu
+Lets run same test for 10 epocs
+
+QUESTION=============
+how to Listing Physical Devices
+how to Checking TensorFlow Version
+how to Checking CUDA Compatibility: wheather cuda is installed or not
+X_train.shape==>(50000, 32, 32, 3) represent what ?
+Different way to Reshape to a one-dimensional array or flatten the array
+Write a function to display single image from the training dataset X_train
+Write a function to display range of image from the training dataset X_train
+why convert train and test data to categorical form
+how to determines which class has the highest predicted probability.
+how to determine first sample belongs to that predicted class.
+how to Measure training time on a CPU and GPU
+write a python function to constructs a simple feedforward neural network for classifying images from the CIFAR-10 dataset
+how to determine total no of input feature while building feedforward neural network
+
+Answer=======================
+tf.config.experimental.list_physical_devices()
+tf.__version__
+tf.test.is_built_with_cuda()
+This is a typical shape for color images: (number of images, height, width, number of channels)
+y_train.reshape(-1)  or   y_train.ravel()  or y_train.squeeze()
+def plot_sample(index):
+    plt.figure(figsize = (10,1))
+    plt.imshow(X_train[index])
+
+def plot_samples(indices):
+    n = len(indices)  # Number of images to plot
+    cols = 2  # Number of columns you want
+    rows = (n + cols - 1) // cols  # Calculate the number of rows needed
+
+    plt.figure(figsize=(15, rows * 5))  # Adjust figure size accordingly
+    for i, index in enumerate(indices):
+        plt.subplot(rows, cols, i + 1)  # Create subplots dynamically
+        plt.imshow(X_train[index])
+        plt.title(f"Class: {y_train[index][0]}")
+        plt.axis('off')  # Hide axes
+    plt.show()
+
+convert y_train to categorical form so that while optimizing model use categorical_crossentropy in loss parameter
+model.compile(optimizer='SGD',
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
+
+np.argmax(model.predict(X_test_scaled)[0])
+class_probability_at_index_3 = model.predict(X_test_scaled)[0][3]
+
+%%timeit -n1 -r1 
+with tf.device('/CPU:0'):
+    cpu_model = get_model()
+    cpu_model.fit(X_train_scaled, y_train_categorical, epochs=1)
+
+def get_model():
+    model = keras.Sequential([
+            keras.layers.Flatten(input_shape=(32,32,3)),
+            keras.layers.Dense(3000, activation='relu'),
+            keras.layers.Dense(1000, activation='relu'),
+            keras.layers.Dense(10, activation='sigmoid')    
+        ])
+
+    model.compile(optimizer='SGD',
+                  loss='categorical_crossentropy',
+                  metrics=['accuracy'])
+    return model
+
+Formula:
+
+Number of Input Features=Width × Height × Number of Color Channels
+Number of Input Features=Width×Height×Number of Color Channels
+Substituting the values:
+Number of Input Features =32 × 32 × 3
+Number of Input Features=32×32×3
+
+
+http://localhost:8888/notebooks/customer_churn.ipynb=========================================
+read csv file
+drop those colunm that is not required in prediction like customerid
+check data types for conversion we observe two types of charges MonthlyCharges and TotallyCharges that arise conflict
+so we check both one of them and we find totalcharges element in string ,so first we convert it into number(no) remove null from totalcharges https://www.debug.school/rakeshdevcotocus_468/how-to-convert-string-to-numeric-for-data-cleaning-4la3
+checking space single rows of particular colum then no of Identifying Rows Without Spaces and Remove rows with space in TotalCharges
+https://www.debug.school/rakeshdevcotocus_468/how-to-handling-space-and-null-value-for-data-cleaning-3123
+customer churn prediction visualization by draw hist plot for tenure and monthly charges.
+find unique value in each column to see value are in categorical or number format is there need to apply encoding or replace.
+find unique value in categorical column to see value are in categorical or number format is there need to apply encoding or replace.
+to encodeing use replace method for categorical column
+for gender use replace method to convert into number as it have only 2 value male and feamale
+for InternetService apply dummies as it have more than 2 value
+some colunms require scaling as it have very high value
+use df.head or df.sample to check some column value
+seprate target colunm and feature colunm
+apply Train test split method
+Build a model (ANN) in tensorflow/keras
+no of input or neuron and no of hidden layer decided by checking train and test shape
+evaluate model how much accurate our model for loss and accuracy
+calculate prediction by generated model through neural n/w
+write a code snippet takes a list of predicted probabilities and converts them into binary predictions based on a threshold of 0.5
+apply some condition based on prediction
+determine cm matrix
+calculate precision,recall and accuracy
+
+Question=================
+How to convert particular col all value string to number  using pd.numeric
+checking space single rows of particular column
+Total no of Identifying Rows Without Spaces for particular column
+how to remove rows that contain space in particular column
+how to filter or extracting  some value in col based on other colm condition
+how to draw hist plot
+how to find unique value in each column
+how to convert categorical data into number using replace
+how to convert categorical data into number using dummies
+how to perform scaling for some colm whose elements is very high
+write a code snippet takes a list of predicted probabilities and converts them into binary predictions based on a threshold of 0.5
+how to determine no of input shape ,hidden layer while building a neural network
+how to determine prediction 
+how to calculate precision,recall and accuracy
+
+
+
+Answer============================
+pd.to_numeric(df.TotalCharges,errors='coerce').isnull()
+df.iloc[488].TotalCharges
+df[df.TotalCharges!=' '].shape
+df1 = df[df.TotalCharges!=' ']
+df1[df1.Churn=='No']
+for column in df:           
+                print(f'{column}: {df[column].unique()}') 
+def print_unique_col_values(df):
+       for column in df:
+            if df[column].dtypes=='object':
+                print(f'{column}: {df[column].unique()}') 
+print_unique_col_values(df1)
+
+
+yes_no_columns = ['Partner','Dependents','PhoneService','MultipleLines','OnlineSecurity','OnlineBackup',
+                  'DeviceProtection','TechSupport','StreamingTV','StreamingMovies','PaperlessBilling','Churn']
+for col in yes_no_columns:
+    df1[col].replace({'Yes': 1,'No': 0},inplace=True)
+
+df1['gender'].replace({'Female':1,'Male':0},inplace=True)
+
+df2 = pd.get_dummies(data=df1, columns=['InternetService','Contract','PaymentMethod'])
+df2.columns
+
+y_pred = []
+for element in yp:
+    if element > 0.5:
+        y_pred.append(1)
+    else:
+        y_pred.append(0)
+
+http://localhost:8888/notebooks/precision_recall.ipynb###########################
+Define precision,recall,accuracy,F1 score
+formulla for precision,recall,accuracy,F1 score
+
+
+http://localhost:8888/notebooks/dropout.ipynb#####################################
+convert categorical data of target variable y into format
+apply train and test split method
+create a neural network Model without Dropout Layer
+evaluate model to check train and test accuracy
+make predictions on a test dataset by generated model
+create classification report to check precision recall and accuracy
+create a neural network Model with Dropout Layer and repeat the process
+
+Question================
+why we use dropout layer
+Meaning of  keras.layers.Dropout(0.5),
+how to use dropoutlayer while building neural network
+
+
+
+===============================YOLO============================================
+https://www.debug.school/rakeshdevcotocus_468/how-object-detection-works-in-yolo-architecture-in-deep-learning-30ae
+SEE SCREEN SHOT FOLDER READ each blog image and image summary in each blog
+after theory read and image summary must see yolo programming code steps
+
+==============================RNN==============================================
+https://www.debug.school/rakeshdevcotocus_468/model-architecture-of-rnn-kno
+SEE SCREEN SHOT FOLDER READ each blog image and image summary in each blog
+after theory read and image summary must see yolo programming code steps
+
+========================
+https://www.debug.school/rakeshdevcotocus_468/what-are-causes-and-solution-for-vanishing-and-exploding-gradient-problems-in-rnn-3975
+SEE SCREEN SHOT FOLDER READ each blog image and image summary in each blog
+after theory read and image summary must see yolo programming code steps
+====================================RNN/LSTM/GRU===================================
+https://www.debug.school/rakeshdevcotocus_468/difference-between-rnn-lstm-and-gru-4aj9
+
+
+===========word embedding/wordvec=========================
+SEE SCREEN SHOT FOLDER READ each blog image and image summary in each blog
+https://www.debug.school/rakeshdevcotocus_468/why-we-use-word-embedding-how-it-differs-from-ohe-44f7
+http://localhost:8888/notebooks/supervised_word_embeddings.ipynb
+
+
+==================================wrd2vec============================
+SEE SCREEN SHOT FOLDER READ each blog image and image summary in each blog
+https://www.debug.school/rakeshdevcotocus_468/explain-word2vec-captures-their-meanings-similarities-and-relationships-of-text-f86
+http://localhost:8888/notebooks/word2vec_gensim.ipynb
+
+
+==============tensorflow pipeline====================
+SEE SCREEN SHOT FOLDER READ each blog image and image summary in each blog
+http://localhost:8888/notebooks/tf_data_pipeline.ipynb
+https://www.debug.school/rakeshdevcotocus_468/listout-tensorflow-and-tensorflow-pipeline-commands-1gi6
+https://www.debug.school/rakeshdevcotocus_468/how-tensorflow-pipeline-handle-large-dataset-efficiently-2k03
+https://www.debug.school/rakeshdevcotocus_468/how-tensorflow-pipeline-is-used-in-neural-network-4g37
+Prompt technique==in this code prdiction is missing how to classify after getting loss and accuracy take one given example and genrated lodel classify
+============================BERT==========================
+SEE SCREEN SHOT FOLDER READ each blog image and image summary in each blog
+http://localhost:8888/notebooks/BERT_email_classification-handle-imbalance.ipynb
+https://www.debug.school/rakeshdevcotocus_468/difference-between-bert-and-word-2vec-p11
+https://www.debug.school/rakeshdevcotocus_468/how-to-embedding-sentence-to-vector-form-using-bert-model-463p

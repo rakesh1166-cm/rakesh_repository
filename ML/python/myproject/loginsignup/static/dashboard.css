@@ -1,0 +1,27 @@
+.sidebar {
+    width: 200px;
+    height: 100vh;
+    background: #f1f1f1;
+    float: left;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 10px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.content {
+    margin-left: 200px;
+    padding: 20px;
+}

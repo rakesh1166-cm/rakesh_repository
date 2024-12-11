@@ -1,0 +1,586 @@
+http://localhost:8888/notebooks/Linear_Regression.ipynb
+1.read csv file
+2.draw data points using scatter plot
+3.seprate x and y to trained in LR model convert x into 2-dimesional array
+4.create LR model object
+5 now trained x and y on LR object
+6.predict price of particular area value
+7.predict price all value of converted 2dimensional x column
+8. we can predict price of area of different dataset using above generated model or program
+9. draw best fit on datapoints using scatter plot take y as calculated by step7
+#Machine Learning With Python: Linear Regression With One Variable
+1.read csv file
+2.preprocess the dataset fill null value on numerical col not categorical type
+3.draw data points of multiple col is used for training except target colunm on subplots using for loop
+4.seprate x and y to trained in LR model convert x into 2-dimesional array
+5.create LR model object
+6 now trained x and y on LR object
+7.predict price of single data or row based on multiple independent variable(column) area, bedroom, age.
+8.predict price of all data or  all row after converting 2dimensional of multiple independent
+ variable(column) area, bedroom, age
+9. we can predict price of multiple independent variable(column) area, bedroom, age of different dataset using
+ above generated model or program
+10. draw best fit on datapoints of multiple col is used for training except target colunm on subplots using for loop
+ using scatter plot take y as calculated by step8
+11. for better observation draw different find of plot bar,dist,kde,reg plot  of prediction calculated step8
+
+http://localhost:8888/notebooks/Linear_Regression.ipynb
+Question:(JUST READ)
+Different way to convert to colm of data table as x to 2-dimensional
+different way to fill null value
+how to determine dimension
+how to determine no of row and no of col of data frame  using shape
+how to determine no of row of particular colm data frame  using shape
+step to draw datapoints of multiple col on subplots using for loop
+how to save or read a model
+how to draw dynamic label xlabel while draw subplots
+how to save generated model or program and then load and read
+
+
+http://localhost:8888/notebooks/Linear_Regression_Excercise.ipynb
+1.read csv file
+2.preprocess the dataset fill null value on numerical col and fill zero for experience like Nan and column 
+represents a value where "zero" has a meaningful interpretation
+3.draw data points of multiple col is used for training except target colunm on subplots using for loop
+4.seprate x and y to trained in LR model convert x into 2-dimesional array
+5.create LR model object
+6 now trained x and y on LR object
+7.predict price of single data or row based on multiple independent variable(column) area, bedroom, age.
+8.predict price of all data or  all row after converting 2dimensional of multiple independent variable(column) area, bedroom, age
+9. we can predict price of multiple independent variable(column) area, bedroom, age of different dataset
+ using above generated model or program
+10.Draw best fit on datapoints of multiple col is used for training except target colunm on subplots using for loop
+   using scatter plot take y as calculated by step8
+11. while draw best fit line first sorted the column then draw best fit line
+12.for better observation draw different find of plot bar, dist, kde, reg plot  of prediction calculated step8.
+
+
+http://localhost:8888/notebooks/Linear_Regression_Excercise.ipynb
+Question:(JUST READ)
+1. how to fill particular word like zero,one any word.
+2. how to convert word alphabetic char to  numerical value
+3.how to Convert to 2D NumPy array
+4.how to sort data table by particular colunm
+
+http://localhost:8888/notebooks/Encoding.ipynb
+Encoding using Dummy variable=========
+1.read csv file
+2. encoding categorical colm town using dummy variable in binary format like 1000,1001
+3. drop one of category from town colunm 
+4.seprate x and y to trained in LR model convert x into 2-dimesional array
+5.create LR model object
+6 now trained x and y on LR object
+7.predict price of single data or row based on multiple independent variable(column) area, town
+like  3400 sqr ft home in west Windsor even i dropped in step3 west Windsor based on combination
+8.predict price of all data or  all row after converting 2dimensional of multiple independent variable(column)area, town
+
+
+Encoding using LabelEncoder=========
+1.encoding categorical colunm town using label encoding to convert numerical format 0,1,2,3
+2.after label encoding seprate x and y 
+3. now create object of one hot encoding  with parameter 
+4The transformed data is then stored back in X
+5.drop one of category from town colunm 
+6.now trained x and y on LR object
+7.predict price of single data or row based on multiple independent variable(column) area, town
+like  3400 sqr ft home in west Windsor even i dropped in step3 west Windsor based on combination
+
+http://localhost:8888/notebooks/Encoding.ipynb
+Question
+1.how to check column name
+2.how to apply concat,merge,join
+3.how to drop multiple column
+4..how to Convert multiple colunm to 2D NumPy array
+5.how to convert dummy variable true false as integer type
+
+http://localhost:8888/notebooks/train_test_split.ipynb
+1.read csv file
+2.draw data points using scatter plot
+3.seprate x and y to trained in LR model convert x into 2-dimesional array
+4.create LR model object
+5 now trained x and y on LR object
+6.predict X_test
+7.calculate model accuracy by how well fit model on datapoints using score clf.score(X_test, y_test)
+
+
+http://localhost:8888/notebooks/Logistic.ipynb
+1.read csv file
+2.draw bar plot using pd.crosstab  and scatter plot to analyze data points classification
+3.calculate counts of target column for classification
+4.draw different type of plot hisr,bar,scatter to show counts classification calculated  by step3
+5.calculate counts of target column based on some independent variable filter for classification
+6.check wheather dataset are normally distributed or not for outlier using dist plot,box plot
+7.seprate x and y to trained in LR model-logistic regression convert x into 2-dimesional array
+8.create LR model object
+9.now trained x and y on LR object
+10.calculate sigmoid fun
+11.predict insurance bought of X_test
+12.count prediction calculated in step11
+13.draw bar plot to show count prediction in step12
+14. draw bar plot using pd.crosstab for X_test.age and y_predicted)
+
+http://localhost:8888/notebooks/Logistic.ipynb
+QUESTION
+1.how to draw bar plot using crosstab and how to draw scatter plot
+2. count ,mean,median show all statics information bydescribe
+3.how to counts target column data
+4.how to counts target column data based on independent variable filter
+
+http://localhost:8888/notebooks/logistic_exercise.ipynb
+1.read csv file
+2. check how many total no of zero in all independent variable(column)
+3.check sum of all independent variable(column)
+4.check total no of unique value in particular independent variable(column)
+5.check total no of unique value  of all independent variable(column)
+6.check total no of unique value for each value of all independent variable(column)
+7.determine shape or total no of row and colunm based on target col value
+8.draw bar plot and scatter plot of each colm using pandas cross tab to analyze data points classification
+9.group by target variable of main dataframe then draw bar plot of this output using pandas crosstab
+10.draw bar plot an of each colm using pandas cross tab to analyze data points classification after grouping that i get dataframe
+11.select some independent variable as x
+12 encode target col using dummy varible
+13.apply train and test and determine prediction
+14.determine classification score and model score 
+15 draw heatmap and barplot
+
+
+http://localhost:8888/notebooks/logistic_exercise.ipynb
+QUESTION==
+1. check how many total no of zero in all independent variable(column)
+2.check sum of all independent variable(column)
+3.check total no of unique value in particular independent variable(column)
+4.check total no of unique value  of all independent variable(column)
+5.check total no of unique value for each value of all independent variable(column)
+6.determine shape or total no of row and colunm based on target col value
+
+http://localhost:8888/notebooks/logistic_iris.ipynb
+1.read csv file
+2.group by target variable of main dataframe then draw bar plot of this output using pandas crosstab
+3.apply train and test and determine prediction
+4..determine classification score and model score 
+
+http://localhost:8888/notebooks/logistic_multiclass.ipynb
+1.read or load digits
+2.show all col of loaded digits
+3.determine length of digits
+4.determine x and y as digits.data and digits.target resp.
+5.apply train and test and determine prediction
+6..determine classification score and model score 
+
+http://localhost:8888/notebooks/logistic_multiclass.ipynb
+determine length of digits
+
+
+http://localhost:8888/notebooks/decisiontree.ipynb
+#convert text value of col into numeric format using label encoding,map method or lambda 
+#trained the variable and generate model
+# find prediction then chack accuracy using score
+
+http://localhost:8888/notebooks/decisiontree.ipynb
+QUESTION
+How to convert text value of col into numeric format using label encoding,map method or lambda 
+
+
+http://localhost:8888/notebooks/Dt_exercise.ipynb
+#select some independent variable that is responsible for to predict if person would survive or not,
+# from step2 check how many total no of zero in all independent variable(column)
+#convert text value of col into numeric form using map method or lambda
+#trained the variable and generate model
+# find prediction then check accuracy using score
+
+
+http://localhost:8888/notebooks/Dt_exercise.ipynb
+QUESTION
+convert text value of col into numeric form using map method or lambda
+
+
+http://localhost:8888/notebooks/svm.ipynb
+#load iris data.it is in dictionary form here u can apply all python dictionary programming
+#convert dictionary some key into dataframe
+#filter data frame based on target value
+#add extra colunm in existing dataframe using lambda function
+#trained the varible and generate model
+#find prediction then chack accuracy using score
+#check accuracy of model based on regulization,gamma and kernel
+
+
+http://localhost:8888/notebooks/svm.ipynb
+QUESTION
+how to convert dictionary some key into dataframe
+how to filter data frame based on target value
+add extra colunm in existing dataframe using lambda function
+
+
+http://localhost:8888/notebooks/svm_exercise.ipynb
+#load iris data.it is in dictionary form here u can apply all python dictionary programming
+#convert dictionary some key into dataframe
+#trained the varible and generate model
+#find prediction then chack accuracy using score
+#check accuracy of model based on regulization,gamma and kernel
+
+
+http://localhost:8888/notebooks/random_forest.ipynb
+#create data frame from elements digits dictionary digits.data
+#after creating dataframe add one target colunm
+#trained the varible and generate model
+#trained the model with different parameter like n_estimators=20 and n_estimators=40 where n_estimators is
+ no of tree
+#find prediction then check accuracy using score
+#find confusion matrix
+#draw heatmap how much model is accurate
+
+
+http://localhost:8888/notebooks/random_forest.ipynb
+QUESTION
+how to add colm in existing dataframe
+using different n_estimators how to trained the model
+
+
+http://localhost:8888/notebooks/k_fold.ipynb
+#load digits
+##trained the varible and generate model
+# use different model(logistic,svm,RF) with different parameter to check accuracy using score 
+#apply k fold cross validation
+#use different splits like n_splits=3 means  if we have 100 dataset mens 3 splits means 33% 3 fold and each fold divide 3 times
+#find train indices and test indices in each fold
+#create score function to check accuracy of different model
+#create a list that contains score of different model in each fold
+#create a list that contains score of different model in each fold using cross_val_score
+#Parameter tunning  by taking avg of score each fold  in different model
+
+http://localhost:8888/notebooks/k_fold.ipynb
+QUESTION
+#how to find k fold cross validation
+#how to find train indices and test indices in each fold
+#how to create score function to check accuracy of different model and then apply in different model
+#create a list that contains score of different model in each fold
+#how to find cross_val_score
+#how to tunning parameter 
+#how to taking avg of score using numpy
+
+
+http://localhost:8888/notebooks/k_meanscluster.ipynb
+#draw scatter plot of age and income as name has no role to predict
+#create kmeans object and predict cluster for each datapoints
+#add cluster colunm in existing dataframe
+#based on no of cluster create no of dataframe
+#find centroid for each cluster with respect xaxis  and y axis
+#draw scatter plot for each dataframe on same plot
+#Preprocessing using min max scaler tocentroid for each cluster with respect xaxis  and y axis
+#find the value of sse then append all value in list
+#draw all sse value using line plot with marker
+
+
+http://localhost:8888/notebooks/k_meanscluster.ipynb
+QUESTION
+#how to predict cluster for each datapoints using kmeans object
+#how to create seprate dataframe based on cluster column value
+#how to find centroid for each cluster with respect xaxis  and y axis
+#how to draw scatter plot for multiple dataframe
+#how to use min max scalar to centroid for each cluster with respect xaxis  and y axis
+#how to find the value of sse then append all value in list
+# how to draw all sse value using line plot with marker
+
+http://localhost:8888/notebooks/hyperparmeter_tunning.ipynb
+#create dataframe from iris flower dataset and add one colunm flower as target colunm
+#Approach 1: Use train_test_split and manually tune parameters by trial and error
+#use svm model take kernal and gamma as parameter and find model score
+#Approach 2: Use K Fold Cross validation
+#Manually try suppling models with different parameters to cross_val_score function with 5 fold cross validation
+#Above approach is tiresome and very manual. We can use for loop as an alternative
+#take no of for loop and same no of array is equal to no of parameter
+#From above results we can say that rbf with C=1 or 10 or linear with C=1 will give best performance
+#Approach 3: Use GridSearchCV
+#GridSearchCV model ,different parameter in array form,cv and so on and get cv_results_
+# from cv_results_ create dataframe
+#then find best parameter, best score
+#GridSearchCV does exactly same thing as for loop above but in a single line of code
+#Use RandomizedSearchCV to reduce number of iterations and with random combination of parameters. This is useful 
+when you have too many parameters to try and your training time is longer. It helps reduce the cost of computation
+# how to selct best models
+#How about different models with different hyperparameters?
+# craete dictionary of dictionary nested form of model parameter
+# iterate each nested dictionary using for loop then apply gridsearch cv in each nested dictionary and append in 
+list model,best score and best parameter
+# append data in list of dictionary
+
+
+http://localhost:8888/notebooks/hyperparmeter_tunning.ipynb
+QUESTION
+how to add new column using lambda function
+how to get avg score of cross val score with different parameter using nested for loop
+how to get cv_results using grid search cv
+how to append models ,best parameter ,best score in list of dictionary using grid search cv
+
+http://localhost:8888/notebooks/linear_regulization.ipynb
+#check each colm contain how many unique value
+# select some independent feature that predicts our data
+#find how many row and col in each dataframe
+#Checking for Nan values 
+#Handling Missing values some of colm fill by zero while others by mean
+#apply encoding for categoriacl data
+#Let's bifurcate our dataset into train and test dataset
+#Let's train our Linear Regression Model on training dataset and check the accuracy on test set
+#Here training score is 68% but test score is 13.85% which is very low
+#Normal Regression is clearly overfitting the data, let's try other models
+#Using Lasso (L1 Regularized) Regression Model and ridge a
+# find score and compare which is better
+
+
+in kfold==> try test_size=0.3,0.2 then 0.4
+=======================================================how to test which ML model is used================
+select  test size each time different
+model.score check for different type of model
+use k fold,stratified instead of train and test split
+apply cross validation score
+in RF n_estimator=40 means 40 tree
+
+k fold cross validation==
+OPTION1== all dataset is used for training then same all dataset is used for testing later means
+ we teach 100 math question same 100 question is for testing is very bad idea then student already now all answer
+OPTION2==split dataset for training and testing 70 question we teach and 3o question for testing is also bad idea if 
+we teach geometry and asked question algebra  is very difficult to answer
+OPTION3== K FOLD cross validation 100 question divide  5 parts each contain 20 question, first iteration first 20 for test
+remaining 80 used for training,
+second iteration first 20 is for training then next 20 for testing and remaining60  also for training likewise we follow approach
+lastly we find avg of all iteration and that is called cross_val_score
+
+http://localhost:8888/notebooks/Naive_baye.ipynb
+#select some of independent feature for train data
+#convert text data into numeric using mapping, lambda,label encoder,or dummies here we are using dummies variable
+#if we use dummies drop one of colunm
+#check any null value is there or not if is there then fill it 
+#use GaussianNB naive classifier as dataset are continous
+#then predict score
+#predict x_test prob whether they are survived or not array 1st element denote0 2nd element denote1
+#check cross val score use GaussianNB for 5 fold/parts
+
+
+http://localhost:8888/notebooks/Naive_baye.ipynb
+QUESTION
+ho w model predict probability of x_test
+
+http://localhost:8888/notebooks/naive_spam.ipynb
+#filter target colunm and describe to analyze data
+#convert target colunm into numeric from using lambda
+#convert message into document term matrix form
+#now train data using multimonial naive bayes clasifier where X_train_count take parmeter as x
+# after generated model or program predict any email text is spam or not
+################using sklearn pipeline#####################
+#above step performed using pipeline
+
+http://localhost:8888/notebooks/naive_spam.ipynb
+QUESTION
+https://www.debug.school/rakeshdevcotocus_468/how-to-perform-data-preprocessing-and-modeling-steps-using-sklearn-pipelining-in-ml-3d5h
+https://www.debug.school/rakeshdevcotocus_468/how-to-preprocessing-transformations-to-different-columns-within-
+a-dataset-using-columntransformer-with-pipeline-4jdb how to perform pipeline with different preprocess and models
+how to preprocessing-transformations-to-different-columns using column transformer
+how to  describe dataframe  after groupby target column
+how to convert matrix form using count vectorizer
+write code of pipeline
+
+
+Naive Bayes theorem==convert text into numeric  is a matrix of vector
+in pipeline ==2 step convert my text col(msg) into vector matrix form using countvectorizor then use model multimonial to predict it 
+
+HYPERPARAMETER TUNNING==============
+which model we choose 
+the process of choosing optimal parameter is hyperparameter tunning eg ==SVM(kernel,gamma,C)
+how to hyperparameter tunning== calculate cross_val_score of different model by taking different parameter in array apply 
+nested for loop then find cross_val_score and avg score take inested for loop what did same thing exactly do gridsearch 
+cv we fpply paermutaion and combination of parameter then we find score
+DISADVANTAGE==== of gridsearchcv== if we have large no of parameter for  model then computation cost is very 
+high so we follow approach randomized search cv
+
+kmeans clusetring==  unstructured data ,unsupervised learning no target variable specified .challenges to find
+ what is the value of k means no of clusterfirst select centroid then adjust centroid to form cluster.
+ different person different opinion how many cluster should have so we calculate
+sSSE value for each cluster the we sum of sse and draw graph using elbow method we conclude where is no of cluster is best
+
+pca= decide how much usefull information so he remove unnecessary dataponts whose min value 0 after df.describe. 
+when pca ncomponent is 2 then mots2 important feature extracted but accuracy is low
+ensamble technique== to overcome the prob of bias and variance,overfitting so we call multiple friends/models to take descision on majority of vote
+
+=====FAST API=========
+https://www.youtube.com/watch?v=52c7Kxp_14E
+=========mongo db============
+https://www.youtube.com/watch?v=J6mDkcqU_ZE
+
+
+
+=====================linear===============
+#read data frame,convert independent feature to 2 dimensional,trained data and generate model then ptredict data,calculate y = mx+c
+# then predict data from different dataset with generated model
+# draw best fit line on scatter plot
+=====================
+#exersise =question== draw best fit line on multiple independent feature
+#read data frame,convert independent feature to 2 dimensional,then fill by zero or median/mode/mean
+#trained data and generate model then predict data,calculate y = mx+c
+#Find price of home with 3000 sqr ft area, 3 bedrooms, 40 year old or Find price of home with 2500 sqr ft area, 4 bedrooms, 5 year old
+#draw best filt line b/w each independent feature vs target colm with different color and marker using for loop on subplots 
+# draw bar plot to  compare actual price and predicted price 
+# draw dist plot to check normal distribution
+========# follow steps of http://localhost:8888/notebooks/Linear_Regression.ipynb additional below
+#create dummy variables  through command without combine then create dateframe then concat
+# draw best fit line among multiple independent feature after sorting dataframe based on specific column
+============================
+#if multiple value are repeated in same col then check unique ness or Checking for Nan values or location wise eg
+#dataset.isna().sum() or dataset.nunique() or df[40:60] fill by 0 some col and some median 
+# if huge difference between test score and training score then apply lasso and  ridge score and see difference with alpha and max_iter parameter
+
+====================================logistic====================================
+http://localhost:8888/notebooks/Logistic.ipynb
+#for classifiction prob draw barplot using crosstab, Or scatter plot 
+#analyze how many type of each data in target colunm using value counts or left = df[df.left==1]
+ thenleft.shape Or groupby target col display dataframe# use value counts of targetvalue  to 
+show distribution then draw bar plots  to show value counts how many row are 0  and how many row are1
+#for outlier draw box plot, and for normal distribution draw box plot
+# after predicction of x_test draw bar plot  actual and prediction and also draw bar plot of value counts of x_test prediction
+\==============================
+##for classifiction prob where multiple independent feature are there draw multiple barplot using crosstab, 
+on subplots Or scatter plot 
+##analyze how many type of each data in target colunm using value counts or left = df[df.left==1] thenleft.shape
+ Or groupby target col display dataframe
+#calculate  sum of each col using for loop
+#calculate counts of each value  in col and encoding text value of independent feature
+#draw heat map of confusion matrix to check accuracy of model
+==========================================
+#digits data and digits target as selct for train and test
+
+===========================ENCODING=========================
+#convert text data into numerical format
+#use dummy varible,label,ohe.through colunm transformer
+#fill by zero in linear regression see
+# map and lambda===http://localhost:8888/notebooks/decisiontree.ipynb
+#replace ==http://localhost:8888/notebooks/bagging_exercise.ipynb
+
+==================Decision tree====================
+http://localhost:8888/notebooks/decisiontree.ipynb
+#convert text data into numeric value using 3 label encoding object or map method or lambda
+#then train data and after that predict actual and predicted value
+#Is salary of Google, Computer Engineer, Masters degree > 100 k ?
+
+=========
+
+#convert text data into numeric value using 3 label encoding object or map method or lambda
+# check first 10 value of any col df[:10]
+#then train data and after that predict actual and predicted value
+# check length of x_test
+#Is salary of Google, Computer Engineer, Masters degree > 100 k ?
+
+=========================svm==============================
+#crate data frame  after raeding iris dataset in dictionary form
+#filter targe data by df[df.target==2].head() or loc
+#add extra colunm in existing dataframe using lambda function
+##then train data and after that predict actual and predicted value
+# apply different parameter and check accuracy  value of C=1 OR c=10  ,keranl,gamma parameter and analyze model score
+===========
+#apply keranal and rbf parameter  to check model accuracy
+
+============================RANDOM FOREST=============
+http://localhost:8888/notebooks/random_forest.ipynb
+#create dataframe from digits 
+# then train data and after that predict actual and predicted value
+#check model score with different parameter of n_estimators=20 no of DT
+# draw heatmap of model score accuracy
+==================KFOLD==================
+#trained the varible and generate model
+# use different model(logistic,svm,RF) with different parameter to check accuracy using score 
+#apply k fold cross validation
+#use different splits like n_splits=3 means  if we have 100 dataset mens 3 splits means 33% 3 fold and each fold divide 3 times
+#find train indices and test indices in each fold
+#create score function to check accuracy of different model
+#create a list that contains score of different model in each fold
+#create a list that contains score of different model in each fold using cross_val_score
+#Parameter tunning  by taking avg of score each fold  in different model
+#Parameter tunning in RF by taking differnt n_estimator
+
+
+==========HYPERPARAMETER TUNNING========================
+##Approach 1: Use train_test_split and manually tune parameters by trial and error
+#Approach 2: Use K Fold Cross validation
+#Manually try suppling models with different parameters to cross_val_score function with 5 fold cross validation
+#Above approach is tiresome and very manual. We can use for loop as an alternative
+#GridSearchCV does exactly same thing as for loop above but in a single line of code
+#Use RandomizedSearchCV to reduce number of iterations and with random combination of parameters. 
+This is useful when you have too many parameters to try and your training time is longer. It helps reduce the cost of computation
+#How about different models with different hyperparameters? using dictionary and gridsearchcv
+=================kmeans clusterinh========================
+#draw scatter plot of age and income as name has no role to predict
+#create kmeans object and predict cluster for each datapoints
+#add cluster colunm in existing dataframe
+#based on no of cluster create no of dataframe
+#find centroid for each cluster with respect xaxis  and y axis
+#draw scatter plot for each dataframe on same plot
+#Preprocessing using min max scaler to adjust centroid  among data points
+#find the value of sse then append all value in list
+#draw all sse value using line plot with marker
+=====================knaive=================
+#preprocessing steps folloow select some independent feature, encoding,fill nan value
+# traind and generate model using gaussian nb
+#get model score
+# find cross val _score foe cv =5
+===========
+#groupby describe dataframe then use encoding spam colm throgh lambda
+# convert msg into matrix form using count vectorizer
+# use pipeline to calculate  clf
+===============PCA================
+#create data frame
+#scaled indepedent feature
+#apply logistic regression and get model score
+# extraxt important feature from  trained data #Use components such that 95% of variance is retained
+#then again apply logistic regression and get model score and compare model score
+
+================MUST SEE BLOG===============
+https://www.debug.school/rakeshdevcotocus_468/how-to-perform-data-preprocessing-and-modeling-steps-using-sklearn-pipelining-in-ml-3d5h
+https://www.debug.school/rakeshdevcotocus_468/how-to-preprocessing-transformations-to-different-columns-within-a-dataset-using-columntransformer-with-pipeline-4jdb
+======================================================================================================================================
+https://dev.to/francescoxx/build-a-crud-rest-api-in-python-using-flask-sqlalchemy-postgres-docker-28lo
+https://www.askpython.com/python-modules/flask/flask-crud-application
+https://dev.to/francescoxx/build-a-crud-rest-api-in-python-using-flask-sqlalchemy-postgres-docker-28lo
+
+
+
+
+
+======PYCHARM==================
+https://www.youtube.com/watch?v=KN6vHY-3F9E
+
+======how to run flask on pycharm=======
+https://www.youtube.com/watch?v=XHQ6i9vvnlg
+
+https://www.youtube.com/watch?v=l9gXW6MeHXI
+https://www.youtube.com/watch?v=tBmRjtoEBzw
+
+
+
+================REVISION=============================
+https://www.debug.school/rakeshdevcotocus_468/python-framework-error-and-solution-4a66
+https://www.debug.school/rakeshdevcotocus_468/crud-in-fastapi-3fd4
+https://www.debug.school/rakeshdevcotocus_468/how-to-perform-crud-in-flask-52oi
+https://www.debug.school/rakeshdevcotocus_468/how-to-install-flask-and-run-application-3kb1
+https://www.debug.school/rakeshdevcotocus_468/difference-between-fastapi-and-flask-and-django-4b66
+
+====================skimage and pil================
+https://scikit-image.org/docs/stable/user_guide/transforming_image_data.html
+https://scikit-image.org/docs/stable/api/skimage.metrics.html#skimage.metrics.structural_similarity     ==(search topicif u do not get anything)
+https://www.tutorialspoint.com/scikit-image/scikit-image-multi-images.htm
+https://www.javatpoint.com/python-pillow
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

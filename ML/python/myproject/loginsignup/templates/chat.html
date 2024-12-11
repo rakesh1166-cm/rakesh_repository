@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+</head>
+<body>
+    <h1>Chat with  gpt using api end point</h1>
+    <form method="POST" action="{% url 'chatapi' %}">
+        {% csrf_token %}
+        <input type="text" name="message" required>
+        <button type="submit">Send</button>
+    </form>
+    {% if generated_message %}
+        <p>Generated Message: {{ generated_message }}</p>
+    {% endif %}
+
+    <h2>Chat History:</h2>
+    {% for chat in chat_data %}
+        <p>User Input: {{ chat.message }}</p>
+        <p>Generated Message: {{ chat.generated_message }}</p>
+        <hr>
+    {% empty %}
+        <p>No chat history available.</p>
+    {% endfor %}
+</body>
+</html>

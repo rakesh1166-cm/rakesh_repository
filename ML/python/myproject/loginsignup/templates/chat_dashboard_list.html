@@ -1,0 +1,435 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block header %}
+    <h1>Chatbot dashboard</h1>
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+    .dashboard {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .dashboard-icon {
+        width: 30px;
+        height: 30px;      
+        margin-right: 10px;
+    }
+
+    .dashboard-name {
+        font-size: 16px;
+        font-weight: bold;
+    }
+</style>
+<form>   
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-question-circle dashboard-icon"></div>
+                <div class="dashboard-name"><a href="{% url 'question_analysis' %}">Q and A</a></div>
+            </div>
+        
+          
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-pen dashboard-icon"></div>
+                <div class="dashboard-name"><a href="{% url 'grammer_correction' %}">Grammer Correction</a></div>
+            </div>
+
+        </div>      
+    </div>   
+    
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-transgender dashboard-icon"></div>
+                <div class="dashboard-name"><a href="{% url 'summarize_gender' %}">Summarize for second gender</a></div>
+            </div>
+        
+          
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-comment dashboard-icon"></div>
+                <div class="dashboard-name"><a href="{% url 'natural_api' %}">natural language to open Ai Api</a></div>
+            </div>
+
+        </div>      
+    </div>    
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-keyboard dashboard-icon"></div>
+                <div class="dashboard-name"><a href="{% url 'text_command' %}">Text to command</a></div>
+            </div>
+        
+          
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-globe dashboard-icon"></div>
+                <div class="dashboard-name"><a href="{% url 'english_translate' %}">English to other language</a></div>
+            </div>
+
+        </div>      
+    </div>    
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-money-bill-wave dashboard-icon"></div>
+                <div class="dashboard-name"><a href="{% url 'natural_language_stripe' %}">Natural language to stripe api</a></div>
+            </div>
+        
+          
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-sql-translate"></div>
+                <div class="dashboard-name"><a href="{% url 'sql_translates' %}">sql translate</div>
+            </div>
+
+        </div>      
+    </div>    
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-parse"></div>
+                <div class="dashboard-name"><a href="{% url 'parse_unstructured_data' %}">parse unstructured data</a></div>
+            </div>
+        
+          
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-classification"></div>
+                <div class="dashboard-name"><a href="{% url 'classification' %}">classification</a></div>
+            </div>
+
+        </div>      
+    </div>    
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-language"></div>
+                <div class="dashboard-name"><a href="{% url 'python_to_natural_language' %}">python to natural language</a></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-smile"></div>
+                <div class="dashboard-name"><a href="{% url 'movie_to_emoji' %}">movie to emoji</a> </div>
+            </div>
+
+        </div>      
+    </div> 
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-calculator"></div>
+                <div class="dashboard-name"><a href="{% url 'calculate_time_complexity' %}">Calculate time complexity</a></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-code"></div>
+                <div class="dashboard-name"><a href="{% url 'translate_programming_language' %}">Translate programming language</a></div>
+            </div>
+
+        </div>      
+    </div> 
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-tweet"></div>
+                <div class="dashboard-name"><a href="{% url 'advanced_tweet_classifier' %}">Advanced tweet classifier</a></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-code"></div>
+                <div class="dashboard-name"><a href="{% url 'explain_code' %}">Explain code</a></div>
+            </div>
+
+        </div>      
+    </div> 
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-keyboard"></div>
+                <div class="dashboard-name"><a href="{% url 'keywords' %}">keywords</a></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-factual-answering"></div>
+                <div class="dashboard-name"><a href="{% url 'factual_answering' %}">Factual answering</a></div>
+            </div>
+
+        </div>      
+    </div> 
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-ad-form-product-description"></div>
+                <div class="dashboard-name"><a href="{% url 'ad_form_product_description' %}">Ad form product description</a></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-Tl-Dr-summarization"></div>
+                <div class="dashboard-name"><a href="{% url 'summarization' %}">Tl Dr summarization</a></div>
+
+        </div>      
+    </div> 
+</div> 
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-bug"></div>
+                <div class="dashboard-name"><a href="{% url 'python_bug_fixer' %}">python bug fixer</a></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-pspreadsheet-creator"></div>
+                <div class="dashboard-name"><a href="{% url 'spreadsheet_creator' %}">spreadsheet creator</a></div>
+            </div>
+
+        </div>      
+    </div>     <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-java-script-helper-chat-bot"></div>
+                <div class="dashboard-name"><a href="{% url 'java_script_helper_chat_bot' %}">java script helper chat bot</a></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-Ml/AI-language-model-tutor"></div>
+                <div class="dashboard-name"> <a href="{% url 'mi_language_model_tutor' %}">Ml/AI language model tutor</a></div>
+            </div>
+
+        </div>      
+    </div> 
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-science-fiction-book-list-maker"></div>
+                <div class="dashboard-name"><a href="{% url 'science_fiction_book_list_maker' %}">Science fiction book list maker</a></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-tweet-classifier"></div>
+                <div class="dashboard-name"><a href="{% url 'tweet_classifier' %}">Tweet classifier</a></div>
+            </div>
+
+        </div>      
+    </div> 
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-tags"></div>
+                <div class="dashboard-name"><a href="{% url 'airport_code_extractor' %}">Airport code extractor</a></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-sql"></div>
+                <div class="dashboard-name"><a href="{% url 'sql_request' %}">sql request</a></div>
+            </div>
+
+        </div>      
+    </div> 
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-address-book"></div>
+                <div class="dashboard-name"><a href="{% url 'extract_contact_information' %}">Extract contact information</a></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-java-script-to-python"></div>
+                <div class="dashboard-name"><a href="{% url 'java_script_to_python' %}">java script to python</a> </div>
+            </div>
+
+        </div>      
+    </div> 
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-friend-chart"></div>
+                <div class="dashboard-name"><a href="{% url 'friend_chart' %}">Friend chart</a></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-mood-to-color"></div>
+                <div class="dashboard-name"><a href="{% url 'mood_to_color' %}">Mood to color</a></div>
+            </div>
+
+        </div>      
+    </div> 
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-comment-code"></div>
+                <div class="dashboard-name"><a href="{% url 'write_a_ python_doc_string' %}">Write a python doc string</a></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-lightbulb"></div>
+                <div class="dashboard-name"><a href="{% url 'analogy_maker' %}">Analogy maker</a></div>
+            </div>
+
+        </div>      
+    </div> 
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-java-script-online-function"></div>
+                <div class="dashboard-name"><a href="{% url 'java_script_online_function' %}">java script online function</a></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-micro-horror-story-creator"></div>
+                <div class="dashboard-name"><a href="{% url 'micro_horror_story_creator' %}">micro horror story creator</a> </div>
+            </div>
+
+        </div>      
+    </div> 
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-third-person-converter"></div>
+                <div class="dashboard-name"><a href="{% url 'third_person_convertor' %}">Third person convertor</a></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-notes-to-summary"></div>
+                <div class="dashboard-name"><a href="{% url 'notes_to_summary' %}">Notes to summary</a></div>
+            </div>
+
+        </div>      
+    </div> 
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-vr-fitness-idea-generator"></div>
+                <div class="dashboard-name"><a href="{% url 'Vr_fitness_idea_generator' %}">Vr fitness idea generator</a></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-eassy-outline"></div>
+                <div class="dashboard-name"><a href="{% url 'eassy_outline' %}">Eassy outline</a> </div>
+            </div>
+
+        </div>      
+    </div> 
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-recipe-creator"></div>
+                <div class="dashboard-name"><a href="{% url 'recipe_creator' %}">Recipe creator</a></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-comments"></div>
+                <div class="dashboard-name"><a href="{% url 'chat' %}">Chat</a></div>
+            </div>
+
+        </div>      
+    </div> 
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-marv-the-sarcastic-chat-bot"></div>
+                <div class="dashboard-name"><a href="{% url 'marv_the_sarcastic_chat_bot' %}">Marv the sarcastic chat bot</a></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="dashboard">
+                <div class="fas fa-directions"></div>
+                <div class="dashboard-name"><a href="{% url 'turn_by_turn_direction' %}">turn by turn direction</a> </div>
+            </div>
+
+        </div>      
+    </div> 
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-restaurant-review-creator"></div>
+                <div class="dashboard-name"><a href="{% url 'reastaurant_review_creator' %}">Reastaurant review creator</a></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-create-study-notes"></div>
+                <div class="dashboard-name"><a href="{% url 'create_study_notes' %}">create study notes</a></div>
+            </div>
+
+        </div>      
+    </div> 
+    <div class="row">
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-interview-question"></div>
+                <div class="dashboard-name"><a href="{% url 'interview_Question' %}">Interview Question</a></div>
+            </div>
+        </div> 
+        <div class="col-md-6">
+            <div class="dashboard">
+                <div class="fas fa-interview-question"></div>
+                <div class="dashboard-name"><a href="{% url 'product_generator' %}">Producr Generator</a></div>
+            </div>
+        </div>         
+    </div> 
+   
+</form>
+{% endblock content %}

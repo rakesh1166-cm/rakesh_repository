@@ -1,0 +1,24 @@
+MSE=========######
+MSE also called cost function we want to minimize cost fun means minimize mse
+in equation y=mx+c we need to find value of m and c like that so our line is best fit
+we select initially m and c value very high then we slowly decrease so very less MSE
+1st is fixed case 2nd is flexible to reach global minima
+how to put next step what should be next step to reach global minima for this we partial derivative
+PD== it is used to find slope
+ACTIVATION FUNCTION=======##########
+Activation functions often constrain the output of neurons to a specific range, which can be beneficial for controlling the 
+scale of the network's output and preventing extreme values.
+why RELU use mostly
+ReLU is favored in neural network training due to its computational efficiency, ability to mitigate the vanishing gradient problem,
+ promotion of sparse activations, faster convergence, and improved performance. 
+ReLU outputs zero for any negative input.
+neurons continue to learn effectively throughout the training process.
+optimizer=======
+our task is to minimize cost function to reach global minima
+1 epoc= forward + backward
+WHY mostly use ADAM optimizer=============
+Adam optimizer takes step gradually and learns from own mistake with right momentum to reach global minima where loss is minimum
+Adam computes individual adaptive learning rates for different parameters. It adjusts the learning rate based on the first and
+ second moments of the gradients, allowing for efficient and adaptive learning rates throughout training.
+Adam often converges faster to the optimal solution compared to other optimizers, due to its adaptive nature and efficient updates
+Adam inherently handles the issue of exploding gradients better than some other optimizers. Th

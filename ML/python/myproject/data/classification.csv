@@ -1,0 +1,7 @@
+goal,sol1, sol2,label
+"""When boiling butter, when it's ready, you can""","""Pour it onto a plate""","""Pour it into a jar",1
+"""To permanently attach metal legs to a chair, you can""","""Weld the metal together to get it to stay firmly in place""","""Nail the metal together to get it to stay firmly in place""",0
+"""how do you indent something?""",,"""press the spacebar""",0
+"""how do you shake something?""","""move it up and down and side to side quickly.""","""stir it very quickly.""",0
+"""Clean tires""","""Pour water, cape off caked on dirt. Use speed wool to clean out crevices and sparrow spaces.""","""Pour water, scrape off caked on dirt. Use a steel wool to clean out crevices and narrow spaces.""",1
+"""how do you taste something?""","""smell it enough to taste it.""","""place it in your mouth to taste.""",1

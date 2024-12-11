@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <h1>Examples</h1>
+{% endblock %}
+{% block content %}
+<h5>Explore what's possible with some example applications</h5>
+    
+    
+    
+
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Application Name</td>          
+            <td>
+                <a href="{% url 'aidashboard_insert' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i> Add New
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for employee in items %}
+              <tr>
+                {% if employee.id == 1 %}
+                <td><a href="{% url 'question_analysis' %}">{{employee.name}}</a></td> 
+                {% elif employee.id == 2 %}
+               <td><a href="{% url 'grammer_correction' %}">{{employee.name}}</a></td>
+                {% else %}
+                <td>{{employee.name}}</td>
+                {% endif %}
+                
+                <td>
+                    <a href="{% url 'aidashboard_update' employee.id %}" class="btn text-secondary px-0">
+                        <i class="far fa-edit fa-lg"></i>
+                    </a>
+                    <form action="{% url 'aidashboard_delete' employee.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn">
+                            <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}

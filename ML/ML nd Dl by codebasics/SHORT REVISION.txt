@@ -1,0 +1,13 @@
+http://localhost:8888/notebooks/Linear_Regression.ipynb
+read csv,draw scatter plot of datapoints
+convert x value to 2dimensional to fit in linear regression
+trained given data on linear regression object to generate model
+predict single element or whole dataframe
+calculate coefieint,intercept y=mx+c
+draw best fit line on scatter plot
+Linear Regression With multiple Variable
+fill null value using median and mode
+draw scatter plot of data sets then draw best fit  line on them Loop through the independent variables(array of col of dataframe) and create scatter plots =independent variable,color,marker
+how to save  then read then load model
+
+

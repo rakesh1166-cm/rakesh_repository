@@ -1,0 +1,19 @@
+<html>
+<head>
+    <title>ChatGPT</title>
+</head>
+<body>
+    <h1>extract_contact_information using model</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Send">
+    </form>
+    {% if generated_message %}
+    <h2>Generated Message:</h2>
+    <p>{{ generated_message }}</p>
+
+    {% else %}
+    <h1>Generated Message will display after data is saved into database:</h1>
+    {% endif %}
+</body>

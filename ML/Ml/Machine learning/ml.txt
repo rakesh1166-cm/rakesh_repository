@@ -1,0 +1,430 @@
+pie chart===========
+x,label,explode,autopct,rotatablelabels=true
+sns============
+plot
+tips['smoker'].value_counts()
+x,y,data=tips.hue=smoker,style=time,size// hue means color
+scatter=======
+hue=sex
+numerical data plot============
+categorical plot=============
+line plot==========
+======================
+categorical  plot type
+catplot==x,y,data=tips
+stripplot=somewhat same as swarm
+swarmplot=x,y,data=tips //counting is easy than catplot
+countplot= x,data=tips,yticks(0,100,10)// range// like bar plot
+countplot= x,data=tips,hue=time,yticks(0,100,10)// range
+=========================
+visualizing distribution od data
+distplot=kde
+kdeplot==direct kde
+jointplot==combination of sctter and bar
+===========================
+linear regression and relationship
+reg plot==scatter with regression(single line draw)
+implot
+=====================
+logistic regression
+CONFUSION MATRIX==many corona +ve and -ve cases come to doctor , now doctor predidicted some positive and some -ve based on symptoms in confusion matrix row side prediction but in lab 
+give actual result by test blood test and other test
+FP==TYPE1 ERROR
+FN==TYPE2 ERROR
+type2 is more dangerous because u r thinking ur  corona  negative because of prection/sympotoms/doctor prediction so u roaming/traveling  but in lab test u found positive 
+symptoms==prediction
+lab test result/classification model=== actual result
+doctor is model
+recall== how many positive  patient out of total positive
+precision== how many positive parient out of total predicted positive
+
+FN== ultimately sign of Tp
+F1 SCORE==take some part of recall  and  take some part of precision mixed of recall and precision
+true positive  rate is an example of recall
+ROC== represents various confusuin matrix for various threshold
+if ur threshold value changes then ur  confusion matrix,accuracy,recall,precison everything changes
+ROC== represent multiple models they   predict TPR and FPR
+==========================================
+hypotesis
+null hypothesis==dession/assumplation not change past and present
+alternate hypothestis== opposite of null hypothesis
+one tail==left (<)or right(>)//null hypo
+two tail==alternate both left and right
+how to test null hypo
+by staticts
+by scipy tools
+one question
+type-1 error
+type-2 error
+========================
+to check error static tools
+ttest
+chi
+annova
+
+============================
+testone sample
+two sample
+
+alpha-=error rate allowed
+two sample
+independent
+paired or dependent
+
+test usually conduct 2 sample test
+not works for more than two sample
+annova== for than two group or sample
+null hypothesis typically all means are equal
+independent variable are categorical
+dependent variable are continue
+chi- normal or poission distribution
+
+autopct ==after decimal how many no alowed
+
+
+r2_score===================
+radio,tv,newspaper
+find r2 combinedly 
+find r2 seprately
+standard deviatin== as small as then it goood for ml
+quartile=25%,50%,75%
+when mode take  and means to fill nan
+use dist plot to know normally distributed are not
+find linnear relationship  to know they are linearly dependent or not
+why use standadization scale to make quual bigger value  for features not for target y
+trained and test explain with example
+order of train and test
+np.random.seed equal  random_statepredict of chance of admission using scalar transform
+save the model using pickle
+how to read   pickle data
+regression_score== how much u  understand train training and test data(r adjusted score)
+predict answer regression_predict
+plot the data to know how x test  and ay ped by scatter and draw linearly regression
+model evaluation
+mean square errormen squared error== ignore out of range or out lier in plot linearly regretted
+if new set of data then my trained model cannot predict is called overfitting
+to check overfitting== lasso,ridge model
+lsso== zero importance to unrelavant features
+ridge-- sime importance
+learning rate for lasso and ridge
+cross validate== 10 times read/validate
+lasso== max-iteration
+when lsso and ridge model is to be used
+np.arrange when use
+logistic regression===categorical==true/false pass/fail  for classification 
+sigmoid== classify below some falue
+evaluation of classifiction model
+
+onfusion matrix is used for only calssification model  for lositic not for linear regression
+corona actual and corona prediction
+positive  and negative
+type 2 is more dangerous
+
+precision re call accuracy
+for good trained recall should be high
+f1 score=to take some part of both recall and precision
+threshold if threshold change all metric change confu matrix,f1 score
+can be identified by roc curve == to pick best trained model out of 5 or 6 model 
+AUC 
+tp show TPR,FPR
+
+=================================
+variance inflation factor
+
+table data observation
+
+dara.describe ==documentation of table data
+data.shape
+data.describe()
+count =====all are 768 nmeans no are null data
+for categorical or classification data not worry about mean
+standard deviation more than mean
+or too much difference between mean and standard deviation
+if minimum values of all features are 0 means something wrong (min)== becuse there will be some bp,insulin,glucode level will be there
+max= maximum value is too high means outlier are present
+no missing value
+=================================
+during data preprocessing == if u found any problem to find and treating outlier then again start data cleaning
+replace the zero with meaning full information like mean
+no difference  between quartile  of 25 % or 50 %if same then something wrong
+draw the plots of all feature  if it is distributed normally  it is correct data but it has left skew then many outlier present
+how to identify outlier then domain knowledge comes to very important role
+
+boxplot helps to determine outliers 
+in boxplot= outlier identify by no of dots otherwise in normal distribution height of bar is very less means outlier
+in boxplot we can identfy outlier are in leftskew or rightskew
+situation arises where we need to keep outlier and where we ned to remove outlier by domain knowledge like in bank balance we need to keep outlier
+
+outlier can be determine by quartile detection formulla
+get outlier using numpy where
+after drop that data
+after deleting outlier  reset index
+formulla outlier==numpywherecondition ===droping===reset index
+still outlier after deleting we can keep that data  not harmfull for analysis
+keep those feature where we have relationship with labels by stripe plot== label and features
+in stripe plot if x increases then y also increses
+after analysing x and y axis dependency we find that analysis
+how to sove multicolinearity problem one feature dependent on another feature , salary dependent by age and exp  taht comes ur VIF variance influence factor
+finding VIF in each scaled colunm  by using forloop range in python
+if all vif are less than 5  very lowthen no multicolinearity relation ship
+model prdiction by 0 and 1
+roc curve determine true and false positive rate
+determine how much area covered by aoc
+====================================
+knn is supervised is both for regression(like linear)  and classification(logistic)
+mainly used for classification
+k is random variable
+pass ed test data 
+knn iused for binary and multiple classification where logistioc only binary classification not multiple classification
+calculated distatince b/w test data and all training data setif i mentio k=3 find 3 nearest neighbour data points that is closest
+how many green or red products covered has highest probability
+deciding to challange what is value of k
+how to calculate distance
+=technique
+by eucadian we calculate sum of distance
+lazy learner== some of students are lazy learners
+when exam announced then stared to prepare
+whenever r ready to train test then predict waits for test data
+knn is not best when too many data in dataset difficult to find som of distance
+all the model for preprocessing steps use==sklearn
+by which command we find data type of dataset
+df.shape
+classification== mcancer and b cancer
+check dataset is imbalnced diference between m and b
+bias= if imbalanced means then it predict only one thing m cancer type it is called bias
+if model is bias then it is underfitting
+multicolinaert== purpose to find best features
+which feature contribute highest== by annova test
+ml never understand object data type it inderstand 0 and 1
+how to trained the mode on google cloud not in local
+ 17 nlargest contribution feature in dataset  using f1 score
+ choose how to select 17 (for k)see where to less differnce t
+ challenging part to decide k
+ feature selection is preprocessing technique
+  new way for feature selection to get value of k
+  train is false then it is for testing
+  test classification report support means 93 % belongs one category
+  how to increase accuracy score after classificatin by hyperparameter tuning,cross validation
+  by default k no is 5  kneighbour
+  ig good score in accuracy score may be overfitting  to avoid this by cross validation
+  tain test== 
+  k fold cross validation 
+  how many times fold k =5 5 times fold or spit
+  yellow cover for test 
+  1 part for testing yellowother for traing green
+  every time testing part changes
+  leave on out of cross validation 
+  if 100 sample then leave 1 for test remaining 99 % for training
+  difference between k fold cross validation and k fold validation
+  after cross val score also same accuracy score and not much difference between training and test result then it means  no chance for overfittings
+  bias====if he always says same thing it is rainy day it is underfitting  then it is bais saying same thing
+  variance== always fluctuate one week one pediction other week different prediction then it is called variance  it is example of overfitting
+bias trade off== we have to find prediction between underfitting and overfitting by hyperparameter tunning
+===============================================================================
+hyperparameter tunning
+if modal is not good to predict climate more variance and bias present we tune  the parameter  like radiostation  is called hyperparameter tunning
+gridsearched cv
+randomsearched cv
+permutation combination
+encoder==converts text to some no as ml understand no,float,into
+ohe
+differece between ohe and encoder when to use ohe,encoder
+explain simple imputter
+si use by default mean
+diff b/w si and fillna
+diff b/w getdummies and ohe
+getdumm drop first true
+====================================
+difference between ordinal encoder and label encoder
+ordinal encoder== lowest to higjest priority
+
+if more than 5 category then use binary encoder otherwise ohe(one hot encoder)
+knnimputer==fillna based on neighbour based on specified neighbour closest values
+iterative imputter=== =fillna based on in iterative manner
+data scientist life cycle interview
+data selection==ignore nominal data like first name,sir name senior ,junior not used for analysis
+data describe---see mean,null,empty,quartile ,standart deviation all thing observe
+data analysis==normal distribution,box plot ,skew,outlier,bais,variance,bar plot left and right skew,check relationship
+transformation===ctegorical transformation,encoding technique
+selection of ml==wheather it is classification,regression prob for catrgorical==logistic regression
+multi classs ==then decision tree
+data standard and normalization== standard scalar not baised unitless
+save model==using pickle
+logging and monitoring trained model
+decision tree== regression and classification both  best algorithm to deal complex dataset  and for multicalss   for classification most of time dt
+how to calculate most important feature to calculate  considerd as root node
+treeprunning== when u want to go go decision quickly then cut tree 
+entropy ,gradient index== which feature root node and more weightage
+entropy== how  much information  every feature have label which feture higest feature is comes under root node
+gini impurity/indexing== how much every feature have impurity less  impurity better feature
+id3--
+cart==classification and regressssion and both datatype
+ by default use gini imputity not entropy
+data.cor.abs==abs use avoid  -ve
+heat map use to find multicolinearty relationship 
+
+
+in metric_scote train is true then it is for training otherwise  it is for testing
+if one of the feature u have to drop to avoi overfitting the use heatmap and scatter plot
+if test accuracy less than we have to improve it
+alchol is highest contributer  so it is considered as root node in heat map graph
+leaf node==last pure node
+increase cv increase training time
+what are the method to tune the parameter in hyperparameter tunning=== entropy,gini index
+ensamble approach--bagging,boosting
+bagging---bagging classifier(bootstrap aggregation),random forest
+boosting==adaboost,gradient boosting,xtreme boosting
+when u want to prediction based more than 2 or 3 model use ensamble approach
+take decision based on 100 DT models not one DT
+one DT take some feature random ly so model is not baised very less chance baised
+bagging==very less risk,safe model but time,cost budget issue
+out of bag evalution-- som testing feature out of bag/dataset for all MODEl
+pasting once the feature selected for first DT then it is not allowed for second DT,3rd dt ==bootstrap false and without replacement
+relation ship between  features== is an example of multicolinearity
+realationship between feature and label == relationship
+
+======================
+searching topic in blog
+explain metric score in ml
+what is the role of heatmap and scatter plot to find multicolinearity and avoid overfitting
+how entropy and gini index plays the important role to tune parameter in hyperparameter tunning
+how entropy and gini index plays the important role to  decide root node and splitting decision tree
+explain ensamble approach
+when to use ensamble approach
+explain bagging method in ensamble approacg
+explain pasting in bagging method with example
+explain out of bag evaluation in bagging method with example
+=======================================================================================================
+Bagging Classifier
+n_estimator=9===> no of model choose no question of overfitting
+if u have limitied no of feature then bootstrap is true
+if u have lot of feature then bootstrap is false go for pasting
+=========================================
+Random forest
+it is best for clasification where as boosting is best  for regression
+observation
+convert standard normal distribution using z_score
+explain z_score(https://www.debug.school/rakeshdevcotocus_468/explain-how-to-handle-outliers-for-data-cleaning-using-django-4jaa)
+method to remove outlier using z_score
+not happy with testing accuracy then tune hyperparameter use grid serachcv
+by dfault random forest use decision tree
+how to calculate roc curve and auc curve for multple mode by applying for loop in each model
+how to calculate TPR ,FPR for multple mode by applying for loop in each model
+Explain weak classifier
+How to take decision using weak classifier in boostinh
+boosting is in sequectial while bagging  works parallaly
+how boosting process works based on advantage and disadvantage wise
+====================
+pos and cons of boosting
+adaboost
+take one feature at a time
+when adaboost technique use
+how to calculate gini index of individual stumps in adaboost technique
+difference between standardization and normalization
+continous data means==> float type data
+
+explain the role of n_estimators and learning rate in randomized search_csv
+
+when to use randomized search csv
+when u have time and budget constraints
+it is better than default  parameter 
+
+gbt== it will not try to increase accuracy it reduce the error
+if less error more accuracy
+if reduce residual error then automatically increase accuracy
+==================================
+gbt use for both classification and regression
+
+how to get correlation feature vs target using corrwith
+how to get correlation feature vs target using corrwith using plot
+modal building using selectpercentile features
+what is role of  modal building using selectpercentile features
+lowest p value best features
+percentile=80 means top 80 colunm selected
+explain the different way to decide learning rate while hyperparameter tunning
+
+list out different way to decide learning rate while hyperparameter tunning
+
+explain the different way to decide min_sample_split while hyperparameter tunning
+explain the different way to decide max_depth while hyperparameter tunning
+
+explain the different way to decide n_estimator while hyperparameter tunning
+always keep learning rate 0 to 1
+
+explain catboost
+catboost== if dataset contain more categorical feature
+
+XGBOOST  same as gbt it uses parallel processing to increase speed
+explain when to use GBT  and XGBT for boosting
+how to filter categorical feature using select in ml for encoding
+===============================================
+how to deal imbalanced data set==90:10
+two approach 
+SMOTE
+NEARMISS
+SMOTE==upsampling and downsampling
+
+Difference between bagging and boosting
+
+upsampling== when we have less data set then we increase minority by upsampling
+downsampling-when we have huge data set then we decrease majority by downsampling
+when u use counter to check data imbalnce set
+how to implement downsampling and upsampling in ml
+give example where u find imbalanced dataset
+=======================================
+DATA TRANSFORMATION
+ why we use data transformation in ml
+explain data transformation method in ml
+when box -cox and yeo johnson method should apply
+explain the difference method log transformation and power transformation methods
+if u apply data transformation no need to apply standard scalar u can go direct for model building
+================================================================
+SVM
+ when we use svm
+it is non problistic classifier
+explain the difference between problistic and non problistic  linear classifier with examples
+what is kernal tricks in svm with example
+=====================
+PCA
+when to use pca in ml
+why we use pca
+explain the working pricipal of component analysis with example in ml
+how to raplace label colunm into binary codes
+explain the difference between feature selection and dimension selection methods
+explain hyperparameter tunning
+what is c and gamma in hyperparameter tunning
+==============================
+CREATING  PIPELINE
+expalin pipelne
+what are the creteria should be consider when we use pipeline
+
+
+
+===========================
+UNSUPERVISED LEARNING
+
+only we get feature not get target and label
+on what basis we create how many cluster are required in unsupervised learning
+Explain clustering concept in machine learning
+explain approaches of clustering
+explain the difference between agglomerative and divisive clustering
+explain k means clustering
+explain the role of centroid in clustering
+explain the role of data tagging to centroid in clustering
+how centroid movement take place in clustering
+when centrid moves== untill mean or avg value changes
+explain elbow method to decide best no cluster
+
+how to use elbow method to find k means clustering using for loop
+
+
+============================
+linear regression gives sigmoid function using y= mx+c if anything below 0.85 based on it we classify(1/1+e)
+
+many corona +ve and -ve cases come to doctor , now doctor predidicted some positive and some -ve based on symptoms in confusion matrix row side prediction but in lab give actual result by test blood test and other test
+symptoms==prediction
+lab test result/classification model=== actual result
+==================================how to create chatsheet=======
+one side headline
+other side  defination in words and syntax manner
+

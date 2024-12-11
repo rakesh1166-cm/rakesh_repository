@@ -1,0 +1,48 @@
+logistic regression  is used for classification
+read dataset
+know how many row and col
+get to know  min ,max,count and standard
+how data is distributed for every colunm by plotting plot using for loop
+get  feature by droping target
+visualize outlier by plotting plot
+check data is distrubed normally or not  more dependency is good to predict
+check outlier how many,check left and right skew
+draw boxplot to clear idea about outlier
+find q1,q3,and and iqr
+find higher and lower value 
+anything above higher and  less than lower value  delete it as they are outlier
+using scatter plot we found  outlier is present age,blod pressure,sickthickness,pregnancies so apply outlier detection only those feature
+keep only those feature relation ship with label
+find multicolinearity problem  check wheather one feature is dependent on other are not
+for this first find x_scaled using standard scalar object
+find vif for each x_scaled colunm using for loop and range
+if vif of each scaled colunm less than 5 then no multivolinearity issues exist
+preprocessing steps completed
+=========model building===================
+split train and test
+create logistic regression object
+fit logistic regression object
+get y_prediction
+find accuracy score for test and y pred
+find conf matrix and classification report 9507527427
+find roc and auc curve
+to find roc and auc get tpr,fpr and roc
+find auc score and roc score
+for classificatio==accuracy,auc,roc,f1 score,conf matrix,precision
+========================knn==================================================
+find the value of k
+find euclidian distance
+lazy learner
+pros and cons of knn algorithms
+find type of cancer b or m
+find data type wheather it is continous 
+check sum of null value ineach colunm
+select kbest  feature selection
+now model building
+to find accuracy use metric_score function
+if overfiit applyy cross validation
+k fold
+ hold and out 
+bias ,variance
+
+

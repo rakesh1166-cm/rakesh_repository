@@ -1,0 +1,262 @@
+if want to know total no of colunm,and each colunm how many total no of entries each colunm contain what kind of data type
+how to know each colunm contain how many total no of missing value like none
+how to fill missing value of some particular colunm like none using imputter
+drop the partcular row where particular row contain value none
+
+
+
+
+
+
+
+
+
+
+
+
+=======================================================
+df.info()
+regression==process of predicting dependent like y test based on y train
+rsquare== how much modal understood trained data
+r adjusted score== determine how many less outlier present while predict best fit line
+process of predict best fit line
+df.info/df.shape/df.isna().sum()/plot/df.colunms()/df.colunms.tolist()/df.dtypes/sns.heatmap(df.null())/df.sample(10)/df.sample(n=10)
+best fitline=predicted value not actual value
+question how much relationship/contribution/ can predict independent varible based on dependent variable
+simple linear regression /multiple linear regression
+supervised==regression(continous data),classification
+input=class/feature(x)/label(y)--should be predicted
+data.describe()
+fill missing value by mean/median/mode
+plot independent variable on x and y axis wheather they are normally distributed or not
+seprate data set into  train and test by data.drop()
+scatter plot determine feature are linearly regretted or not
+standardize scalar make bigger value to small
+https://www.debug.school/rakeshdevcotocus_468/why-we-use-standard-scalar-and-transform-in-machine-learning-45no
+https://www.debug.school/rakeshdevcotocus_468/explain-the-terminology-standard-deviation-and-quartile-in-machine-learning-47g1
+why-we-use-standard-scalar-and-transform-in-machine-learning
+why we need standardization
+how to know standardization needed while trained the model
+Different way to standardize the data
+
+seprate train and test
+model evaluation
+mae-avg error
+mse-  larger error punished
+mrse=base unit
+regulization= model is overfit to train data if new set of data come
+reduced degree of polynomial functio
+lasso=give 0 importance
+ridge=== give some importance
+cross validation--- how many times u read model is trained highly
+========================logistic===============
+classification
+why dont use  linear regression for classification problem
+recall/precision/accuracy/flscore
+auc
+ruc= determine curver of more than one model is used to determine predicted value
+if more curve than more accurate model is predicted
+
+===============
+data.describe()--to analyze min.max.count,std,25,50,75 percent to compare where is our falutt in our data set
+plot fig more normally distributed is good for prediction,comparision, how many outlier present left skew and right skew
+box plot-- left outlier or right outlier no of outlier determine
+apply iqr to identify outlier then remove using outlier detection formulla higer outlier and lower outlier
+,apply np.where then drop that index
+https://www.debug.school/rakeshdevcotocus_468/explain-how-to-handle-outliers-for-data-cleaning-using-django-4jaa
+how to identify outliers with example in ml
+how to identify and remove outliers with example in ml
+how to identify outliers using visualization technique
+how to convert dataset to standard normal distribution using z_score
+check ine  feature depenedent one other means multicolinearity age and exp towards impact on salary
+to check multicolineary apply VIF if below than 5 all values then no multicolinearity exist
+preprocessing steps completed
+now determine accuracy,classifiction report(precision,recall,accuracy) everything is there in it
+auc and ruc curve also determine
+==================Knn===============
+assigns test data belongs to which of two classes
+find distance between test and training data by eculidian distance
+knn is lazy learner after getting test data it starts to generlaize training data
+it is used both regression and classification , no need any modal or hyperparameter train
+ing ,less time cost on training but expensive in testing ,not make any assumption
+PRACTICAL
+determine test data belongs to which kind of tumor
+know data type of feature 
+drop unamed
+find data is imbalnced or not using value_counts == arise when distribution of class is not equal check with sns bar blot data imbalanced leads to bias and underfitting never get chance to predict second type of data
+determine the contribution of feature and score using select k best feature is uesd to find best 17 feature 
+after determinig 17 best feature create new data set
+now seprate new data set into train and test
+standardize the feature of new data set
+define the metric score function to call classification report and accuracy as many as time
+if same accurcy score for different training data set then we need to apply cross validation
+when we need to apply cross validation
+hold and out == our train and test split
+k fold== divide training  training and test dat set into different iteration
+bias== leads to undefitting error introduced by model assumption unable to capture underlying pattern
+variance == too much noise and fluctuation leads to overfitting
+bias variance trade off== find right balance between bais and variance as lack of capacity by model to capture underlying pattern and required HYPERPARAMETER TUNNING
+
+binary encoding
+fill null(nan) value by iterative imputter
+fill null value by knnn imputter
+
+hyperparameter tunning
+grid search cv==pass parameter as===param-grid==kd, leaf tree,neighbpour
+combination of leaf tree and neigbour
+encoder and imputter===
+label encoder==if 3 city then 0,1,2
+ohe== if 3 city 001 if 4 city then 0001 if 2 city then 01
+get dummies== drop first is true
+imputter==by mean,median,mode
+ordinal encoding===arrange accoroding to category
+======================
+left tail test==<
+right tail test==>
+two tail tese= not equalto
+if p value less than 0.5 reject null hypotesis  sign=<
+if p value greater than 0.5 reject alternate hypotesis(>)
+0.5 is standard alpha level
+type-1 error====reject nill hypothesis if actually u have corona but u r thinkinh and hypthesis u have no corona
+type-2 error====reject alternate hypothesis  u have actuallu np corona but u r thinking u have corona
+
+===========statical tools==========
+ttest
+annova
+ch-square
+
+
+ttest== null hypothesis or (Ho) value is greater than alpha value >alpha
+alternate   == Alternate hypothesis or (Ha) value is less than alpha value < alpha
+finad mean value of colunm by df[age].mean() then compare with alpha value
+annova= null hypothesisis= all are same means every person have same impacts on drink effects
+alternate hypothesis==all are not equal every person have no same impacts on drinks effects
+independent variable =categorical
+dependent varible== continue
+f value ==sample means
+nulll hypo=equal=mua=mub=muc
+alternate==not equal find avg mean of  3 colunms and check wheater they are equal or not
+to check null hypo find sum of square of all semister, mean value of all semister , pr>f by stta.annova.lm tools
+
+wheater your data follow normal distribution (observe-expexted)/expected find it by np.square then compare the result value with degree of freedom DF
+
+================Decision tree===============
+it is used both regression and clasification whole dataset divide in tree structure
+time,money,population
+low entropy== data with same label with random value good for comparision
+high entropy==data with mixture of label
+Calculate entropy=if u have data set a and  half of element from dataset belongs to  1st category while other half belongs to second category  then entropy is maximim(1/2,1/2)
+if all elements belongs to 1st category then also entroy is maximum(1,0)
+gini impurity==measure of selecting random value from from dataset it lies between 0 and 1 if 0==>no impurity,1===>randpm distribution
+before split measure gini impurity and after split measure gini impurity
+
+advantage= used both classification and regression
+good visulization
+disadvantage== overfitting is very high and more time needed
+===============decision tree practical approach=============
+check quality of alchol/beer by many independent variable or feature like  content of sugar
+apply oridinal encoding on alchol content
+check first 10 data and any missing value
+verify multicolinearity and by plot heatmap
+multicolinearity== relationship b/w features
+relationship== relationship between  feature vs features
+if 1/or nearby 1 like 0.90/0.85 in heatmap b/w alchol content and alchhol then multicolinearity 
+then drop one of the feature
+check accuracy score of different model by metric score function
+draw DT just for visualization  nothing for accuracy=========
+all feature name x_colunm convert into list  and assigned as feature_name
+crete a dot score file which show tree structure
+crate graph using polypotus library
+create a image
+value or parameter passed in decision tree
+coloums, measure og impurity (gini), samples  means no pf observation, no of observation in each class inside value array
+use GRIDSEARCH CV TO TUNE HEPERPARAMETER decide what is best parameter for ur decision tree
+grid_params parameter==crteteri(gini.entropy),max-depth,max no of split,maximum no of leaf node
+parameter of grid serch===estimator(clf) and above grid param
+apply above gridsearch in x_tran  andy_train
+then u get creteria,max depth,max split node
+above best parameter apply in decision tree 
+create object of decistion tree classifier  where pass all best parameter that u found after apply grid search cv
+again calculate accurcy by metric_score function
+
+================ensamble approacg=====
+presiction is done by ctesting training data set on multiple model like audience poll, vote decision takes place based on majority
+training subset parameter multiple decision tree and multiple bags
+pasting==without replacement means unique training set og data for each bag  let 1000 sample in 5 bag contain 200 sample not duplicate
+out of nag evaluation dome training data set are left out during training phase not relavant to any bag
+
+https://www.debug.school/rakeshdevcotocus_468/explain-bootstrap-and-pasting-technique-in-machine-learning-46aj
+When bootstrap is set to True (the default) 
+When bootstrap is set to False or when using pasting,
+Explain bootstrap and pasting technique in machine learning
+boosting== adgbt,gbdt,xtgbt
+=============================================
+data imbalanced
+nearmiss and smote
+smote--- upsampling,downsampling [majority,minority]
+
+===========bagging===========
+determine knn score ==https://www.debug.school/rakeshdevcotocus_468/explain-the-difference-between-regression-score-and-knn-score-3f01
+explain-the-difference-between-regression-score-and-knn-score
+bagging claissifier parameter are below
+https://www.debug.school/rakeshdevcotocus_468/explain-bagging-technique-in-machine-learning-29d1
+n_estimator == anything u can choose
+neighbour
+max_sample
+random_state
+bootstrap=true==pasting is false replacement allowed
+if we have less or limited no of feature then we go bootstrap is false no need replacemenet pasting true
+oob_score==true out of bag  is allowed
+
+how to standadize data using z_score in machine learning
+===========random forest================
+list-down-different-data-preprocessing-operation-using-django
+https://www.debug.school/rakeshdevcotocus_468/list-down-different-data-preprocessing-operation-using-django-1haj
+
+
+==========boosting==========
+if bootstrap is true then pasting not allowed resampling  with replacement
+if bootstrap is false then pasting  allowed resampling  without replacement
+final prediction is sum of weight all weaker decision
+
+
+
+
+
+
+
+
+QUESTION/BLOG TOPIC============
+how to identify wheather scraped data is  relavant to classification or regression with example in ML (chat gpt/brad)==some image
+what is difference between null value and whitespace/balnk value in ml with example
+
+null  have no datatype
+
+must knowledge target variable
+decide problem statement
+
+if i do not get feedback 
+
+if project submit by same code what u taught in session get 0 marks
+
+
+
+
+
+
+project discussion================
+
+
+
+https://www.debug.school/rakeshdevcotocus_468/explain-different-encoding-technique-in-machine-learning-15mc
+
+
+https://www.debug.school/rakeshdevcotocus_468/common-coding-mistake-in-python-1nkm
+https://www.debug.school/rakeshdevcotocus_468/how-to-extracting-and-transforming-information-from-table-in-python-3l07
+https://www.debug.school/rakeshdevcotocus_468/basic-preprocessing-machine-learning-commands-2772
+https://www.debug.school/rakeshdevcotocus_468/numpy-and-pandas-question-in-machine-learning-4kia
+https://www.debug.school/rakeshdevcotocus_468/list-out-checklist-of-nlp-terminology-in-machine-learning-4kg2
+https://www.debug.school/rakeshdevcotocus_468/data-visualization-preprocessing-commands-gd7
+https://www.debug.school/rakeshdevcotocus_468/machine-learning-objective-question-89o
+https://www.debug.school/rakeshdevcotocus_468/python-dictionary-497g
+
