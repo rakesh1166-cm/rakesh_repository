@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Item</title>
+</head>
+<body>
+    <h1>Edit Item</h1>
+    <form action="{{ url_for('main.edit_item', id=item.id) }}" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" value="{{ item.title }}" required><br>
+        <label for="description">Description:</label>
+        <textarea name="description">{{ item.description }}</textarea><br>
+        <button type="submit">Update Item</button>
+    </form>
+    <br>
+    <a href="{{ url_for('main.index') }}">Back to Item List</a>
+</body>
+</html>
