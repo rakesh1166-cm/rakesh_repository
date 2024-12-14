@@ -3,7 +3,9 @@ from flask_cors import CORS  # Import CORS
 from config import Config  # Import configuration class
 from extensions import db  # Import the database instance
 from views import main  # Import the `main` blueprint
+from flask_bcrypt import Bcrypt
 
+bcrypt = Bcrypt()  # Initialize Bcrypt globally
 def create_app():
     """Application Factory Pattern"""
     # Create a Flask app instance
@@ -17,7 +19,7 @@ def create_app():
 
     # Enable CORS for the app
     CORS(app)
-
+    bcrypt = Bcrypt(app)
     # Register blueprints
     app.register_blueprint(main)  # Register `main` blueprint
 

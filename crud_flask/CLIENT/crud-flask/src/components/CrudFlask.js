@@ -12,6 +12,13 @@ const CrudFlask = () => {
   const [formData, setFormData] = useState({ name: "", email: "" });
   const [editId, setEditId] = useState(null);
   const [showModal, setShowModal] = useState(false); // Toggle for modal visibility
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+
+  useEffect(() => {
+    const userEmail = localStorage.getItem("userEmail");
+    console.log("LocalStorage email:", userEmail);
+    setIsLoggedIn(!!userEmail);
+  }, []);
 
   useEffect(() => {
     dispatch(fetchItems());
@@ -49,24 +56,28 @@ const CrudFlask = () => {
       <Nav /> {/* Include Nav component */}
       <div className="App" style={{ marginTop: "70px" }}> {/* Adjust based on navbar height */}
         <h1>CRUD Flask</h1>
-        <button
-          onClick={() => {
-            setFormData({ name: "", email: "" });
-            setEditId(null);
-            setShowModal(true);
-          }}
-          style={{
-            padding: "10px 20px",
-            marginBottom: "20px",
-            backgroundColor: "#007bff",
-            color: "#fff",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-        >
-          Add Student
-        </button>
+
+        {/* Show Add Student button only if logged in */}
+        {isLoggedIn && (
+          <button
+            onClick={() => {
+              setFormData({ name: "", email: "" });
+              setEditId(null);
+              setShowModal(true);
+            }}
+            style={{
+              padding: "10px 20px",
+              marginBottom: "20px",
+              backgroundColor: "#007bff",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            Add Student
+          </button>
+        )}
 
         <table>
           <thead>

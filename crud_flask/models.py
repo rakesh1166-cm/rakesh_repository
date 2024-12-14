@@ -21,11 +21,11 @@ class Student(db.Model):
     def __repr__(self):
         return f"<Student {self.name}>"
 class User(db.Model):
-    __tablename__ = 'users'  # Matches the table name in your PostgreSQL database
-    id = db.Column(db.Integer, primary_key=True)  # Primary key
-    username = db.Column(db.String(200), nullable=False)  # Username field
-    email = db.Column(db.String(200), unique=True, nullable=False)  # Email field with uniqueness constraint
-    password = db.Column(db.String(200), nullable=False)  # Password field
+    __tablename__ = 'users'  # Ensure the table name matches
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(120), nullable=False)
 
     def __repr__(self):
         return f"<User {self.username}>"   
