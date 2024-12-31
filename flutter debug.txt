@@ -39,6 +39,7 @@ https://www.debug.school/rakeshdevcotocus_468/httpsbloglogrocketcomsecuring-loca
 https://www.debug.school/rakeshdevcotocus_468/using-sharedpreferences-in-flutter-to-store-data-locally-m5e
 https://www.debug.school/rakeshdevcotocus_468/how-to-upload-app-in-playstore-in-flutter-117e
 https://www.debug.school/rakeshdevcotocus_468/android-studio-version-is-not-compatible-with-agp-or-java-versionjdk-42ek
+https://www.debug.school/rakeshdevcotocus_468/flutter-configuration-errors-checklist-5f0h
 
 
 
