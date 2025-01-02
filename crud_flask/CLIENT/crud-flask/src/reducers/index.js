@@ -5,8 +5,12 @@ import {
   FETCH_ITEMS, 
   REGISTER_USER, 
   LOGIN_USER, 
-  LOGOUT_USER,
-  HIGHLIGHT_ENTITY // New action type 
+  LOGOUT_USER, 
+  HIGHLIGHT_ENTITY, 
+  FETCH_ALL_ENTITIES, // Import the new action type
+  EXTRACT_RESUME_INFO,
+  PROCESS_TEXT_FEATURE,
+  PROCESS_TEXT_FAILURE,
 } from "../actions";
 
 const initialState = {
@@ -14,6 +18,10 @@ const initialState = {
   users: [],
   loggedInUser: localStorage.getItem("userEmail") || null,
   highlightedEntities: [], // State for highlighted entities
+  allEntities: [], // State to store all database rows
+  extractedInfo: null, // Store the extracted resume information
+  processedText: "",
+  error: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -60,6 +68,22 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         highlightedEntities: action.payload, // Update the state with highlighted entities
       };
+    case FETCH_ALL_ENTITIES:
+      return {
+        ...state,
+        allEntities: action.payload, // Update the state with all entities
+      };
+      case EXTRACT_RESUME_INFO:
+        return {
+          ...state,
+          extractedInfo: action.payload, // Update the state with extracted information
+        }; 
+
+      case PROCESS_TEXT_FEATURE:
+      return { ...state, processedText: action.payload, error: null };
+      case PROCESS_TEXT_FAILURE:
+      return { ...state, processedText: "", error: action.payload };
+         
     default:
       return state;
   }

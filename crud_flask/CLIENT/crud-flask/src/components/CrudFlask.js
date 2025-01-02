@@ -8,7 +8,6 @@ import "./CrudFlask.css";
 const CrudFlask = () => {
   const items = useSelector((state) => state.items);
   const dispatch = useDispatch();
-
   const [formData, setFormData] = useState({ name: "", email: "" });
   const [editId, setEditId] = useState(null);
   const [showModal, setShowModal] = useState(false); // Toggle for modal visibility

@@ -1,0 +1,392 @@
+===>adding input field inside form
+==============ADD input field without form using inline event handler function
+====How to add choose file======
+====>submitting form
+=====xecute a standalone action using button
+=====>display read data
+access redux store item using useState
+check user is logged in or not using useEffect
+fetch data using useEffect
+condition add button based on logged in
+display rendered data using map
+=====>open popup model
+Conditional Modal Rendering   based on button click
+ while editing and submitting form must be make model true or false
+=====>edit or delete
+======>how to open popup model on selecting radio button
+======>how to add dropdown exsiting popup model form  find and replace
+======>text field for digit (split text  by character)
+=====>by selecting one dropdown automatically other dropdown visible in text-classification
+======>by selecting one dropdown automatically multiselect dropdown dropdown visible in Advanced Sentiment/Review Analysis
+=======>by selecting one dropdown automatically radio button visible in relation extraction
+
+// how to add name two file app.js and sidebar.js
+// how to add sub menu
+ in sidebar.js
+step1.import React, { useState } from "react";
+step2.const [openSubMenu, setOpenSubMenu] = useState(null);
+  
+    const toggleSubMenu = (menu) => {
+      setOpenSubMenu(openSubMenu === menu ? null : menu);
+    };
+step3. <li
+                 style={{
+                   marginBottom: "10px",
+                   padding: "10px",
+                   borderRadius: "5px",
+                   backgroundColor: "#444",
+                 }}
+               >
+                 <div
+                   onClick={() => toggleSubMenu("highlight-entity")}
+                   style={{
+                     cursor: "pointer",
+                     display: "flex",
+                     justifyContent: "space-between",
+                     alignItems: "center",
+                   }}
+                 >
+                   Highlight Entity
+                   <span>{openSubMenu === "highlight-entity" ? "-" : "+"}</span>
+                 </div>
+                 {openSubMenu === "highlight-entity" && (
+                   <ul style={{ listStyleType: "none", padding: "10px", paddingLeft: "20px" }}>
+                     <li style={{ marginBottom: "10px" }}>
+                       <Link
+                         to="/highlight-entity/sub-item-1"
+                         style={{ color: "white", textDecoration: "none" }}
+                       >
+                         Sub Item 01
+                       </Link>
+                     </li>
+                     <li style={{ marginBottom: "10px" }}>
+                       <Link
+                         to="/highlight-entity/sub-item-2"
+                         style={{ color: "white", textDecoration: "none" }}
+                       >
+                         Sub Item 02
+                       </Link>
+                     </li>
+                     <li style={{ marginBottom: "10px" }}>
+                       <Link
+                         to="/highlight-entity/sub-item-3"
+                         style={{ color: "white", textDecoration: "none" }}
+                       >
+                         Sub Item 03
+                       </Link>
+                     </li>
+                   </ul>
+                 )}
+               </li>  
+step4. ==in app.js
+<Route path="/highlight-entity/sub-item-1" element={<SubItem1 />} />
+<Route path="/highlight-entity/sub-item-2" element={<SubItem2 />} />
+<Route path="/highlight-entity/sub-item-3" element={<SubItem3 />} />
+step5.====in app.js
+import SubItem1 from "./components/SubItem1";
+import SubItem2 from "./components/SubItem2";
+import SubItem3 from "./components/SubItem3";
+
+step6:inside component folder create SubItem1.js
+==============================HOW TO set api function===================================
+STEP 1
+  const handleHighlightEntity = () => {
+    dispatch(highlightEntity(text)); // Dispatch the highlightEntity action
+  };
+  OR
+    const handleExtractInformation = () => {
+    if (!file) {
+      alert("Please upload a file first.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const fileContent = e.target.result;
+      dispatch(extractResumeInfo(fileContent)); // Dispatch action with file content
+    };
+    reader.readAsText(file);
+  };
+  STEP 2
+  const extractedInfo = useSelector((state) => state.extractedInfo); // Get extracted info from Redux state
+  STEP3
+
+  import { extractResumeInfo } from "../actions"; // Import Redux action
+  step4=======
+  ==now  modify in reducers/index.js
+ add  EXTRACT_RESUME_INFO in import section
+import { 
+  ADD_ITEM,
+  FETCH_ALL_ENTITIES, // Import the new action type
+  EXTRACT_RESUME_INFO
+} from "../actions";
+STEP 5=in
+add   extractedInfo: null, in initial state
+const initialState = {
+  items: [],
+ // State for highlighted entities
+  allEntities: [], // State to store all database rows
+  extractedInfo: null, // Store the extracted resume information
+};
+STEP 6
+ handle the EXTRACT_RESUME_INFO action type:
+ case EXTRACT_RESUME_INFO:
+  return {
+    ...state,
+    extractedInfo: action.payload, // Update the state with extracted information
+  };
+STEP 7
+modify in action/index.js
+export const EXTRACT_RESUME_INFO = "EXTRACT_RESUME_INFO";
+
+STEP 8
+. Create Redux Action for Extracting Resume Information
+In actions/index.js, add the extractResumeInfo action:
+export const extractResumeInfo = (fileContent) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/extract-resume-info", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ fileContent }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // Dispatch the action with the extracted information
+      dispatch({
+        type: EXTRACT_RESUME_INFO,
+        payload: data, // Pass the extracted information to the reducer
+      });
+    } catch (error) {
+      console.error("Error extracting resume information:", error);
+    }
+  };
+};
+STEP 9
+
+==============================HOW TO add nav ,footer and side bar ===================================
+step1: import navbar and footer
+import Nav from "./Nav"; // Import Nav component
+import Footer from "./Footer"; // Import Footer component
+step2:adding navbar and footer
+ return (
+    <>
+      <Nav /> {/* Include Nav component */}
+      <div className="App" style={{ marginTop: "70px" }}> {/* Adjust based on navbar height */}
+        <h1>CRUD Flask</h1>
+        =====================
+        ============
+         <Footer /> {/* Include Footer component */}
+          </>
+    );
+step3:adding sidebar
+   import Sidebar from "./Sidebar";
+
+  return (
+    <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
+      <Sidebar style={{ flex: "0 0 250px" }} />
+      <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        <Nav style={{ flex: "0 0 60px" }} />
+ </>
+    );
+ ==========How to add input field===================
+step1=> holds the state of the form data, 
+  const [formData, setFormData] = useState({ name: "", email: "" });
+step2==> add text field,
+              <input
+                  type="text"
+                  name="name"
+                  placeholder="Enter Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  style={{
+                    padding: "10px",
+                    borderRadius: "5px",
+                    border: "1px solid #ccc",
+                  }}
+                />  
+ step3===>  set textfield value             
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  ADD input field using inline event handler function
+  step2 declare state varible
+   const [text, setText] = useState(""); // State for user input
+  step2: add text area
+   <textarea
+            placeholder="Enter your text here..."
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            style={{
+              width: "100%",
+              height: "100px",
+              marginBottom: "20px",
+              padding: "10px",
+              border: "1px solid #ccc",
+              borderRadius: "4px",
+            }}
+          ></textarea>
+ ===========How to add choose file==========================
+ <input
+              type="file"
+              accept=".pdf,.doc,.docx,.txt"
+              onChange={handleFileChange}
+            />
+
+              const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  const handleExtractInformation = () => {
+    if (!file) {
+      alert("Please upload a file first.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const fileContent = e.target.result;
+      dispatch(extractResumeInfo(fileContent)); // Dispatch action with file content
+    };
+    reader.readAsText(file);
+  };
+
+============How to submitting form==============  
+Step1===>  const [formData, setFormData] = useState({ name: "", email: "" });
+Step2===>
+ <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+ </form>
+ Step3==>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (editId) {
+      dispatch(updateItem(editId, formData));
+      setEditId(null);
+    } else {
+      dispatch(addItem(formData));
+    }
+    setFormData({ name: "", email: "" });
+    setShowModal(false); // Close the modal after submission
+  };
+  Step4==>
+   const dispatch = useDispatch();
+  const [formData, setFormData] = useState({ name: "", email: "" });
+  const [editId, setEditId] = useState(null);
+  ===========Execute a standalone action using button ======================
+   <button  onClick={handleHighlightEntity}  >
+ const handleHighlightEntity = () => {
+    dispatch(highlightEntity(text)); // Dispatch the highlightEntity action
+  };
+
+  ============How to display  data from database==============  
+  step1=selects data from the Redux store. or 
+  Fetches the items state (assumed to be a list of student objects) to display them in the component.
+  const items = useSelector((state) => state.items);
+  step2:check useEffect (Check for Logged-In User)
+  useEffect(() => {
+    const userEmail = localStorage.getItem("userEmail");
+    console.log("LocalStorage email:", userEmail);
+    setIsLoggedIn(!!userEmail);
+  }, []);
+ step3:useEffect (Fetch Items)
+  useEffect(() => {
+    dispatch(fetchItems());
+  }, [dispatch]);
+  step4:== Conditional Add Button
+ {isLoggedIn && (
+          <button
+            onClick={() => {
+              setFormData({ name: "", email: "" });
+              setEditId(null);
+              setShowModal(true);
+            }}
+ )}
+
+   step5:==display rendered data using map
+   <tbody>
+            {items.map((item, index) => (
+              <tr key={index}>
+                <td>{item.name}</td>
+                <td>{item.email}</td>
+                      ))}
+
+ ANOTHER WAY
+                         {allEntities.map((entity) => (
+                    <tr key={entity.id}>
+                      <td style={{ border: "1px solid #ccc", padding: "8px" }}>{entity.id}</td>
+                      <td style={{ border: "1px solid #ccc", padding: "8px" }}>{entity.text}</td>
+                      <td style={{ border: "1px solid #ccc", padding: "8px" }}>{entity.sentence}</td>
+                      <td style={{ border: "1px solid #ccc", padding: "8px" }}>
+                        {entity.org
+                          ? entity.org.map((e) => `${e.entity_text} (${e.entity_label})`).join(", ")
+                          : "No entities"}
+                      </td>
+                         ))}
+ ==================How to open popup model==============================
+ step1==>A React useState hook that manages whether the modal is visible or hidden.
+   const [showModal, setShowModal] = useState(false); // Toggle for modal visibility  
+ step2==>Button to Trigger Modal   
+       <button
+            onClick={() => {
+              setFormData({ name: "", email: "" });
+              setEditId(null);
+              setShowModal(true);
+            }}           
+          >
+            Add Student
+          </button> 
+step3==  Conditional Modal Rendering         
+              {showModal && (
+          <div> 
+            <div>
+              <h2 style={{ textAlign: "center" }}>{editId ? "Edit Student" : "Add Student"}</h2>
+              <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>            
+                
+              </form>
+            </div>
+          </div>
+        )}               
+ step4===   while editing and submitting form must be make model true or false
+       const handleSubmit = (e) => {
+    e.preventDefault();   
+    setShowModal(false); // Close the modal after submission
+  };
+  const handleEdit = (id) => {   
+    setShowModal(true); // Open the modal for editing
+  };
+  =========edit or delete=======================
+  step1== add button for edit and delete
+  <td>
+                  <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+                    <button
+                      onClick={() => handleEdit(item.id)}                     
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(item.id)}                     
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+step 2==handle function
+  const handleEdit = (id) => {
+    const item = items.find((item) => item.id === id);
+    setEditId(id);
+    setFormData({ name: item.name, email: item.email });
+    setShowModal(true); // Open the modal for editing
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deleteItem(id));
+  };

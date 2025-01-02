@@ -1,0 +1,53 @@
+auotomated resume screening==
+upload doc file 
+convert to text then determine extract information from resume 
+apply filtering and calculation after extract information from resume
+save data with auth user id
+ REVIEW==
+same type review collect in doc and upload  then convet uploaded doc in text
+ and determine product org,brand and sentiment,review text
+save data with auth user id
+ 2nd Approach== combination of text field and dropdown  and for review multiple add button for multiple text review
+save data with auth user id
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===============================
+prompt==1write 10 feature for developer using NER/textclssification/textrank  in NLP with example
+2.give some more different unique example of Customer Feedback Analysis using NER  nlp  with long paragraph input and with output
+3.for each 10 features next coding steps
+4.after getting feedback next coding sceanario
+5.how matched "Sports": ["match", "tournament", "league"],
+
+6.Automated Resume Screening using ner nlp we Extract candidate skills and match them to required skills from job descriptions to calculate a compatibility score. what more tings we can do in coding
+7.write detail coding above 20 feature points with input and output
+
+8.how to collect roles = ["Software Developer", "Data Analyst", "Manager"] using ner 
+9.after extracting def process_resume(text: str) -> Dict[str, List[Dict[str, str]]]:
+    resume_data = {
+        "Personal Info": extract_personal_info(text),
+        "Education": extract_education(text),
+        "Work Experience": extract_work_experience(text),
+        "Skills": extract_skills(text),
+        "Certifications": extract_certifications(text),
+        "Projects": extract_projects(text),
+    }
+    return resume_data i want to find how many student mtech, experenice more than 5 year  skill python and minimum 3 projects

@@ -1,9 +1,10 @@
-from flask_bcrypt import Bcrypt  # Import only Bcrypt from flask_bcrypt
+import uuid
+from flask_bcrypt import Bcrypt
 from flask import Blueprint, jsonify, render_template, request, redirect, url_for
 from extensions import db
-from models import Task, Student, User  # Import Task, Student, and User models
-import jwt
+from models import Task, Student, User, EntityHighlight
 import spacy
+from flask import current_app
 
 
 bcrypt = Bcrypt()
@@ -251,17 +252,66 @@ def process_entity_highlighter():
     if not text:
         return jsonify({"error": "Text input is required"}), 400
 
+    # Generate a unique textid for the entire paragraph
+    textid = str(uuid.uuid4())  # Same textid for the entire paragraph
+    print(f"Generated textid: {textid}")
+
     # Process the text with SpaCy
     doc = nlp(text)
     result = sentence_entity_highlighter(doc)
+    print("result coming")
+    print(result)
 
-    # Simplify response format for the frontend
-    entities = []
-    for sent in result:
-        for entity in sent["entities"]:
-            entities.append(entity)
+    # Save data to the database
+    try:
+        for sent in result:
+            sentence_text = sent["sentence"]
+            entities = sent["entities"]
 
-    return jsonify(entities)
+            # Collect all entities for the current sentence into a single JSON object
+            entities_json = [{"entity_text": entity["text"], "entity_label": entity["label"]} for entity in entities]
+
+            # Create a new record for the sentence
+            entity_highlight = EntityHighlight(
+                text=text,  # The full paragraph
+                sentence=sentence_text,  # Current sentence
+                org=entities_json,  # JSON array of entities for this sentence
+                textid=textid  # Unique identifier for the entire paragraph
+            )
+
+            db.session.add(entity_highlight)  # Add to the session
+
+        db.session.commit()  # Commit all changes to the database
+        print("Data successfully saved to the database.")
+    except Exception as e:
+        db.session.rollback()  # Rollback in case of an error
+        print("Error saving to the database:", e)
+        return jsonify({"error": "Failed to save data to the database"}), 500
+
+    return jsonify(result)
+@main.route('/fetch-all-entities', methods=['GET'])
+def fetch_all_entities():
+    try:
+        # Query all rows from the EntityHighlight table
+        all_entities = EntityHighlight.query.all()
+
+        # Convert the rows into a JSON-friendly format
+        result = [
+            {
+                "id": entity.id,
+                "text": entity.text,
+                "sentence": entity.sentence,
+                "org": entity.org,
+                "textid": entity.textid,
+            }
+            for entity in all_entities
+        ]
+        print("all data here") 
+        print(result)
+        return jsonify(result), 200
+    except Exception as e:
+        print(f"Error fetching all entities: {e}")
+        return jsonify({"error": "Failed to fetch entities"}), 500
 def long_sentence_detector(doc):
     print("Debug: Entered long_sentence_detector function")  # Debug log
     max_length = 10  # Customize the length threshold

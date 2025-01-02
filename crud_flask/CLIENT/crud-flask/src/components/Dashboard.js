@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar"; // Import Sidebar component
 import Nav from "./Nav"; // Import Nav component
-import Footer from "./Footer"; // Import Footer component
+
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ const Dashboard = () => {
         </div>
 
         {/* Footer */}
-        <Footer style={{ flex: "0 0 50px" }} />
+     
       </div>
     </div>
   );

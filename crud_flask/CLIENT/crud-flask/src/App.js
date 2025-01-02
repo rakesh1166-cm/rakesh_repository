@@ -10,6 +10,11 @@ import DetectLongSentence from "./components/DetectLongSentence";
 import HighlightEntity from "./components/HighlightEntity";
 import KeywordExtractor from "./components/KeywordExtractor";
 import Blacklist from "./components/Blacklist";
+import SubItem1 from "./components/SubItem1";
+import ResumeScreen from "./components/ResumeScreen";
+import ReviewAnalysis from "./components/ReviewAnalysis";
+import TextManipulation from "./components/TextManipulation";
+
 
 function App() {
   return (
@@ -23,6 +28,13 @@ function App() {
           <Route path="/highlight-entity" element={<HighlightEntity />} />
           <Route path="/keyword-extractor" element={<KeywordExtractor />} />
           <Route path="/Blacklist" element={<Blacklist />} />
+          <Route path="/ner/highlight-entity" element={<HighlightEntity />} />
+          <Route path="/ner/resume-screen" element={<ResumeScreen/>} />
+          <Route path="/ner/review-analysis" element={<ReviewAnalysis />} />
+          <Route path="/custom-pipeline/detect-long-sentence" element={<DetectLongSentence />} />
+          <Route path="/custom-pipeline/keyword-extractor" element={<KeywordExtractor />} />
+          <Route path="/custom-pipeline/Blacklist" element={<Blacklist />} />
+          <Route path="/text-tools/text-manipulation" element={<TextManipulation/>} />
         </Routes>
       </Router>
     </Provider>

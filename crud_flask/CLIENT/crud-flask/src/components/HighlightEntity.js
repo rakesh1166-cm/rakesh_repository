@@ -1,30 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { highlightEntity } from "../actions"; // Import the action
-import Sidebar from "./Sidebar"; // Import Sidebar component
-import Nav from "./Nav"; // Import Nav component
-import Footer from "./Footer"; // Import Footer component
+import { highlightEntity, fetchAllEntities } from "../actions"; // Import fetchAllEntities action
+import Sidebar from "./Sidebar";
+import Nav from "./Nav";
+
 
 const HighlightEntity = () => {
   const [text, setText] = useState(""); // State for user input
   const dispatch = useDispatch();
-  const highlightedEntities = useSelector((state) => state.highlightedEntities); // Fetch from Redux
+  const highlightedEntities = useSelector((state) => state.highlightedEntities);
+  const allEntities = useSelector((state) => state.allEntities); // Get all entities from Redux state
 
   const handleHighlightEntity = () => {
-    dispatch(highlightEntity(text)); // Dispatch the action
+    dispatch(highlightEntity(text)); // Dispatch the highlightEntity action
   };
+
+  useEffect(() => {
+    dispatch(fetchAllEntities()); // Fetch all database rows on component mount
+  }, [dispatch]);
 
   return (
     <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
-      {/* Sidebar on the left */}
       <Sidebar style={{ flex: "0 0 250px" }} />
-
-      {/* Main content area */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-        {/* Navigation bar */}
         <Nav style={{ flex: "0 0 60px" }} />
-
-        {/* Main content */}
         <div
           style={{
             flex: 1,
@@ -35,8 +34,6 @@ const HighlightEntity = () => {
         >
           <h1 style={{ marginBottom: "20px" }}>Highlight Entity</h1>
           <p>Enter your text below to highlight entity.</p>
-
-          {/* Input text area */}
           <textarea
             placeholder="Enter your text here..."
             value={text}
@@ -50,8 +47,6 @@ const HighlightEntity = () => {
               borderRadius: "4px",
             }}
           ></textarea>
-
-          {/* Submit button */}
           <button
             onClick={handleHighlightEntity}
             style={{
@@ -66,25 +61,63 @@ const HighlightEntity = () => {
             Highlight Entity
           </button>
 
-          {/* Display results */}
           <div style={{ marginTop: "20px" }}>
-            <h2>Highlighted Entities:</h2>
+            <h2>Highlighted Sentences and Entities:</h2>
             {highlightedEntities && highlightedEntities.length > 0 ? (
               <ul>
-                {highlightedEntities.map((entity, index) => (
+                {highlightedEntities.map((item, index) => (
                   <li key={index}>
-                    {entity.text} ({entity.label})
+                    <strong>Sentence:</strong> {item.sentence}
+                    <ul>
+                      {item.entities.map((entity, entityIndex) => (
+                        <li key={entityIndex}>
+                          {entity.text} ({entity.label})
+                        </li>
+                      ))}
+                    </ul>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p>No entities highlighted yet.</p>
+              <p>No sentences or entities highlighted yet.</p>
+            )}
+          </div>
+
+          <div style={{ marginTop: "20px" }}>
+            <h2>Database Records:</h2>
+            {allEntities.length > 0 ? (
+              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <thead>
+                  <tr>
+                    <th style={{ border: "1px solid #ccc", padding: "8px" }}>ID</th>
+                    <th style={{ border: "1px solid #ccc", padding: "8px" }}>Text</th>
+                    <th style={{ border: "1px solid #ccc", padding: "8px" }}>Sentence</th>
+                    <th style={{ border: "1px solid #ccc", padding: "8px" }}>Entities</th>
+                    <th style={{ border: "1px solid #ccc", padding: "8px" }}>TextID</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {allEntities.map((entity) => (
+                    <tr key={entity.id}>
+                      <td style={{ border: "1px solid #ccc", padding: "8px" }}>{entity.id}</td>
+                      <td style={{ border: "1px solid #ccc", padding: "8px" }}>{entity.text}</td>
+                      <td style={{ border: "1px solid #ccc", padding: "8px" }}>{entity.sentence}</td>
+                      <td style={{ border: "1px solid #ccc", padding: "8px" }}>
+                        {entity.org
+                          ? entity.org.map((e) => `${e.entity_text} (${e.entity_label})`).join(", ")
+                          : "No entities"}
+                      </td>
+                      <td style={{ border: "1px solid #ccc", padding: "8px" }}>{entity.textid}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No database records found.</p>
             )}
           </div>
         </div>
-
-        {/* Footer */}
-        <Footer style={{ flex: "0 0 50px" }} />
+      
       </div>
     </div>
   );

@@ -29,3 +29,13 @@ class User(db.Model):
 
     def __repr__(self):
         return f"<User {self.username}>"   
+class EntityHighlight(db.Model):
+    __tablename__ = 'entity_highlight'
+    id = db.Column(db.Integer, primary_key=True, nullable=False)  # Auto-increment primary key
+    text = db.Column(db.Text, nullable=False)  # Main text field
+    org = db.Column(db.JSON, nullable=False)   # JSON data for organization
+    sentence = db.Column(db.Text, nullable=False)  # Sentence field
+    textid = db.Column(db.String(200), nullable=False)  # Unique identifier for text
+
+    def __repr__(self):
+        return f"<EntityHighlight ID: {self.id}, TextID: {self.textid}>"

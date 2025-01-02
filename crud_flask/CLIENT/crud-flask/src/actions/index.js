@@ -5,6 +5,10 @@ export const DELETE_ITEM = "DELETE_ITEM";
 export const FETCH_ITEMS = "FETCH_ITEMS";
 export const LOGOUT_USER = "LOGOUT_USER"; // Add this
 export const HIGHLIGHT_ENTITY = "HIGHLIGHT_ENTITY";
+export const FETCH_ALL_ENTITIES = "FETCH_ALL_ENTITIES";
+export const EXTRACT_RESUME_INFO = "EXTRACT_RESUME_INFO";
+export const PROCESS_TEXT_FEATURE = "PROCESS_TEXT_FEATURE";
+export const PROCESS_TEXT_FAILURE = "PROCESS_TEXT_FAILURE";
 // Action Creators
 export const addItem = (item) => {
   return async (dispatch) => {
@@ -191,6 +195,94 @@ export const highlightEntity = (text) => {
       });
     } catch (error) {
       console.error("Error highlighting entity:", error);
+    }
+  };
+};
+export const fetchAllEntities = () => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/fetch-all-entities", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // Dispatch the action with the fetched data
+      dispatch({
+        type: FETCH_ALL_ENTITIES,
+        payload: data, // Pass the fetched data to the reducer
+      });
+    } catch (error) {
+      console.error("Error fetching all entities:", error);
+    }
+  };
+};
+
+export const extractResumeInfo = (fileContent) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/extract-resume-info", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ fileContent }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // Dispatch the action with the extracted information
+      dispatch({
+        type: EXTRACT_RESUME_INFO,
+        payload: data, // Pass the extracted information to the reducer
+      });
+    } catch (error) {
+      console.error("Error extracting resume information:", error);
+    }
+  };
+};
+
+export const processTextFeature = (feature, payload) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/text-tools/${feature}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // Dispatch the action with the processed text
+      dispatch({
+        type: PROCESS_TEXT_FEATURE,
+        payload: data, // Pass the processed text to the reducer
+      });
+    } catch (error) {
+      console.error("Error processing text feature:", error);
+
+      // Dispatch an error action
+      dispatch({
+        type: PROCESS_TEXT_FAILURE,
+        payload: error.message, // Pass the error message to the reducer
+      });
     }
   };
 };
