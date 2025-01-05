@@ -1,3 +1,6 @@
+==========BASIC command to run===========
+front end--npm start
+backend---python app.py
 ===>adding input field inside form
 ==============ADD input field without form using inline event handler function
 ====How to add choose file======
@@ -10,18 +13,42 @@ fetch data using useEffect
 condition add button based on logged in
 display rendered data using map
 =====>open popup model
+Button to Trigger Modal   and make  setShowModal is true
 Conditional Modal Rendering   based on button click
  while editing and submitting form must be make model true or false
+  step1==>A React useState hook that manages whether the modal is visible or hidden.  
+ step2==>Button to Trigger Modal   and make  setShowModal is true
+step3 while editing and submitting form must be make model true or false
 =====>edit or delete
 ======>how to open popup model on selecting radio button
-======>how to add dropdown exsiting popup model form  find and replace
+ step1==>A  React boolean useState  hook that manages whether the modal is visible or hidden.
+ step 2:   Mention text input field   
+  step 3: make setShowModal is true  
+  step4: Since isModalOpen is true from step3(setIsModalOpen(true)) extract IsModalOpen from setIsModalOpen 
+  Apply condition   
+//from step3 feature is set from  setFeature(modalType) using string React useState hook==>const [feature, setFeature] = useState(""); // Selected feature
+so apply condition if feature === "replace_text" then add 2 input field for find and replace and one dropdown for modal methods       
+set find_text setModalData in  using React object useState hook then while submit popup form this setModalData  is set in empty React object useState hook setAdditionalInput               
+set replace_text in setModalData  using React object useState hook then while submit popup form this setModalData  is set in empty React object useState hook setAdditionalInput 
+set method setModalData in  using React object useState hook then while submit popup form this setModalData  is set in empty React object useState hook setAdditionalInput 
+========>how to add dropdown exsiting popup model form  find and replace
 ======>text field for digit (split text  by character)
+default set modalData.char_count is 100 while declaring react object usestate hook char_count: 100,
 =====>by selecting one dropdown automatically other dropdown visible in text-classification
 ======>by selecting one dropdown automatically multiselect dropdown dropdown visible in Advanced Sentiment/Review Analysis
+ step1:sentiment_type option is aspect_based that already is set in setModalData   using React object useState hook
+ then conditional render second multiselect dropdown    
+ step2:sing array.form how to multiselct
 =======>by selecting one dropdown automatically radio button visible in relation extraction
-
+based on two condition how to render data
+Iterates over the defined array, rendering a radio button and label for each entity.
 // how to add name two file app.js and sidebar.js
 // how to add sub menu
+========= How to perform multiple feature using single api and render using common code===============================
+
+
+====How to passes states, handlers, and configuration to TextProcessingPanel, which handles user interaction and displays NLP-related features.======
+
  in sidebar.js
 step1.import React, { useState } from "react";
 step2.const [openSubMenu, setOpenSubMenu] = useState(null);
@@ -219,7 +246,7 @@ step2==> add text field,
   };
 
   ADD input field using inline event handler function
-  step2 declare state varible
+  step2 declare state varible a string react state hook
    const [text, setText] = useState(""); // State for user input
   step2: add text area
    <textarea
@@ -334,7 +361,7 @@ Step2===>
  ==================How to open popup model==============================
  step1==>A React useState hook that manages whether the modal is visible or hidden.
    const [showModal, setShowModal] = useState(false); // Toggle for modal visibility  
- step2==>Button to Trigger Modal   
+ step2==>Button to Trigger Modal   and make  setShowModal is true
        <button
             onClick={() => {
               setFormData({ name: "", email: "" });
@@ -390,3 +417,336 @@ step 2==handle function
   const handleDelete = (id) => {
     dispatch(deleteItem(id));
   };
+================how to open popup model on selecting radio button(find and replace-text manipulation tools)========================
+
+ step1==>A  React boolean useState  hook that manages whether the modal is visible or hidden.
+   const [showModal, setShowModal] = useState(false); // Toggle for modal visibility 
+
+ step 2:   Mention text input field       
+<input
+                  type="radio"
+                  name="feature"
+                  value="replace_text"
+                  onChange={() => openModal("replace_text")}
+  />
+  Find and Replace
+ step 3: make setShowModal is true
+  const openModal = (modalType) => {
+    setFeature(modalType);
+    setIsModalOpen(true);
+  };
+  step4: Since isModalOpen is true from step3(setIsModalOpen(true)) extract IsModalOpen from setIsModalOpen 
+  Apply condition 
+   {isModalOpen && (
+//from step3 feature is set from  setFeature(modalType) using string React useState hook==>const [feature, setFeature] = useState(""); // Selected feature
+so apply condition if feature === "replace_text" then add 2 input field for find and replace and one dropdown for modal methods
+        {feature === "replace_text" && (
+                <>
+                  <h3>Find and Replace</h3>
+                  
+                  <div style={{ marginBottom: "10px" }}>
+      ///////////////////////input field for find /////////////////////////////////////
+      set find_text setModalData in  using React object useState hook then while submit popup form this setModalData  is set in empty React object useState hook setAdditionalInput 
+                  <label>
+                    Find Text:
+                    <input
+                      type="text"
+                      value={modalData.find_text}
+                      onChange={(e) =>
+                        setModalData({ ...modalData, find_text: e.target.value })
+                      }
+                      style={{ width: "100%", padding: "5px", marginTop: "5px" }}
+                    />
+                  </label>
+         /////////////////////input field for Replace/////////////////////////////////////
+          set replace_text in setModalData  using React object useState hook then while submit popup form this setModalData  is set in empty React object useState hook setAdditionalInput 
+     
+                  <label>
+                    Replace Text:
+                    <input
+                      type="text"
+                      value={modalData.replace_text}
+                      onChange={(e) =>
+                        setModalData({ ...modalData, replace_text: e.target.value })
+                      }
+                      style={{ width: "100%", padding: "5px", marginTop: "5px" }}
+                    />
+                  </label>
+                  </div>
+                  <div style={{ marginBottom: "10px" }}>
+         ///////////dropdown field for modal method///////////////////////////
+          set method setModalData in  using React object useState hook then while submit popup form this setModalData  is set in empty React object useState hook setAdditionalInput 
+     
+                  <label>
+                    Select Method:
+                    <select
+                      value={modalData.method}
+                      onChange={(e) =>
+                        setModalData({ ...modalData, method: e.target.value })
+                      }
+                      style={{ width: "100%", padding: "5px", marginTop: "5px" }}
+                    >        
+                    </select>
+                  </label>
+                </div>
+                </>
+              )}    )}
+
+=================text field for digit (split text  by character)====================
+Since isModalOpen is true from step3(setIsModalOpen(true)) extract IsModalOpen from setIsModalOpen
+see section ===How to open popup model====
+here by default set modalData.char_count is 100 while declaring react object usestate hook char_count: 100,
+           <input
+                      type="number"
+                      value={modalData.char_count}
+                      onChange={(e) =>
+                        setModalData({ ...modalData, char_count: e.target.value })
+                      }
+                      style={{ width: "100%", padding: "5px", marginTop: "5px" }}
+                    />
+ ==============by selecting one dropdown automatically other dropdown visible in text-classification=====================
+ Since isModalOpen is true from step3(setIsModalOpen(true)) extract IsModalOpen from setIsModalOpen
+see section ===How to open popup model====
+step 1 mention first dropdown while selecting option ( <option value="custom">Custom Classification</option>)
+  set classification_type in setModalData   using React object useState hook
+  <select
+          value={modalData.classification_type}
+          onChange={(e) =>
+            setModalData({ ...modalData, classification_type: e.target.value })
+          }
+          style={{ width: "100%", padding: "5px", marginTop: "5px" }}
+        >
+          <option value="">Select</option>
+          <option value="spam_detection">Spam Detection</option>
+          <option value="topic_classification">Topic Classification</option>
+          <option value="intent_detection">Intent Detection</option>
+          <option value="custom">Custom Classification</option>
+        </select>
+   step2 :if   classification_type option is custom that already is set in setModalData   using React object useState hook
+     then conditional render second dropdown
+      {modalData.classification_type === "custom" && (
+      <div style={{ marginBottom: "10px" }}>
+        <label>
+          Enter Custom Labels (comma-separated):
+          <input
+            type="text"
+            value={modalData.custom_labels}
+            onChange={(e) =>
+              setModalData({ ...modalData, custom_labels: e.target.value })
+            }
+            style={{ width: "100%", padding: "5px", marginTop: "5px" }}
+          />
+        </label>
+        <label>
+          Upload Pre-Trained Model:
+          <input
+            type="file"
+            onChange={(e) =>
+              setModalData({ ...modalData, model_file: e.target.files[0] })
+            }
+            style={{ width: "100%", padding: "5px", marginTop: "5px" }}
+          />
+        </label>
+      </div>
+    )}  
+======>by selecting one dropdown automatically multiselect dropdown  visible in Advanced Sentiment/Review Analysis
+   Since isModalOpen is true from step3(setIsModalOpen(true)) extract IsModalOpen from setIsModalOpen
+see section ===How to open popup model====
+step 1 mention first dropdown while selecting option ( <option value="aspect_based">Aspect-Based Sentiment</option>)
+  set sentiment_type in setModalData   using React object useState hook
+<select
+                        value={modalData.sentiment_type}
+                        onChange={(e) =>
+                          setModalData({ ...modalData, sentiment_type: e.target.value })
+                        }
+                        style={{ width: "100%", padding: "5px", marginTop: "5px" }}
+                      >
+                        <option value="">Select</option>
+                        <option value="general">General Sentiment</option>
+                        <option value="emotion_based">Emotion-Based Sentiment</option>
+                        <option value="aspect_based">Aspect-Based Sentiment</option>
+                      </select>
+     step2 :if   sentiment_type option is aspect_based that already is set in setModalData   using React object useState hook
+     then conditional render second multiselect dropdown    
+     
+         {modalData.sentiment_type === "aspect_based" && (
+                    <div style={{ marginBottom: "10px" }}>
+                      <label>
+                        Select Aspects:
+                        <select
+                          multiple
+                          value={modalData.aspects}
+                          onChange={(e) =>
+                            setModalData({
+                              ...modalData,
+                              aspects: Array.from(e.target.selectedOptions, (option) => option.value),
+                            })
+                          }
+                          style={{ width: "100%", padding: "5px", marginTop: "5px" }}
+                        >
+                          <option value="service">Service</option>
+                          <option value="price">Price</option>
+                          <option value="quality">Quality</option>
+                          <option value="delivery">Delivery</option>
+                        </select>
+                      </label>
+                    </div>
+                  )}             
+    step3:  to select multi option here we use array.form  onChange
+                  onChange={(e) =>
+                            setModalData({
+                              ...modalData,
+                              aspects: Array.from(e.target.selectedOptions, (option) => option.value),
+                            })
+                          }
+  declare aspects   value={modalData.aspects} as array while defining       React object useState hook  
+   const [modalData, setModalData] = useState({ 
+    review_text: "",
+    aspects: [], // For Aspect-Based Sentiment   
+  }); // Modal input data 
+====================By selecting one dropdown automatically radio button visible in relation extraction===============                 
+  Since isModalOpen is true from step3(setIsModalOpen(true)) extract IsModalOpen from setIsModalOpen
+see section ===How to open popup model====
+step 1 mention first dropdown while selecting any option 
+  set entity_type in setModalData   using React object useState hook
+
+   <select
+          value={modalData.entity_type}
+          onChange={(e) => {
+            const selectedCategory = e.target.value;
+            setModalData({ ...modalData, entity_type: selectedCategory });
+          }}
+          style={{ width: "100%", padding: "5px", marginTop: "5px" }}
+        >
+          <option value="">Select a Category</option>
+          <option value="food_delivery">Food Delivery Feedback</option>
+          <option value="e_commerce">E-Commerce</option>
+          <option value="travel_booking">Travel Booking Systems</option>
+          <option value="healthcare">Healthcare</option>
+          <option value="legal_documents">Legal Document Analysis</option>
+          <option value="education">Educational Content Analysis</option>
+          <option value="entertainment">Entertainment Recommendations</option>
+          <option value="real_estate">Real Estate Listings</option>
+          <option value="retail">Retail Store Feedback</option>
+          <option value="finance">Financial Transactions</option>
+          <option value="sports">Sports Events Analysis</option>
+        </select>
+  step2 :check two condition
+   first condition==  entity_type option is set not empty or null that already is set in setModalData   using React object useState hook
+   second condition==  categoryEntityLabels has a matching key for modalData.entity_type.    
+     const categoryEntityLabels = {
+    food_delivery: ["PRODUCT", "ORG", "TIME", "LOCATION", "ISSUES"],
+    e_commerce: ["ORG", "PRODUCT", "PRICE", "BRAND", "CUSTOMER_FEEDBACK"],
+    travel_booking: ["PERSON", "GPE", "DATE", "AIRLINE", "BOOKING_ID"],
+    healthcare: ["PERSON", "DIAGNOSIS", "ORG", "PRESCRIBED_MEDS", "HOSPITAL"],
+    legal_documents: ["ORG", "PERSON", "LAW_REFERENCE", "CASE_NUMBER", "VERDICT"],
+    education: ["ORG", "TOPIC", "PERSON", "GRADE", "REMARKS"],
+    entertainment: ["MOVIE", "GENRE", "PERSON", "RATING", "RECOMMENDATIONS"],
+    real_estate: ["LOCATION", "PRICE", "PROPERTY_TYPE", "AMENITIES", "SELLER"],
+    retail: ["PRODUCT", "ORG", "CUSTOMER_FEEDBACK", "STORE", "IMPROVEMENT_AREAS"],
+    finance: ["MONEY", "ORG", "TRANSACTION_ID", "TYPE", "STATUS"],
+    sports: ["TEAM", "EVENT", "SCORE", "PLAYER", "HIGHLIGHTS"],
+  };
+  step3: in above step2 both condition is true then rendor radio button
+  Iterates over the array, rendering a radio button and label for each entity.
+     {modalData.entity_type && categoryEntityLabels[modalData.entity_type] && (
+      <div style={{ marginTop: "10px" }}>
+        <h4>Relevant Entity Labels:</h4>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+          {categoryEntityLabels[modalData.entity_type].map((label, index) => (
+            <label
+              key={index}
+              style={{ display: "flex", alignItems: "center", gap: "5px" }}
+            >
+              <input
+                type="radio"
+                name="entityLabel"
+                value={label}
+                onChange={(e) =>
+                  setModalData({ ...modalData, selectedEntityLabel: e.target.value })
+                }
+              />
+              {label}
+            </label>
+          ))}
+        </div>
+      </div>
+    )}
+    ==========How to passes states, handlers, and configuration to TextProcessingPanel, which handles user interaction and displays NLP-related features.======
+  return (
+    <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
+      <Sidebar style={{ flex: "0 0 250px" }} />
+      <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        <Nav style={{ flex: "0 0 60px" }} />
+        <TextProcessingPanel
+  text={text}
+  setText={setText}
+  feature={feature}
+  setFeature={setFeature}
+  openModal={openModal}
+  handleProcessText={handleProcessText}
+  processedText={processedText}
+  isModalOpen={isModalOpen}
+  closeModal={closeModal}
+  handleModalSubmit={handleModalSubmit} // Add this line
+  modalData={modalData}
+  setModalData={setModalData}
+  categoryEntityLabels={categoryEntityLabels} // Pass the actual categoryEntityLabels object
+/>
+      </div>
+    </div>
+  );
+===================  How to perform multiple feature using single api and render using common code===================
+step 1:selects data from the Redux store.
+  const processedText = useSelector((state) => state.processedText || []); // Access processed text directly from root
+  const error = useSelector((state) => state.textManipulation?.error || null); // Access the error from Redux state
+  const loading = useSelector(
+    (state) => state.textManipulation?.loading || false
+  ); // Access the loading state from Redux state
+
+  console.log("Current state - Text:", text);
+  console.log("Selected feature:", feature);
+  console.log("Processed text from Redux state:", processedText);
+  console.log("Loading state:", loading);
+  console.log("Error state:", error);
+step2:mention api
+ const response = await fetch(`http://127.0.0.1:5000/text-tools/${feature}`, { }
+step3: in redux mention
+  processedText: [], 
+  case PROCESS_TEXT_FEATURE:
+      return { ...state, processedText: action.payload, error: null };
+      case PROCESS_TEXT_FAILURE:
+      return { ...state, processedText: "", error: action.payload };
+step4:  renders data intextmanipulation.js
+  const lines =
+    processedText["Numbered lines"] ||
+    processedText["processed_text"] ||
+    [];     
+        {lines.length > 0 ? (
+            <ul>
+              {lines.map((line, index) => (
+                <li key={index}>{line.trim() ? line.trim() : "Empty Line"}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No processed text available.</p>
+          )} 
+ =======how to convert all output in list========================
+ 1st way==  paragraphs = processed_text.split("\n\n")    
+ 2nd way== paragraphs = text.split("\n\n")
+   for paragraph in paragraphs:    
+        lines = paragraph.splitlines()
+        for line in lines:
+            if line.strip():  # Only process non-empty lines
+                numbered_lines.append(f"{line_number}: {line.strip()}")   
+ 3rd way==unique_lines = []
+    for line in text.splitlines():
+        if line not in seen:
+            seen.add(line)
+            unique_lines.append(line)
+ 4th way using list comprhension==
+  lines = [line.replace(" ", "") for line in text.splitlines()]
+   processed_lines = [line.replace(" ", "-") for line in lines]
+ 5th way== unicode_values = [f"{char}: {ord(char)}" for char in text]
+  reversed_lines = [" ".join(line.split()[::-1]) for line in lines]
+   lines = [line for line in text.splitlines() if line.strip()]

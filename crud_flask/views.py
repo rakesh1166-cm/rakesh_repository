@@ -409,3 +409,297 @@ def process_blacklist_detector():
     print(f"Debug: Result generated: {result}")  # Debug log
 
     return jsonify(result)   
+
+@main.route('/text-tools/trim_whitespace', methods=['POST'])
+def split_into_paragraphs():
+    data = request.json
+    text = data.get("text", "")  # Expecting raw text to be sent in the request body
+    
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    # Trim whitespace from both ends of the input text
+    processed_text = text.strip()
+
+    # Split the text into paragraphs by double newlines
+    paragraphs = processed_text.split("\n\n")
+
+    # Print the paragraphs list for debugging
+    print(f"Paragraphs split: {paragraphs}")
+
+    return jsonify({"processed_text": paragraphs}), 200
+@main.route('/text-tools/line_numbering', methods=['POST'])
+
+
+def line_numbering():
+    data = request.json
+    text = data.get("text", "")
+    
+    print(f"Received text: {text}")  # Print the received text for debugging
+    
+    if not text:
+        print("Error: No text input provided")  # Print an error message if no text is provided
+        return jsonify({"error": "Text input is required"}), 400
+
+    # Split the text into paragraphs by looking for double newlines (\n\n)
+    paragraphs = text.split("\n\n")
+    print(f"Paragraphs split: {paragraphs}")  # Print the list of paragraphs after splitting the text
+
+    # Initialize line counter to apply sequential numbering to non-empty lines
+    numbered_lines = []
+    line_number = 1
+
+    for paragraph in paragraphs:
+        # Split each paragraph into lines (we'll ignore empty lines within paragraphs)
+        lines = paragraph.splitlines()
+
+        # Filter and number non-empty lines in each paragraph
+        for line in lines:
+            if line.strip():  # Only process non-empty lines
+                numbered_lines.append(f"{line_number}: {line.strip()}")
+                line_number += 1  # Increment the line number for each non-empty line
+
+    print(f"Numbered lines: {numbered_lines}")  # Print the list of numbered lines
+
+    processed_text = "\n".join(numbered_lines)
+
+
+    return jsonify({"Numbered lines": numbered_lines}), 200
+
+
+
+@main.route('/text-tools/remove_duplicate_lines_sort', methods=['POST'])
+def remove_duplicate_lines_sort():
+    data = request.json
+    text = data.get("text", "")
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    # Split lines and preserve the original order while removing duplicates
+    seen = set()
+    unique_lines = []
+    for line in text.splitlines():
+        if line not in seen:
+            seen.add(line)
+            unique_lines.append(line)
+
+    # Sort the unique lines based on the order of appearance
+    processed_text = "\n".join(unique_lines)
+    return jsonify({"processed_text": unique_lines}), 200
+
+
+@main.route('/text-tools/remove_spaces_each_line', methods=['POST'])
+def remove_spaces_each_line():
+    data = request.json
+    text = data.get("text", "")
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    lines = [line.replace(" ", "") for line in text.splitlines()]
+    processed_text = "\n".join(lines)
+    return jsonify({"processed_text": lines}), 200
+
+
+@main.route('/text-tools/replace_space_with_dash', methods=['POST'])
+def replace_space_with_dash():
+    data = request.json
+    text = data.get("text", "")
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    # Split the text into a list of lines
+    lines = text.splitlines()
+
+    # Replace spaces with dashes in each line
+    processed_lines = [line.replace(" ", "-") for line in lines]
+
+    # Return the processed list as JSON
+    return jsonify({"processed_text": processed_lines}), 200
+
+
+@main.route('/text-tools/ascii_unicode_conversion', methods=['POST'])
+def ascii_unicode_conversion():
+    data = request.json
+    text = data.get("text", "")
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    # Create a list of Unicode values for each character
+    unicode_values = [f"{char}: {ord(char)}" for char in text]
+
+    # Return the list directly in the JSON response
+    return jsonify({"processed_text": unicode_values}), 200
+
+@main.route('/text-tools/count_words_characters', methods=['POST'])
+def count_words_characters():
+    data = request.json
+    text = data.get("text", "")
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    # Count words and characters
+    word_count = len(text.split())
+    char_count = len(text)
+
+    # Convert the output to a list format
+    processed_text = [
+        f"Words: {word_count}",
+        f"Characters: {char_count}"
+    ]
+
+    # Return the list in the response
+    return jsonify({"processed_text": processed_text}), 200
+
+
+@main.route('/text-tools/reverse_lines_words', methods=['POST'])
+def reverse_lines_words():
+    data = request.json
+    text = data.get("text", "")
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    lines = text.splitlines()
+    reversed_lines = [" ".join(line.split()[::-1]) for line in lines]
+    processed_text = "\n".join(reversed_lines)
+    return jsonify({"processed_text": reversed_lines}), 200
+
+
+@main.route('/text-tools/remove_blank_lines', methods=['POST'])
+def remove_blank_lines():
+    data = request.json
+    text = data.get("text", "")
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    lines = [line for line in text.splitlines() if line.strip()]
+    processed_text = "\n".join(lines)
+    return jsonify({"processed_text": lines}), 200
+@main.route('/text-tools/extract_information', methods=['POST'])
+def extract_information():
+    import re
+    data = request.json
+    text = data.get("text", "")
+    extraction_method = data.get("extraction_method", "regex")
+
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    # Regex patterns for emails and URLs
+    email_pattern = r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+    url_pattern = r"https?://[^\s]+"
+
+    extracted_data = []
+    if extraction_method == "regex":
+        extracted_data.extend(re.findall(email_pattern, text))
+        extracted_data.extend(re.findall(url_pattern, text))
+
+    return jsonify({"processed_text": extracted_data}), 200
+
+# Feature: Split Text by Characters
+@main.route('/text-tools/split_text_by_characters', methods=['POST'])
+def split_text_by_characters():
+    data = request.json
+    text = data.get("text", "")
+    char_count = data.get("char_count", 100)  # Default split size
+
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    split_text = [text[i:i + char_count] for i in range(0, len(text), char_count)]
+    return jsonify({"processed_text": split_text}), 200
+
+# Feature: Change Case
+@main.route('/text-tools/change_case', methods=['POST'])
+def change_case():
+    data = request.json
+    text = data.get("text", "")
+    case_option = data.get("case_option", "lowercase")
+
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    if case_option == "uppercase":
+        processed_text = text.upper()
+    elif case_option == "capitalize":
+        processed_text = text.title()
+    else:
+        processed_text = text.lower()
+
+    return jsonify({"processed_text": processed_text}), 200
+
+# Feature: Change Case by Find
+@main.route('/text-tools/change_case_find', methods=['POST'])
+def change_case_find():
+    data = request.json
+    text = data.get("text", "")
+    target_text = data.get("target_text", "")
+    case_option = data.get("case_option", "uppercase")
+
+    if not text or not target_text:
+        return jsonify({"error": "Text and Target Text are required"}), 400
+
+    def change_case_function(match):
+        if case_option == "uppercase":
+            return match.group().upper()
+        elif case_option == "lowercase":
+            return match.group().lower()
+        elif case_option == "capitalize":
+            return match.group().capitalize()
+
+    import re
+    pattern = re.compile(re.escape(target_text), re.IGNORECASE)
+    processed_text = pattern.sub(change_case_function, text)
+
+    return jsonify({"processed_text": processed_text}), 200
+
+# Feature: Count Words by Find
+@main.route('/text-tools/count_words_find', methods=['POST'])
+def count_words_find():
+    data = request.json
+    text = data.get("text", "")
+    target_text = data.get("target_text", "")
+
+    if not text or not target_text:
+        return jsonify({"error": "Text and Target Text are required"}), 400
+
+    count = text.lower().count(target_text.lower())
+    return jsonify({"processed_text": [f"Occurrences of '{target_text}': {count}"]}), 200
+
+# Feature: Add Prefix/Suffix to Lines (already implemented in previous code)
+@main.route('/text-tools/add_prefix_suffix', methods=['POST'])
+def add_prefix_suffix():
+    data = request.json
+    text = data.get("text", "")
+    prefix = data.get("prefix", "")
+    suffix = data.get("suffix", "")
+
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    lines = [f"{prefix}{line}{suffix}" for line in text.splitlines()]
+    return jsonify({"processed_text": lines}), 200
+@main.route('/text-tools/replace_text', methods=['POST'])      
+def find_replace():
+    print('inside find replace')
+    data = request.json
+    text = data.get("text", "")
+    find_text = data.get("find_text", "")
+    replace_text = data.get("replace_text", "")
+    method = data.get("method", "simple")  # Optional, default to "simple"
+
+    if not text or not find_text:
+        return jsonify({"error": "Text and Find Text are required"}), 400
+
+    # Perform replacement based on the method
+    if method == "case_insensitive":
+        import re
+        pattern = re.compile(re.escape(find_text), re.IGNORECASE)
+        processed_text = pattern.sub(replace_text, text)
+    else:
+        processed_text = text.replace(find_text, replace_text)
+
+    # Convert the processed text into a list of lines
+    processed_lines = processed_text.splitlines()
+    print("process text")
+    print(processed_lines)
+    return jsonify({"processed_text": processed_lines}), 200     

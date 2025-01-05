@@ -20,7 +20,7 @@ const initialState = {
   highlightedEntities: [], // State for highlighted entities
   allEntities: [], // State to store all database rows
   extractedInfo: null, // Store the extracted resume information
-  processedText: "",
+  processedText: [],  
   error: null,
 };
 

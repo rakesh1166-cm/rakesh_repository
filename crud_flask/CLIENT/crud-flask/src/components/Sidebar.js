@@ -774,23 +774,22 @@ const Sidebar = () => {
                          to="/text-tools/text-manipulation"
                          style={{ color: "white", textDecoration: "none" }}
                        >
-                         Text Manipulation Tools
+                         Text Simple Tools</Link>
+                     </li>
+                     <li style={{ marginBottom: "10px" }}>
+                       <Link
+                         to="/text-tools/text-advanced"
+                         style={{ color: "white", textDecoration: "none" }}
+                       >
+                         Text Advanced Tools
                        </Link>
                      </li>
                      <li style={{ marginBottom: "10px" }}>
                        <Link
-                         to="/text-tools/Sentence-Transformers"
+                         to="/text-tools/nlp-tools"
                          style={{ color: "white", textDecoration: "none" }}
                        >
-                         Text Manipulation Tools
-                       </Link>
-                     </li>
-                     <li style={{ marginBottom: "10px" }}>
-                       <Link
-                         to="/text-tools/question-answering"
-                         style={{ color: "white", textDecoration: "none" }}
-                       >
-                        Text Manipulation Tools
+                        NLP Tools
                        </Link>
                      </li>             
             </ul>

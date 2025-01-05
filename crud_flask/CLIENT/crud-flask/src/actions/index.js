@@ -253,9 +253,14 @@ export const extractResumeInfo = (fileContent) => {
   };
 };
 
+
+
 export const processTextFeature = (feature, payload) => {
   return async (dispatch) => {
     try {
+      console.log("Dispatching feature:", feature); // Log the feature
+      console.log("Payload being sent:", payload); // Log the payload
+
       const response = await fetch(`http://127.0.0.1:5000/text-tools/${feature}`, {
         method: "POST",
         headers: {
@@ -264,16 +269,26 @@ export const processTextFeature = (feature, payload) => {
         body: JSON.stringify(payload),
       });
 
+      console.log("Response received:", response); // Log the raw response object
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        console.error("HTTP error! Status:", response.status); // Log status if error
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
       const data = await response.json();
+      console.log("Data received from backend:", data); // Log the processed data
+
+      if (data && data.processed_text) {
+        console.log("Processed text lookish:", data.processed_text); // Ensure the key exists
+      } else {
+        console.warn("Processed text missing in response. Data:", data);
+      }
 
       // Dispatch the action with the processed text
       dispatch({
         type: PROCESS_TEXT_FEATURE,
-        payload: data, // Pass the processed text to the reducer
+        payload: data || "No processed text received", // Pass the processed text
       });
     } catch (error) {
       console.error("Error processing text feature:", error);
@@ -281,7 +296,7 @@ export const processTextFeature = (feature, payload) => {
       // Dispatch an error action
       dispatch({
         type: PROCESS_TEXT_FAILURE,
-        payload: error.message, // Pass the error message to the reducer
+        payload: error.message || "An unknown error occurred", // Pass the error message
       });
     }
   };
