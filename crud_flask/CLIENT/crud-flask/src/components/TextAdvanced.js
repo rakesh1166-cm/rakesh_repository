@@ -21,7 +21,8 @@ const TextAdvanced = () => {
     target_text: "",  
      method: "", // Add method for Find and Replace
      extraction_method: "", // Method for extracting information (regex, NLP, heuristics, etc.)    
-   
+     find_text_prefix: "", // New field for prefix
+  find_text_suffix: "", // New field for suffix
     
   }); // Modal input data
 const error = useSelector((state) => state.textManipulation?.error || null); // Access the error from Redux state
@@ -88,8 +89,16 @@ const error = useSelector((state) => state.textManipulation?.error || null); // 
         extraction_method: modalData.extraction_method,
         text_to_extract: modalData.text_to_extract,
       };
+   
     }
-  
+    else  if (feature === "add_custom_prefix_suffix") { // Update feature name
+      additionalInput = {
+        find_text_prefix: modalData.find_text_prefix,
+        prefix: modalData.prefix,
+        find_text_suffix: modalData.find_text_suffix,
+        suffix: modalData.suffix,
+      };
+    }
     // Prepare the payload
     const payload = { text, ...additionalInput };
   

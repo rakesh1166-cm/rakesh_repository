@@ -147,6 +147,19 @@ const AdvancedTextToolsPanel = ({
         Add Prefix/Suffix to Lines
       </label>         
     </div>
+    <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
+      
+   
+      <label style={{ display: 'flex', alignItems: 'center', gap: '5px', whiteSpace: 'nowrap' }}>
+    <input
+          type="radio"
+          name="feature"
+          value="add_custom_prefix_suffix"
+          onChange={() => openModal("add_custom_prefix_suffix")}
+        />
+      Add Custom Prefix/Suffix to Lines
+    </label>         
+  </div>
     </div>
    
 
@@ -320,7 +333,63 @@ const AdvancedTextToolsPanel = ({
             </div>
           </>
         )}
-
+{feature === "add_custom_prefix_suffix" && (
+  <>
+    <h3>Add Prefix and Suffix to Lines</h3>
+    <div style={{ marginBottom: "10px" }}>
+      <label>
+        Find Text for Prefix:
+        <input
+          type="text"
+          value={modalData.find_text_prefix}
+          onChange={(e) =>
+            setModalData({ ...modalData, find_text_prefix: e.target.value })
+          }
+          style={{ width: "100%", padding: "5px", marginTop: "5px" }}
+        />
+      </label>
+    </div>
+    <div style={{ marginBottom: "10px" }}>
+      <label>
+        Prefix:
+        <input
+          type="text"
+          value={modalData.prefix}
+          onChange={(e) =>
+            setModalData({ ...modalData, prefix: e.target.value })
+          }
+          style={{ width: "100%", padding: "5px", marginTop: "5px" }}
+        />
+      </label>
+    </div>
+    <div style={{ marginBottom: "10px" }}>
+      <label>
+        Find Text for Suffix:
+        <input
+          type="text"
+          value={modalData.find_text_suffix}
+          onChange={(e) =>
+            setModalData({ ...modalData, find_text_suffix: e.target.value })
+          }
+          style={{ width: "100%", padding: "5px", marginTop: "5px" }}
+        />
+      </label>
+    </div>
+    <div style={{ marginBottom: "10px" }}>
+      <label>
+        Suffix:
+        <input
+          type="text"
+          value={modalData.suffix}
+          onChange={(e) =>
+            setModalData({ ...modalData, suffix: e.target.value })
+          }
+          style={{ width: "100%", padding: "5px", marginTop: "5px" }}
+        />
+      </label>
+    </div>
+  </>
+)}
 {feature === "change_case" && (
           <>
             <h3>Change Case</h3>

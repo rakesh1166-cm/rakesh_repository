@@ -8,6 +8,7 @@ const TextProcessingPanel = ({
   openModal,
   handleProcessText,
   handleModalSubmit, // Include this prop
+  lines, // Receive lines as a prop
   processedText,
   isModalOpen,
   closeModal,
@@ -179,34 +180,18 @@ const TextProcessingPanel = ({
 </div>
           </div>
 
-          <button
-            onClick={handleProcessText}
-            style={{
-              padding: "10px 20px",
-              backgroundColor: "#007bff",
-              color: "#fff",
-              border: "none",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
-          >
-            Process Text
-          </button>
-
+         
+     
           <h2 style={{ marginTop: "20px" }}>Output:</h2>
-          <textarea
-            value={processedText}
-            readOnly
-            style={{
-              width: "100%",
-              height: "150px",
-              marginTop: "10px",
-              padding: "10px",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-              backgroundColor: "#f9f9f9",
-            }}
-          ></textarea>
+    {lines.length > 0 ? (
+            <ul>
+              {lines.map((line, index) => (
+                <li key={index}>{line.trim() ? line.trim() : "Empty Line"}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No processed text available.</p>
+          )}
 
           {/* Modal for "Find and Replace" */}
           {isModalOpen && (

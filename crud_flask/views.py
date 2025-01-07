@@ -5,12 +5,21 @@ from extensions import db
 from models import Task, Student, User, EntityHighlight
 import spacy
 from flask import current_app
-
+from textblob import TextBlob
+from nltk.tokenize import sent_tokenize
+import nltk
+import numpy as np
+import openai
 
 bcrypt = Bcrypt()
 main = Blueprint('main', __name__)
 
+nltk.download('punkt')
 nlp = spacy.load("en_core_web_sm")
+
+# OpenAI API setup
+openai.api_key = "YOUR_OPENAI_API_KEY"
+
 # --- Task CRUD (Existing Code) ---
 @main.route('/')
 def index():
@@ -577,10 +586,14 @@ def remove_blank_lines():
 @main.route('/text-tools/extract_information', methods=['POST'])
 def extract_information():
     import re
+   
+
+    # Retrieve input data
     data = request.json
     text = data.get("text", "")
     extraction_method = data.get("extraction_method", "regex")
 
+    # Validate text input
     if not text:
         return jsonify({"error": "Text input is required"}), 400
 
@@ -588,12 +601,14 @@ def extract_information():
     email_pattern = r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
     url_pattern = r"https?://[^\s]+"
 
-    extracted_data = []
-    if extraction_method == "regex":
-        extracted_data.extend(re.findall(email_pattern, text))
-        extracted_data.extend(re.findall(url_pattern, text))
+    # Extract emails and URLs
+    emails = re.findall(email_pattern, text)
+    urls = re.findall(url_pattern, text)
 
-    return jsonify({"processed_text": extracted_data}), 200
+    # Combine results with bold headers
+    processed_data = ["**Email:**"] + emails + ["**URL:**"] + urls
+
+    return jsonify({"processed_text": processed_data}), 200
 
 # Feature: Split Text by Characters
 @main.route('/text-tools/split_text_by_characters', methods=['POST'])
@@ -611,6 +626,8 @@ def split_text_by_characters():
 # Feature: Change Case
 @main.route('/text-tools/change_case', methods=['POST'])
 def change_case():
+ 
+
     data = request.json
     text = data.get("text", "")
     case_option = data.get("case_option", "lowercase")
@@ -618,18 +635,22 @@ def change_case():
     if not text:
         return jsonify({"error": "Text input is required"}), 400
 
+    # Apply the specified case transformation to the whole text
     if case_option == "uppercase":
-        processed_text = text.upper()
+        processed_text = [text.upper()]  # Whole text in uppercase
     elif case_option == "capitalize":
-        processed_text = text.title()
-    else:
-        processed_text = text.lower()
+        processed_text = [text.title()]  # Whole text in title case
+    else:  # Default to lowercase
+        processed_text = [text.lower()]  # Whole text in lowercase
 
     return jsonify({"processed_text": processed_text}), 200
 
 # Feature: Change Case by Find
 @main.route('/text-tools/change_case_find', methods=['POST'])
 def change_case_find():
+ 
+    import re
+
     data = request.json
     text = data.get("text", "")
     target_text = data.get("target_text", "")
@@ -638,6 +659,7 @@ def change_case_find():
     if not text or not target_text:
         return jsonify({"error": "Text and Target Text are required"}), 400
 
+    # Function to apply case transformation to matches
     def change_case_function(match):
         if case_option == "uppercase":
             return match.group().upper()
@@ -646,11 +668,16 @@ def change_case_find():
         elif case_option == "capitalize":
             return match.group().capitalize()
 
-    import re
+    # Regex pattern to find target text
     pattern = re.compile(re.escape(target_text), re.IGNORECASE)
-    processed_text = pattern.sub(change_case_function, text)
 
-    return jsonify({"processed_text": processed_text}), 200
+    # Process the text and collect matches
+    matches = pattern.findall(text)  # Get all matches
+    processed_text = pattern.sub(change_case_function, text)  # Modify the text
+
+    # Return processed text in list format
+    result = [processed_text] + matches  # Processed text followed by matches
+    return jsonify({"processed_text": result}), 200
 
 # Feature: Count Words by Find
 @main.route('/text-tools/count_words_find', methods=['POST'])
@@ -678,6 +705,39 @@ def add_prefix_suffix():
 
     lines = [f"{prefix}{line}{suffix}" for line in text.splitlines()]
     return jsonify({"processed_text": lines}), 200
+
+@main.route('/text-tools/add_custom_prefix_suffix', methods=['POST'])
+def add_custom_prefix_suffix():
+    # Log raw input data
+    print(f"Raw request data: {request.json}")
+
+    data = request.json
+    text = data.get("text", "")
+    prefix = data.get("prefix", "")
+    suffix = data.get("suffix", "")
+    find_text_prefix = data.get("find_text_prefix", "")
+    find_text_suffix = data.get("find_text_suffix", "")
+
+    # Debugging individual fields
+    print(f"text: {text}")
+    print(f"prefix: {prefix}")
+    print(f"suffix: {suffix}")
+    print(f"find_text_prefix: {find_text_prefix}")
+    print(f"find_text_suffix: {find_text_suffix}")
+
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    lines = []
+    for line in text.splitlines():
+        modified_line = line
+        if find_text_prefix.lower() in line.lower():
+            modified_line = f"{prefix}{modified_line}"
+        if find_text_suffix.lower() in line.lower():
+            modified_line = f"{modified_line}{suffix}"
+        lines.append(modified_line)
+
+    return jsonify({"processed_text": lines}), 200
 @main.route('/text-tools/replace_text', methods=['POST'])      
 def find_replace():
     print('inside find replace')
@@ -703,3 +763,133 @@ def find_replace():
     print("process text")
     print(processed_lines)
     return jsonify({"processed_text": processed_lines}), 200     
+
+@main.route('/text-tools/summarization', methods=['POST'])
+def summarization():
+    try:
+        print("DEBUG: Received a POST request at /text-tools/summarization")
+
+        # Step 1: Retrieve input data
+        data = request.json
+        print(f"DEBUG: Request JSON: {data}")
+        text = data.get("text", "")
+        method = data.get("method", "all")  # Default to "all" methods
+        method1 = data.get("summarization_method", "all")  # Default to "all" methods
+        print("method us k")
+        print(method)
+
+        max_length = int(data.get("max_length", 100))
+
+        # Step 2: Validate input
+        if not text:
+            print("DEBUG: No text input provided")
+            return jsonify({"error": "Text input is required"}), 400
+
+        results = []
+
+        # Step 3: Spacy Summarization
+        if method in ["all", "SpaCy"]:
+            print("DEBUG: Starting Spacy summarization")
+            doc = nlp(text)
+            sentences = [sent.text for sent in doc.sents]
+            results.append(f"Spacy: {' '.join(sentences[:max_length])}")
+
+        # Step 4: NLTK Summarization
+        if method1 in ["all", "nltk"]:
+            print("DEBUG: Starting NLTK summarization")
+            nltk_sentences = sent_tokenize(text)
+            results.append(f"NLTK: {' '.join(nltk_sentences[:max_length])}")
+
+        
+
+        print("DEBUG: Summarization results:", results)
+        return jsonify({"processed_text": results}), 200
+
+    except Exception as e:
+        print(f"ERROR: An exception occurred: {e}")
+        return jsonify({"error": "An internal server error occurred.", "details": str(e)}), 5
+
+@main.route('/text-tools/text_similarity', methods=['POST'])
+def text_similarity():
+    data = request.json
+    text = data.get("text", "")
+    second_text = data.get("second_text", "")
+    method = data.get("method", "all")  # Default to "all" methods
+
+    if not text or not second_text:
+        return jsonify({"error": "Both text inputs are required"}), 400
+
+    results = []
+
+    if method in ["all", "spacy"]:
+        # Spacy Similarity
+        doc1 = nlp(text)
+        doc2 = nlp(second_text)
+        spacy_similarity = doc1.similarity(doc2)
+        results.append(f"Spacy: Similarity score = {spacy_similarity:.2f}")
+
+    if method in ["all", "textblob"]:
+        # TextBlob Similarity (Jaccard Index Example)
+        blob1 = set(TextBlob(text).words)
+        blob2 = set(TextBlob(second_text).words)
+        jaccard_similarity = len(blob1 & blob2) / len(blob1 | blob2)
+        results.append(f"TextBlob: Jaccard similarity = {jaccard_similarity:.2f}")
+
+    if method in ["all", "nltk"]:
+        # NLTK Similarity
+        nltk_tokens1 = set(text.lower().split())
+        nltk_tokens2 = set(second_text.lower().split())
+        nltk_similarity = len(nltk_tokens1 & nltk_tokens2) / len(nltk_tokens1 | nltk_tokens2)
+        results.append(f"NLTK: Similarity score = {nltk_similarity:.2f}")
+
+   
+
+    return jsonify({"processed_text": results}), 200
+
+@main.route('/text-tools/sentiment_analysis', methods=['POST'])
+def sentiment_analysis():
+    data = request.json
+    text = data.get("text", "")
+    method = data.get("method", "all")  # Default to "all" methods
+
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    results = []
+
+    if method in ["all", "nltk"]:
+        # NLTK Sentiment Analysis
+        nltk_sentiment = sentiment_analyzer.polarity_scores(text)
+        sentiment = "positive" if nltk_sentiment['compound'] > 0 else "negative" if nltk_sentiment['compound'] < 0 else "neutral"
+        results.append(f"NLTK: Sentiment = {sentiment}")
+
+    if method in ["all", "textblob"]:
+        # TextBlob Sentiment Analysis
+        blob = TextBlob(text)
+        sentiment = "positive" if blob.sentiment.polarity > 0 else "negative" if blob.sentiment.polarity < 0 else "neutral"
+        results.append(f"TextBlob: Sentiment = {sentiment}")
+
+    
+
+@main.route('/text-tools/translation', methods=['POST'])
+def translation():
+    data = request.json
+    text = data.get("text", "")
+    target_language = data.get("target_language", "fr")
+    method = data.get("method", "openai")  # Default to "openai"
+
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    results = []
+
+    if method in ["all", "openai"]:
+        # OpenAI Translation
+        openai_response = openai.Completion.create(
+            engine="text-davinci-003",
+            prompt=f"Translate the following text to {target_language}:\n{text}",
+            max_tokens=100
+        )
+        results.append(f"OpenAI: {openai_response.choices[0].text.strip()}")
+
+    return jsonify({"processed_text": results}), 200

@@ -750,3 +750,41 @@ step4:  renders data intextmanipulation.js
  5th way== unicode_values = [f"{char}: {ord(char)}" for char in text]
   reversed_lines = [" ".join(line.split()[::-1]) for line in lines]
    lines = [line for line in text.splitlines() if line.strip()]
+================How to
+  step 1  accesses the processedText property from the Redux store.
+  const processedText = useSelector((state) => state.processedText || []); // Access processed text directly from root
+
+  
+  step 2  This line determines which property from processedText contains the desired output lines.
+   const lines =
+    processedText["Numbered lines"] ||
+    processedText["processed_text"] ||
+    [];
+
+  step3  This ensures that TextProcessingPanel has access to both the input (text) and the processed output (lines) for display and manipulation
+  <TextProcessingPanel
+    text={text}
+    setText={setText}
+    lines={lines} // Pass lines to the panel
+    />;
+
+  step4  the TextProcessingPanel component receives props passed in Step 3.
+  const TextProcessingPanel = ({
+    text,
+    setText, 
+    lines, // Receive lines as a prop
+    processedText,
+
+  }) 
+  step5 This displays the processed text (or a message if none is available).
+   
+          <h2 style={{ marginTop: "20px" }}>Output:</h2>
+    {lines.length > 0 ? (
+            <ul>
+              {lines.map((line, index) => (
+                <li key={index}>{line.trim() ? line.trim() : "Empty Line"}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No processed text available.</p>
+          )}  

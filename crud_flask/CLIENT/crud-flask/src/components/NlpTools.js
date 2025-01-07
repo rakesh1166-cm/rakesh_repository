@@ -10,6 +10,7 @@ const NlpTools = () => {
   const [text, setText] = useState(""); // State for user input
   const [feature, setFeature] = useState(""); // Selected feature
   const [additionalInput, setAdditionalInput] = useState({}); // Additional input for specific features
+   const processedText = useSelector((state) => state.processedText || []); // Access processed text directly from root
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility
   const [modalData, setModalData] = useState({   
     second_text: "",
@@ -37,6 +38,16 @@ const NlpTools = () => {
      max_length: 100, // Maximum length of the summary
      focus_area: "", // Optional focus area
   }); // Modal input data
+  const error = useSelector((state) => state.textManipulation?.error || null); // Access the error from Redux state
+    const loading = useSelector(
+      (state) => state.textManipulation?.loading || false
+    ); // Access the loading state from Redux state
+  
+    console.log("Current state - Text:", text);
+    console.log("Selected feature:", feature);
+    console.log("Processed text from Redux state:", processedText);
+    console.log("Loading state:", loading);
+    console.log("Error state:", error);
   const categoryEntityLabels = {
     food_delivery: ["PRODUCT", "ORG", "TIME", "LOCATION", "ISSUES"],
     e_commerce: ["ORG", "PRODUCT", "PRICE", "BRAND", "CUSTOMER_FEEDBACK"],
@@ -51,8 +62,7 @@ const NlpTools = () => {
     sports: ["TEAM", "EVENT", "SCORE", "PLAYER", "HIGHLIGHTS"],
   };
   const dispatch = useDispatch();
-  const processedText = useSelector((state) => state.textManipulation?.processedText || ""); // Updated state access
-
+ 
   const handleProcessText = () => {
     if (!feature) {
       alert("Please select a feature to process!");
@@ -125,10 +135,17 @@ const NlpTools = () => {
         });
        
       }
+       const payload = { text, ...additionalInput };
+        
+          // Dispatch the action to process the text
+          dispatch(processTextFeature(feature, payload));
       closeModal();
     };
 
-
+    const lines =
+    processedText["Numbered lines"] ||
+    processedText["processed_text"] ||
+    [];
   return (
     <div style={{ display: "flex", flexDirection: "row", height: "100vh" }}>
       <Sidebar style={{ flex: "0 0 250px" }} />
@@ -143,6 +160,7 @@ const NlpTools = () => {
   handleProcessText={handleProcessText}
   processedText={processedText}
   isModalOpen={isModalOpen}
+  lines={lines} // Pass lines to the panel
   closeModal={closeModal}
   handleModalSubmit={handleModalSubmit} // Add this line
   modalData={modalData}
