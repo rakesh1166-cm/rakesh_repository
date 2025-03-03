@@ -1,8 +1,33 @@
-import { ADD_ITEM, UPDATE_ITEM, DELETE_ITEM, FETCH_ITEMS, REGISTER_USER } from "../actions";
+import { 
+  ADD_ITEM, 
+  UPDATE_ITEM, 
+  DELETE_ITEM, 
+  FETCH_ITEMS, 
+  REGISTER_USER, 
+  LOGIN_USER, 
+  LOGOUT_USER, 
+  HIGHLIGHT_ENTITY, 
+  FETCH_ALL_ENTITIES, // Import the new action type
+  EXTRACT_RESUME_INFO,
+  PROCESS_TEXT_FEATURE,
+  PROCESS_TEXT_FAILURE,
+  GENERATE_TEXT_FEATURE,
+  GENERATE_TEXT_FAILURE,
+  GENERATE_CUSTOMTEXT_FEATURE,
+  GENERATE_CUSTOMTEXT_FAILURE,
+} from "../actions";
 
 const initialState = {
   items: [],
-  users: [], // New state for registered users
+  users: [],
+  loggedInUser: localStorage.getItem("userEmail") || null,
+  highlightedEntities: [], // State for highlighted entities
+  allEntities: [], // State to store all database rows
+  extractedInfo: null, // Store the extracted resume information
+  processedText: [],  
+  generatedText: [],  
+  generatedcustomText: [], 
+  error: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -32,8 +57,53 @@ const rootReducer = (state = initialState, action) => {
     case REGISTER_USER:
       return {
         ...state,
-        users: [...state.users, action.payload], // Add new user to the users array
+        users: [...state.users, action.payload],
       };
+    case LOGIN_USER:
+      return {
+        ...state,
+        loggedInUser: action.payload,
+      };
+    case LOGOUT_USER:
+      return {
+        ...state,
+        loggedInUser: null,
+      };
+    case HIGHLIGHT_ENTITY:
+      return {
+        ...state,
+        highlightedEntities: action.payload, // Update the state with highlighted entities
+      };
+    case FETCH_ALL_ENTITIES:
+      return {
+        ...state,
+        allEntities: action.payload, // Update the state with all entities
+      };
+      case EXTRACT_RESUME_INFO:
+        return {
+          ...state,
+          extractedInfo: action.payload, // Update the state with extracted information
+        }; 
+
+      case PROCESS_TEXT_FEATURE:
+      return { ...state, processedText: action.payload, error: null };
+      case PROCESS_TEXT_FAILURE:
+      return { ...state, processedText: "", error: action.payload };
+
+      case GENERATE_TEXT_FEATURE:
+      return { ...state, generatedText: action.payload, error: null };
+      case GENERATE_TEXT_FAILURE:
+      return { ...state, generatedText: "", error: action.payload };
+
+      case GENERATE_CUSTOMTEXT_FEATURE:
+      console.log("GENERATE_CUSTOMTEXT_FEATURE payload:", action.payload); // Debug log
+      return { ...state, generatedcustomText: action.payload, error: null };
+
+    case GENERATE_CUSTOMTEXT_FAILURE:
+      console.log("GENERATE_CUSTOMTEXT_FAILURE error:", action.payload); // Debug log
+      return { ...state, generatedcustomText: "", error: action.payload };
+
+    
     default:
       return state;
   }

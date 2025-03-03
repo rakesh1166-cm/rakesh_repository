@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../actions";
+import { useNavigate } from "react-router-dom";
+import { registerUser, loginUser } from "../actions";
 
 const Nav = () => {
-  const [showLoginModal, setShowLoginModal] = useState(false);
+ const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const [formData, setFormData] = useState({ username: "", email: "", password: "" }); // Form data for registration
+  const [formData, setFormData] = useState({ username: "", email: "", password: "" });
+  const [formloginData, setFormlogin] = useState({ email: "", password: "" });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Initialize useNavigate for redirection
+
+  // Check login status on component mount
+  useEffect(() => {
+    const userEmail = localStorage.getItem("userEmail");
+    setIsLoggedIn(!!userEmail); // If userEmail exists, set loggedIn state to true
+  }, []);
 
   const handleOpenLoginModal = () => setShowLoginModal(true);
   const handleCloseLoginModal = () => setShowLoginModal(false);
@@ -15,17 +25,37 @@ const Nav = () => {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    console.log("Login submitted");
-    setShowLoginModal(false); // Close login modal after submission
+    dispatch(loginUser(formloginData))
+      .then(() => {
+        localStorage.setItem("userEmail", formloginData.email);
+        setIsLoggedIn(true);
+        setFormlogin({ email: "", password: "" });
+        setShowLoginModal(false);
+        navigate("/dashboard"); // Redirect to Dashboard after login
+      })
+      .catch((error) => {
+        console.error("Login failed:", error);
+      });
   };
-
-
 
   const handleRegisterSubmit = (e) => {
     e.preventDefault();
-    dispatch(registerUser(formData)); // Dispatch the register action
-    setFormData({ username: "", email: "", password: "" }); // Reset form data
-    setShowRegisterModal(false); // Close the modal
+    dispatch(registerUser(formData))
+      .then(() => {
+        setFormData({ username: "", email: "", password: "" }); // Reset form data
+        setShowRegisterModal(false); // Close the modal
+      })
+      .catch((error) => {
+        console.error("Registration failed:", error);
+      });
+  };
+
+  const handleLogout = () => {
+    // Remove user data from localStorage
+    localStorage.removeItem("userEmail");
+    setIsLoggedIn(false); // Update login status
+    navigate("/"); // Redirect to Dashboard after login
+    window.location.reload();
   };
 
   return (
@@ -36,66 +66,29 @@ const Nav = () => {
           top: 0,
           left: 0,
           width: "100%",
-          zIndex: 1000,
-          backgroundColor: "#007bff",
-          color: "#fff",
+          backgroundColor: "#333",
           padding: "10px 20px",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          zIndex: 1000,
         }}
       >
-        <h1 style={{ margin: 0 }}>CRUD App</h1>
-        <ul
-          style={{
-            listStyleType: "none",
-            display: "flex",
-            gap: "20px",
-            margin: 0,
-            padding: 0,
-          }}
-        >
-          <li>
-            <a href="/" style={{ color: "#fff", textDecoration: "none" }}>
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#students" style={{ color: "#fff", textDecoration: "none" }}>
-              Students
-            </a>
-          </li>
-          <li>
-            <button
-              onClick={handleOpenLoginModal}
-              style={{
-                backgroundColor: "#28a745",
-                color: "#fff",
-                border: "none",
-                borderRadius: "5px",
-                padding: "8px 16px",
-                cursor: "pointer",
-                marginRight: "10px", // Add margin between buttons
-              }}
-            >
-              Login
+        <div style={{ color: "white" }}>My App</div>
+        <div>
+          {isLoggedIn ? (
+            <button onClick={handleLogout} style={{ marginRight: "10px" }}>
+              Logout
             </button>
-            <button
-              onClick={handleOpenRegisterModal}
-              style={{
-                backgroundColor: "#ffc107",
-                color: "#000",
-                border: "none",
-                borderRadius: "5px",
-                padding: "8px 16px",
-                cursor: "pointer",
-              }}
-            >
-              Register
-            </button>
-          </li>
-        </ul>
+          ) : (
+            <>
+              <button onClick={handleOpenLoginModal} style={{ marginRight: "10px" }}>
+                Login
+              </button>
+              <button onClick={handleOpenRegisterModal}>Register</button>
+            </>
+          )}
+        </div>
       </nav>
 
       {/* Login Modal */}
@@ -103,8 +96,8 @@ const Nav = () => {
         <div
           style={{
             position: "fixed",
-            top: 0,
-            left: 0,
+            top: "0",
+            left: "0",
             width: "100%",
             height: "100%",
             backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -115,70 +108,50 @@ const Nav = () => {
         >
           <div
             style={{
-              backgroundColor: "#fff",
+              backgroundColor: "white",
               padding: "20px",
-              borderRadius: "10px",
-              width: "400px",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+              borderRadius: "8px",
+              width: "300px",
             }}
           >
-            <h2 style={{ textAlign: "center" }}>Login</h2>
-            <form
-              onSubmit={handleLoginSubmit}
-              style={{ display: "flex", flexDirection: "column", gap: "10px" }}
-            >
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter Email"
-                required
+            <h2>Login</h2>
+            <form onSubmit={handleLoginSubmit}>
+              <div style={{ marginBottom: "10px" }}>
+                <label style={{ display: "block", marginBottom: "5px" }}>Email</label>
+                <input
+                  type="email"
+                  value={formloginData.email}
+                  onChange={(e) => setFormlogin({ ...formloginData, email: e.target.value })}
+                  required
+                  style={{ width: "100%", padding: "8px" }}
+                />
+              </div>
+              <div style={{ marginBottom: "10px" }}>
+                <label style={{ display: "block", marginBottom: "5px" }}>Password</label>
+                <input
+                  type="password"
+                  value={formloginData.password}
+                  onChange={(e) => setFormlogin({ ...formloginData, password: e.target.value })}
+                  required
+                  style={{ width: "100%", padding: "8px" }}
+                />
+              </div>
+              <div
                 style={{
-                  padding: "10px",
-                  borderRadius: "5px",
-                  border: "1px solid #ccc",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginTop: "20px",
                 }}
-              />
-              <input
-                type="password"
-                name="password"
-                placeholder="Enter Password"
-                required
-                style={{
-                  padding: "10px",
-                  borderRadius: "5px",
-                  border: "1px solid #ccc",
-                }}
-              />
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <button
-                  type="submit"
-                  style={{
-                    padding: "10px",
-                    backgroundColor: "#007bff",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                    flex: "1",
-                    marginRight: "10px",
-                  }}
-                >
+              >
+                <button type="submit" style={{ padding: "10px", flex: 1, marginRight: "5px" }}>
                   Login
                 </button>
                 <button
                   type="button"
                   onClick={handleCloseLoginModal}
-                  style={{
-                    padding: "10px",
-                    backgroundColor: "#dc3545",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                    flex: "1",
-                  }}
+                  style={{ padding: "10px", flex: 1, marginLeft: "5px" }}
                 >
-                  Cancel
+                  Close
                 </button>
               </div>
             </form>
@@ -191,8 +164,8 @@ const Nav = () => {
         <div
           style={{
             position: "fixed",
-            top: 0,
-            left: 0,
+            top: "0",
+            left: "0",
             width: "100%",
             height: "100%",
             backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -203,87 +176,60 @@ const Nav = () => {
         >
           <div
             style={{
-              backgroundColor: "#fff",
+              backgroundColor: "white",
               padding: "20px",
-              borderRadius: "10px",
-              width: "400px",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+              borderRadius: "8px",
+              width: "300px",
             }}
           >
-            <h2 style={{ textAlign: "center" }}>Register</h2>
-            <form
-              onSubmit={handleRegisterSubmit}
-              style={{ display: "flex", flexDirection: "column", gap: "10px" }}
-            >
-              <input
-  type="text"
-  name="username"
-  placeholder="Enter Username"
-  required
-  value={formData.username} // Bind the state value
-  onChange={(e) => setFormData({ ...formData, username: e.target.value })} // Update state
-  style={{
-    padding: "10px",
-    borderRadius: "5px",
-    border: "1px solid #ccc",
-  }}
-/>
-<input
-  type="email"
-  name="email"
-  placeholder="Enter Email"
-  required
-  value={formData.email} // Bind the state value
-  onChange={(e) => setFormData({ ...formData, email: e.target.value })} // Update state
-  style={{
-    padding: "10px",
-    borderRadius: "5px",
-    border: "1px solid #ccc",
-  }}
-/>
-<input
-  type="password"
-  name="password"
-  placeholder="Enter Password"
-  required
-  value={formData.password} // Bind the state value
-  onChange={(e) => setFormData({ ...formData, password: e.target.value })} // Update state
-  style={{
-    padding: "10px",
-    borderRadius: "5px",
-    border: "1px solid #ccc",
-  }}
-/>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <button
-                  type="submit"
-                  style={{
-                    padding: "10px",
-                    backgroundColor: "#28a745",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                    flex: "1",
-                    marginRight: "10px",
-                  }}
-                >
+            <h2>Register</h2>
+            <form onSubmit={handleRegisterSubmit}>
+              <div style={{ marginBottom: "10px" }}>
+                <label style={{ display: "block", marginBottom: "5px" }}>Username</label>
+                <input
+                  type="text"
+                  value={formData.username}
+                  onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                  required
+                  style={{ width: "100%", padding: "8px" }}
+                />
+              </div>
+              <div style={{ marginBottom: "10px" }}>
+                <label style={{ display: "block", marginBottom: "5px" }}>Email</label>
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  required
+                  style={{ width: "100%", padding: "8px" }}
+                />
+              </div>
+              <div style={{ marginBottom: "10px" }}>
+                <label style={{ display: "block", marginBottom: "5px" }}>Password</label>
+                <input
+                  type="password"
+                  value={formData.password}
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  required
+                  style={{ width: "100%", padding: "8px" }}
+                />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginTop: "20px",
+                }}
+              >
+                <button type="submit" style={{ padding: "10px", flex: 1, marginRight: "5px" }}>
                   Register
                 </button>
                 <button
                   type="button"
                   onClick={handleCloseRegisterModal}
-                  style={{
-                    padding: "10px",
-                    backgroundColor: "#dc3545",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                    flex: "1",
-                  }}
+                  style={{ padding: "10px", flex: 1, marginLeft: "5px" }}
                 >
-                  Cancel
+                  Close
                 </button>
               </div>
             </form>

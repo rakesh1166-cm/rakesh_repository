@@ -3,12 +3,26 @@ export const ADD_ITEM = "ADD_ITEM";
 export const UPDATE_ITEM = "UPDATE_ITEM";
 export const DELETE_ITEM = "DELETE_ITEM";
 export const FETCH_ITEMS = "FETCH_ITEMS";
+export const LOGOUT_USER = "LOGOUT_USER"; // Add this
+export const HIGHLIGHT_ENTITY = "HIGHLIGHT_ENTITY";
+export const FETCH_ALL_ENTITIES = "FETCH_ALL_ENTITIES";
+export const EXTRACT_RESUME_INFO = "EXTRACT_RESUME_INFO";
+export const PROCESS_TEXT_FEATURE = "PROCESS_TEXT_FEATURE";
+export const PROCESS_TEXT_FAILURE = "PROCESS_TEXT_FAILURE";
+export const GENERATE_TEXT_FEATURE = "GENERATE_TEXT_FEATURE";
+export const GENERATE_TEXT_FAILURE = "GENERATE_TEXT_FAILURE";
+
+export const GENERATE_CUSTOMTEXT_FEATURE = "GENERATE_CUSTOMTEXT_FEATURE";
+export const GENERATE_CUSTOMTEXT_FAILURE = "GENERATE_CUSTOMTEXT_FAILURE";
+
+
+
 
 // Action Creators
 export const addItem = (item) => {
   return async (dispatch) => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/student/add", { // Correct the endpoint
+      const response = await fetch("http://127.0.0.1:5000/students/add", { // Correct the endpoint
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,40 +46,48 @@ export const addItem = (item) => {
 export const updateItem = (id, item) => {
   return async (dispatch) => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/student/${id}/`, {
+      const response = await fetch(`http://127.0.0.1:5000/students/${id}`, { // ✅ Remove extra '/'
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
+        mode: "cors",  // ✅ Add CORS mode
         body: JSON.stringify(item),
       });
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+
       const data = await response.json();
       dispatch({
         type: UPDATE_ITEM,
-        payload: { id, item: data }, // Update the student in the Redux store
+        payload: { id, item: data },
       });
     } catch (error) {
       console.error("Error updating item:", error);
     }
   };
-};
+};;
 
 export const deleteItem = (id) => {
   return async (dispatch) => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/student/delete/${id}/`, {
+      const response = await fetch(`http://127.0.0.1:5000/students/delete/${id}`, {  // ✅ Correct URL
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "cors",  // ✅ Ensure CORS is set
       });
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      await response.json();
+
       dispatch({
         type: DELETE_ITEM,
-        payload: id, // Remove the student from the Redux store
+        payload: id,
       });
     } catch (error) {
       console.error("Error deleting item:", error);
@@ -78,7 +100,7 @@ export const REGISTER_USER = "REGISTER_USER";
 export const registerUser = (userData) => {
   return async (dispatch) => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/register", {
+      const response = await fetch("http://127.0.0.1:5000/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -103,10 +125,52 @@ export const registerUser = (userData) => {
     }
   };
 };
+export const LOGIN_USER = "LOGIN_USER";
+
+export const loginUser = (userData, navigate) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // Store user email in localStorage
+      localStorage.setItem("userEmail", data.user.email);
+
+      dispatch({
+        type: LOGIN_USER,
+        payload: data,
+      });
+      navigate("/dashboard");
+      // Optional: Redirect to a protected route after login
+    } catch (error) {
+      console.error("Error logging in:", error);
+      // Dispatch an error action or show an error message to the user
+    }
+  };
+};
+export const logoutUser = () => {
+  return (dispatch) => {
+    // Clear localStorage
+    localStorage.removeItem("userEmail");
+    // Dispatch the LOGOUT_USER action
+    dispatch({ type: LOGOUT_USER });
+  };
+};
 export const fetchItems = () => {
   return async (dispatch) => {
     try {
-      const response = await fetch("http://127.0.0.1:5000/student/"); // Correct the URL
+      const response = await fetch("http://127.0.0.1:5000/students/"); // Correct the URL
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -120,6 +184,224 @@ export const fetchItems = () => {
     } catch (error) {
       console.error("Error fetching items:", error);
       // Optionally, dispatch an error action or show an error message
+    }
+  };
+};
+
+
+export const highlightEntity = (text) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/nlp/highlight-entity", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      dispatch({
+        type: HIGHLIGHT_ENTITY,
+        payload: data, // Pass the highlighted entity data to the reducer
+      });
+    } catch (error) {
+      console.error("Error highlighting entity:", error);
+    }
+  };
+};
+export const fetchAllEntities = () => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/nlp/fetch-all-entities", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // Dispatch the action with the fetched data
+      dispatch({
+        type: FETCH_ALL_ENTITIES,
+        payload: data, // Pass the fetched data to the reducer
+      });
+    } catch (error) {
+      console.error("Error fetching all entities:", error);
+    }
+  };
+};
+
+export const extractResumeInfo = (fileContent) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch("http://127.0.0.1:5000/extract-resume-info", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ fileContent }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // Dispatch the action with the extracted information
+      dispatch({
+        type: EXTRACT_RESUME_INFO,
+        payload: data, // Pass the extracted information to the reducer
+      });
+    } catch (error) {
+      console.error("Error extracting resume information:", error);
+    }
+  };
+};
+
+
+
+export const processTextFeature = (feature, payload) => {
+  return async (dispatch) => {
+    try {
+      console.log("Dispatching feature:", feature); // Log the feature
+      console.log("Payload being sent:", payload); // Log the payload
+
+      const response = await fetch(`http://127.0.0.1:5000/text-tools/${feature}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      console.log("Response received:", response); // Log the raw response object
+
+      if (!response.ok) {
+        console.error("HTTP error! Status:", response.status); // Log status if error
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Data received from backend:", data); // Log the processed data
+
+      if (data && data.processed_text) {
+        console.log("Processed text lookish:", data.processed_text); // Ensure the key exists
+      } else {
+        console.warn("Processed text missing in response. Data:", data);
+      }
+
+      // Dispatch the action with the processed text
+      dispatch({
+        type: PROCESS_TEXT_FEATURE,
+        payload: data || "No processed text received", // Pass the processed text
+      });
+    } catch (error) {
+      console.error("Error processing text feature:", error);
+
+      // Dispatch an error action
+      dispatch({
+        type: PROCESS_TEXT_FAILURE,
+        payload: error.message || "An unknown error occurred", // Pass the error message
+      });
+    }
+  };
+};
+
+export const generateText = (feature, payload) => {
+  return async (dispatch) => {
+    try {
+      console.log("Dispatching feature:", feature); // Log the feature
+      console.log("Payload being sent:", payload); // Log the payload
+
+      const response = await fetch(`http://127.0.0.1:5000/langchain/${feature}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      console.log("Response received:", response); // Log the raw response object
+
+      if (!response.ok) {
+        console.error("HTTP error! Status:", response.status); // Log status if error
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Data received from backend:", data); // Log the processed data
+      console.log("Data summary from backend:", data.summary); // Log the processed data
+
+      if (data && data.generate_text) {
+        console.log("Processed text lookish:", data.generate_text); // Ensure the key exists
+      } else {
+        console.warn("Processed text missing in response. Data:", data);
+      }
+
+      // Dispatch the action with the processed text
+      dispatch({
+        type: GENERATE_TEXT_FEATURE,
+        payload: data.results || ["No processed text received"],
+      });
+    } catch (error) {
+      console.error("Error processing text feature:", error);
+
+      // Dispatch an error action
+      dispatch({
+        type: GENERATE_TEXT_FAILURE,
+        payload: error.message || "An unknown error occurred", // Pass the error message
+      });
+    }
+  };
+};
+export const generatecustomText = (feature, payload) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/customlangchain/${feature}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      // Flattening the data (if necessary)
+      const flattenedData = data.results.reduce((acc, item) => {
+        for (const key in item) {
+          acc[key] = item[key];
+        }
+        return acc;
+      }, {});
+
+      // Dispatch flattened data to Redux store
+      dispatch({
+        type: GENERATE_CUSTOMTEXT_FEATURE,
+        payload: flattenedData,
+      });
+
+    } catch (error) {
+      dispatch({
+        type: GENERATE_CUSTOMTEXT_FAILURE,
+        payload: error.message || "An unknown error occurred",
+      });
     }
   };
 };

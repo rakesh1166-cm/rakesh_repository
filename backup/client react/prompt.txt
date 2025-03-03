@@ -1,0 +1,282 @@
+my code is const handleModalSubmit = () => {
+  
+     if (feature === "summarization") {
+        setAdditionalInput({
+          summarization_type: modalData.summarization_type,
+          summarization_method: modalData.summarization_method,
+          max_length: modalData.max_length,
+          focus_area: modalData.focus_area,
+        })
+    }
+     else if (feature === "text_similarity") {
+      setAdditionalInput({ second_text: modalData.second_text });
+    } else if (feature === "question_answering") {
+      setAdditionalInput({ question: modalData.question });
+    } else if (feature === "text_clustering") {
+      setAdditionalInput({ num_clusters: modalData.num_clusters });
+    } else if (feature === "translation") {
+        setAdditionalInput({
+          target_language: modalData.target_language,
+          translation_method: modalData.translation_method,
+        });
+      } else if (feature === "relation_extraction") {
+      setAdditionalInput({ entity_type: modalData.entity_type });
+    } else if (feature === "sentence_reordering") {
+        setAdditionalInput({
+          reordering_criteria: modalData.reordering_criteria,
+          reordering_method: modalData.reordering_method,
+          ...(modalData.custom_criteria && { custom_criteria: modalData.custom_criteria }), // Include custom criteria if available
+        });
+      } else if (feature === "gender_bias_detection") {
+      setAdditionalInput({ bias_type: modalData.bias_type });
+    }else if (feature === "text_classification") {
+        setAdditionalInput({
+          classification_type: modalData.classification_type,
+          classification_method: modalData.classification_method, // Include the selected classification method
+          custom_labels: modalData.custom_labels
+            ? modalData.custom_labels.split(",").map((label) => label.trim()) // Handle custom labels
+            : [],
+          model_file: modalData.model_file, // Pre-trained model file, if provided
+        });
+      } else if (feature === "advanced_sentiment_review") {
+        setAdditionalInput({
+          sentiment_type: modalData.sentiment_type,
+          review_text: modalData.review_text,
+          aspects: modalData.aspects,
+          review_category: modalData.review_category,
+          sentiment_model: modalData.sentiment_model, // Add the selected model
+        });
+      }
+      if (feature === "extract_information") {
+        setAdditionalInput({
+          extraction_method: modalData.extraction_method,
+          text_to_extract: modalData.text_to_extract,
+        });
+       
+      }
+       const payload = { text, ...additionalInput };
+        
+          // Dispatch the action to process the text
+          dispatch(processTextFeature(feature, payload));
+      closeModal();
+    }; and api isexport const processTextFeature = (feature, payload) => {
+  return async (dispatch) => {
+    try {
+      console.log("Dispatching feature:", feature); // Log the feature
+      console.log("Payload being sent:", payload); // Log the payload
+
+      const response = await fetch(`http://127.0.0.1:5000/text-tools/${feature}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+   
+      // Dispatch the action with the proce write all backend code for above all feature in my beloew existing code @main.route('/text-tools/change_case', methods=['POST'])
+def change_case():
+    from flask import request, jsonify
+
+    data = request.json
+    text = data.get("text", "")
+    case_option = data.get("case_option", "lowercase")
+
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    # Apply the specified case transformation to the whole text
+    if case_option == "uppercase":
+        processed_text = [text.upper()]  # Whole text in uppercase
+    elif case_option == "capitalize":
+        processed_text = [text.title()]  # Whole text in title case
+    else:  # Default to lowercase
+        processed_text = [text.lower()]  # Whole text in lowercase
+
+    return jsonify({"processed_text": processed_text}), 200
+
+# Feature: Change Case by Find
+@main.route('/text-tools/change_case_find', methods=['POST'])
+def change_case_find():
+    from flask import request, jsonify
+    import re
+
+    data = request.json
+    text = data.get("text", "")
+    target_text = data.get("target_text", "")
+    case_option = data.get("case_option", "uppercase")
+
+    if not text or not target_text:
+        return jsonify({"error": "Text and Target Text are required"}), 400
+
+    # Function to apply case transformation to matches
+    def change_case_function(match):
+        if case_option == "uppercase":
+            return match.group().upper()
+        elif case_option == "lowercase":
+            return match.group().lower()
+        elif case_option == "capitalize":
+            return match.group().capitalize()
+
+    # Regex pattern to find target text
+    pattern = re.compile(re.escape(target_text), re.IGNORECASE)
+
+    # Process the text and collect matches
+    matches = pattern.findall(text)  # Get all matches
+    processed_text = pattern.sub(change_case_function, text)  # Modify the text
+
+    # Return processed text in list format
+    result = [processed_text] + matches  # Processed text followed by matches
+    return jsonify({"processed_text": result}), 200
+
+# Feature: Count Words by Find
+@main.route('/text-tools/count_words_find', methods=['POST'])
+def count_words_find():
+    data = request.json
+    text = data.get("text", "")
+    target_text = data.get("target_text", "")
+
+    if not text or not target_text:
+        return jsonify({"error": "Text and Target Text are required"}), 400
+
+    count = text.lower().count(target_text.lower())
+    return jsonify({"processed_text": [f"Occurrences of '{target_text}': {count}"]}), 200
+
+# Feature: Add Prefix/Suffix to Lines (already implemented in previous code)
+@main.route('/text-tools/add_prefix_suffix', methods=['POST'])
+def add_prefix_suffix():
+    data = request.json
+    text = data.get("text", "")
+    prefix = data.get("prefix", "")
+    suffix = data.get("suffix", "")
+
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    lines = [f"{prefix}{line}{suffix}" for line in text.splitlines()]
+    return jsonify({"processed_text": lines}), 200
+    ===============================2nd PROMPT========================
+    similaly these also apply if else for different type of method like nltk,spacy,textblob and output in list def text_similarity():
+    data = request.json
+    text = data.get("text", "")
+    second_text = data.get("second_text", "")
+
+    if not text or not second_text:
+        return jsonify({"error": "Both text inputs are required"}), 400
+
+    results = []
+
+    # Spacy Similarity
+    doc1 = nlp(text)
+    doc2 = nlp(second_text)
+    spacy_similarity = doc1.similarity(doc2)
+    results.append(f"Spacy: Similarity score = {spacy_similarity:.2f}")
+
+    # TextBlob Similarity (Jaccard Index Example)
+    blob1 = set(TextBlob(text).words)
+    blob2 = set(TextBlob(second_text).words)
+    jaccard_similarity = len(blob1 & blob2) / len(blob1 | blob2)
+    results.append(f"TextBlob: Jaccard similarity = {jaccard_similarity:.2f}")
+
+    # NLTK Similarity
+    nltk_tokens1 = set(text.lower().split())
+    nltk_tokens2 = set(second_text.lower().split())
+    nltk_similarity = len(nltk_tokens1 & nltk_tokens2) / len(nltk_tokens1 | nltk_tokens2)
+    results.append(f"NLTK: Similarity score = {nltk_similarity:.2f}")
+
+    # OpenAI Similarity
+    openai_response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=f"Calculate the similarity between:\nText 1: {text}\nText 2: {second_text}",
+        max_tokens=50
+    )
+    results.append(f"OpenAI: {openai_response.choices[0].text.strip()}")
+
+    return jsonify({"processed_text": results}), 200
+
+@main.route('/text-tools/sentiment_analysis', methods=['POST'])
+def sentiment_analysis():
+    data = request.json
+    text = data.get("text", "")
+
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    results = []
+
+    # NLTK Sentiment Analysis
+    nltk_sentiment = sentiment_analyzer.polarity_scores(text)
+    nltk_sentiment_label = "positive" if nltk_sentiment['compound'] > 0 else "negative" if nltk_sentiment['compound'] < 0 else "neutral"
+    results.append(f"NLTK: Sentiment = {nltk_sentiment_label}")
+
+    # TextBlob Sentiment Analysis
+    blob = TextBlob(text)
+    textblob_sentiment = "positive" if blob.sentiment.polarity > 0 else "negative" if blob.sentiment.polarity < 0 else "neutral"
+    results.append(f"TextBlob: Sentiment = {textblob_sentiment}")
+
+    # Hugging Face Sentiment Analysis
+    hf_sentiment = pipeline("sentiment-analysis")(text)
+    results.append(f"HuggingFace: Sentiment = {hf_sentiment[0]['label'].lower()}")
+
+    # OpenAI Sentiment Analysis
+    openai_response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=f"Analyze the sentiment of the following text:\n{text}",
+        max_tokens=50
+    )
+    results.append(f"OpenAI: {openai_response.choices[0].text.strip()}")
+
+    return jsonify({"processed_text": results}), 200
+
+@main.route('/text-tools/translation', methods=['POST'])
+def translation():
+    data = request.json
+    text = data.get("text", "")
+    target_language = data.get("target_language", "fr")
+
+    if not text:
+        return jsonify({"error": "Text input is required"}), 400
+
+    results = []
+
+    # Hugging Face Translation
+    hf_translation = translator(text, max_length=400)
+    results.append(f"HuggingFace: {hf_translation[0]['translation_text']}")
+
+    # OpenAI Translation
+    openai_response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=f"Translate the following text to {target_language}:\n{text}",
+        max_tokens=100
+    )
+    results.append(f"OpenAI: {openai_response.choices[0].text.strip()}")
+
+    return jsonify({"processed_text": results}), 200
+ Prompt3:based on compatibilty and requirement.txt using requirement .txt download below or following dependency
+ promt4:not download huge depency transformer 
+ prompt5:list out what are the huge dependency model and also listout less size dependency based on download/install
+ all lightweight can be install
+
+Dependency/Library	Category	Approx. Size	Remarks
+Hugging Face Transformers	Huge	500MB–2GB+	Requires PyTorch or TensorFlow; heavy pre-trained models.
+TensorFlow	Huge	~1GB+	                    Large deep learning framework.
+PyTorch	Huge	~600MB–1GB	                    Used with Hugging Face models; large installation size.
+spaCy (core installation)	Lightweight	~50MB	Base installation without models is light.
+spaCy (large models)	Huge	~800MB	        Large language models like en_core_web_lg.
+nltk (core)	    Lightweight	~5MB	                Lightweight by itself; corpora add size.
+nltk (with corpora)	Medium	~300MB–1GB	       Corpora like wordnet and vader_lexicon increase size.
+TextBlob	Lightweight	~20MB	                Built on nltk, lightweight for simple NLP tasks.
+Scikit-learn	Lightweight	~20MB	          General-purpose machine learning library.
+Gensim	Huge	~1GB–4GB (with models)	       Requires pre-trained embeddings (e.g., Word2Vec, FastText).
+OpenAI Models (API)	Huge (Cloud-based)	          API Usage Only	No local installation; computation is cloud-based.
+GloVe (small embeddings)	Lightweight	~50MB	    Smaller embeddings available for basic NLP tasks.
+GloVe (full embeddings)	Huge	~5GB	           Full embeddings significantly increase storage requirements.
+FastText	Huge	~5GB	                    Pre-trained embeddings are large.
+AllenNLP	Huge	~1GB+	                          Includes large models for specific NLP tasks.
+DeepSpeech	Huge	~500MB+	Speech recognition models require large storage.
+Flask	Lightweight	~1MB	Simple and fast web framework.
+Django	Lightweight	~3MB	Lightweight for web applications.
+TfidfVectorizer (scikit-learn)	Lightweight	~20MB	Effective for vectorization in NLP tasks.
+openpyxl/pandas	Lightweight	~10MB each	For data processing and analysis.
+Scipy/Numpy	Lightweight	~20MB each	Core libraries for scientific computing and data processing.
+
